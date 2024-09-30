@@ -7,8 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		862140BF2CA7153300B109A4 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140BE2CA7153300B109A4 /* Appearance.swift */; };
+		862140C22CA715C900B109A4 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140C12CA715C900B109A4 /* Fonts.swift */; };
+		862140C52CA7175100B109A4 /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 862140C42CA7175100B109A4 /* Inter-Regular.otf */; };
+		862140C72CA7176200B109A4 /* Inter-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 862140C62CA7176200B109A4 /* Inter-Bold.otf */; };
+		862140CA2CA71ACF00B109A4 /* TextAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140C92CA71ACF00B109A4 /* TextAttributes.swift */; };
+		862140CC2CA71AE300B109A4 /* ScreenSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140CB2CA71AE300B109A4 /* ScreenSize.swift */; };
+		862140CE2CA71AFA00B109A4 /* Scalable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140CD2CA71AFA00B109A4 /* Scalable.swift */; };
+		862140D02CA71B1500B109A4 /* GlobalDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140CF2CA71B1500B109A4 /* GlobalDefinitions.swift */; };
+		862140D22CA71B7B00B109A4 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140D12CA71B7B00B109A4 /* OnboardingView.swift */; };
+		862140D52CA727A000B109A4 /* Button+Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140D42CA727A000B109A4 /* Button+Styles.swift */; };
+		862140D82CA83CFF00B109A4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 862140DA2CA83CFF00B109A4 /* Localizable.strings */; };
+		862140DD2CA83E1C00B109A4 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140DC2CA83E1C00B109A4 /* String+Extension.swift */; };
+		862140E02CA83F2300B109A4 /* OnboardingCardView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140DF2CA83F2300B109A4 /* OnboardingCardView1.swift */; };
+		862140E22CA83F4200B109A4 /* OnboardingCardView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140E12CA83F4200B109A4 /* OnboardingCardView2.swift */; };
+		862140E42CA83F5800B109A4 /* OnboardingCardView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140E32CA83F5800B109A4 /* OnboardingCardView3.swift */; };
+		862140E72CA83F8800B109A4 /* OnboardingPageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140E62CA83F8800B109A4 /* OnboardingPageItem.swift */; };
+		862140EB2CA8461400B109A4 /* OnboardingCardView4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140EA2CA8461400B109A4 /* OnboardingCardView4.swift */; };
+		862140ED2CA8487A00B109A4 /* TagLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140EC2CA8487A00B109A4 /* TagLayout.swift */; };
+		862140EF2CA942CA00B109A4 /* OnboardingCardView5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140EE2CA942CA00B109A4 /* OnboardingCardView5.swift */; };
+		862140F12CA9510200B109A4 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140F02CA9510200B109A4 /* OnboardingViewModel.swift */; };
+		862140F32CA9519900B109A4 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140F22CA9519900B109A4 /* Game.swift */; };
+		862140F52CA951C700B109A4 /* Grade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140F42CA951C700B109A4 /* Grade.swift */; };
+		862140F82CA95A0D00B109A4 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140F72CA95A0D00B109A4 /* SplashView.swift */; };
+		862140FB2CA95A1C00B109A4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140FA2CA95A1C00B109A4 /* HomeView.swift */; };
+		862140FF2CA9A6B500B109A4 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140FE2CA9A6B400B109A4 /* SplashViewModel.swift */; };
+		862141022CA9D26900B109A4 /* PaygateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862141012CA9D26900B109A4 /* PaygateView.swift */; };
+		862141042CAA9B3500B109A4 /* Inter-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 862141032CAA9B3500B109A4 /* Inter-SemiBold.otf */; };
+		862141062CAAA1AB00B109A4 /* Inter-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 862141052CAAA1AB00B109A4 /* Inter-Medium.otf */; };
+		862141082CAAAEB100B109A4 /* PaygateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862141072CAAAEB100B109A4 /* PaygateViewModel.swift */; };
+		8621410B2CAAB0F600B109A4 /* PaygateProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8621410A2CAAB0F600B109A4 /* PaygateProduct.swift */; };
 		86B501A32CA707E7005EE450 /* SportCardsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B501A22CA707E7005EE450 /* SportCardsApp.swift */; };
-		86B501A52CA707E7005EE450 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B501A42CA707E7005EE450 /* ContentView.swift */; };
 		86B501A72CA707E9005EE450 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86B501A62CA707E9005EE450 /* Assets.xcassets */; };
 		86B501AB2CA707E9005EE450 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86B501AA2CA707E9005EE450 /* Preview Assets.xcassets */; };
 		9091322ACC55B81D4C5F8F75 /* Pods_SportCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 411FEB746756F480AF6A9624 /* Pods_SportCards.framework */; };
@@ -17,9 +46,39 @@
 /* Begin PBXFileReference section */
 		411FEB746756F480AF6A9624 /* Pods_SportCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52C72FC2E95DE9A3FFBF475D /* Pods-SportCards.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportCards.debug.xcconfig"; path = "Target Support Files/Pods-SportCards/Pods-SportCards.debug.xcconfig"; sourceTree = "<group>"; };
+		862140BE2CA7153300B109A4 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
+		862140C12CA715C900B109A4 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		862140C42CA7175100B109A4 /* Inter-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.otf"; sourceTree = "<group>"; };
+		862140C62CA7176200B109A4 /* Inter-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.otf"; sourceTree = "<group>"; };
+		862140C82CA71A9D00B109A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		862140C92CA71ACF00B109A4 /* TextAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributes.swift; sourceTree = "<group>"; };
+		862140CB2CA71AE300B109A4 /* ScreenSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSize.swift; sourceTree = "<group>"; };
+		862140CD2CA71AFA00B109A4 /* Scalable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scalable.swift; sourceTree = "<group>"; };
+		862140CF2CA71B1500B109A4 /* GlobalDefinitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalDefinitions.swift; sourceTree = "<group>"; };
+		862140D12CA71B7B00B109A4 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		862140D42CA727A000B109A4 /* Button+Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Styles.swift"; sourceTree = "<group>"; };
+		862140D92CA83CFF00B109A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		862140DC2CA83E1C00B109A4 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		862140DF2CA83F2300B109A4 /* OnboardingCardView1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCardView1.swift; sourceTree = "<group>"; };
+		862140E12CA83F4200B109A4 /* OnboardingCardView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCardView2.swift; sourceTree = "<group>"; };
+		862140E32CA83F5800B109A4 /* OnboardingCardView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCardView3.swift; sourceTree = "<group>"; };
+		862140E62CA83F8800B109A4 /* OnboardingPageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageItem.swift; sourceTree = "<group>"; };
+		862140EA2CA8461400B109A4 /* OnboardingCardView4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCardView4.swift; sourceTree = "<group>"; };
+		862140EC2CA8487A00B109A4 /* TagLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLayout.swift; sourceTree = "<group>"; };
+		862140EE2CA942CA00B109A4 /* OnboardingCardView5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCardView5.swift; sourceTree = "<group>"; };
+		862140F02CA9510200B109A4 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		862140F22CA9519900B109A4 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		862140F42CA951C700B109A4 /* Grade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grade.swift; sourceTree = "<group>"; };
+		862140F72CA95A0D00B109A4 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		862140FA2CA95A1C00B109A4 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		862140FE2CA9A6B400B109A4 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
+		862141012CA9D26900B109A4 /* PaygateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaygateView.swift; sourceTree = "<group>"; };
+		862141032CAA9B3500B109A4 /* Inter-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.otf"; sourceTree = "<group>"; };
+		862141052CAAA1AB00B109A4 /* Inter-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.otf"; sourceTree = "<group>"; };
+		862141072CAAAEB100B109A4 /* PaygateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaygateViewModel.swift; sourceTree = "<group>"; };
+		8621410A2CAAB0F600B109A4 /* PaygateProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaygateProduct.swift; sourceTree = "<group>"; };
 		86B5019F2CA707E7005EE450 /* SportCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86B501A22CA707E7005EE450 /* SportCardsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportCardsApp.swift; sourceTree = "<group>"; };
-		86B501A42CA707E7005EE450 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		86B501A62CA707E9005EE450 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		86B501A82CA707E9005EE450 /* SportCards.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SportCards.entitlements; sourceTree = "<group>"; };
 		86B501AA2CA707E9005EE450 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -46,6 +105,162 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		862140B82CA713C200B109A4 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				862140BB2CA713F500B109A4 /* Misc */,
+				862140BA2CA713EC00B109A4 /* Presentation */,
+				862140BC2CA713F800B109A4 /* Services */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		862140B92CA713D900B109A4 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				862140C32CA716D300B109A4 /* Fonts */,
+				862140DA2CA83CFF00B109A4 /* Localizable.strings */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		862140BA2CA713EC00B109A4 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				862141002CA9D25D00B109A4 /* Paygate */,
+				862140F92CA95A1400B109A4 /* Home */,
+				862140F62CA959FE00B109A4 /* Splash */,
+				862140BD2CA7140200B109A4 /* Onboarding */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		862140BB2CA713F500B109A4 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				862140DB2CA83E0E00B109A4 /* Extensions */,
+				862140D32CA7278F00B109A4 /* Components */,
+				862140C02CA715AE00B109A4 /* Utils */,
+				862140BE2CA7153300B109A4 /* Appearance.swift */,
+			);
+			path = Misc;
+			sourceTree = "<group>";
+		};
+		862140BC2CA713F800B109A4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		862140BD2CA7140200B109A4 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				862140E52CA83F6A00B109A4 /* Models */,
+				862140DE2CA83F1500B109A4 /* Views */,
+				862140D12CA71B7B00B109A4 /* OnboardingView.swift */,
+				862140F02CA9510200B109A4 /* OnboardingViewModel.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		862140C02CA715AE00B109A4 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				862140C12CA715C900B109A4 /* Fonts.swift */,
+				862140C92CA71ACF00B109A4 /* TextAttributes.swift */,
+				862140CB2CA71AE300B109A4 /* ScreenSize.swift */,
+				862140CD2CA71AFA00B109A4 /* Scalable.swift */,
+				862140CF2CA71B1500B109A4 /* GlobalDefinitions.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		862140C32CA716D300B109A4 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				862141052CAAA1AB00B109A4 /* Inter-Medium.otf */,
+				862141032CAA9B3500B109A4 /* Inter-SemiBold.otf */,
+				862140C62CA7176200B109A4 /* Inter-Bold.otf */,
+				862140C42CA7175100B109A4 /* Inter-Regular.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		862140D32CA7278F00B109A4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				862140D42CA727A000B109A4 /* Button+Styles.swift */,
+				862140EC2CA8487A00B109A4 /* TagLayout.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		862140DB2CA83E0E00B109A4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				862140DC2CA83E1C00B109A4 /* String+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		862140DE2CA83F1500B109A4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				862140DF2CA83F2300B109A4 /* OnboardingCardView1.swift */,
+				862140E12CA83F4200B109A4 /* OnboardingCardView2.swift */,
+				862140E32CA83F5800B109A4 /* OnboardingCardView3.swift */,
+				862140EA2CA8461400B109A4 /* OnboardingCardView4.swift */,
+				862140EE2CA942CA00B109A4 /* OnboardingCardView5.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		862140E52CA83F6A00B109A4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				862140E62CA83F8800B109A4 /* OnboardingPageItem.swift */,
+				862140F22CA9519900B109A4 /* Game.swift */,
+				862140F42CA951C700B109A4 /* Grade.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		862140F62CA959FE00B109A4 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				862140F72CA95A0D00B109A4 /* SplashView.swift */,
+				862140FE2CA9A6B400B109A4 /* SplashViewModel.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		862140F92CA95A1400B109A4 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				862140FA2CA95A1C00B109A4 /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		862141002CA9D25D00B109A4 /* Paygate */ = {
+			isa = PBXGroup;
+			children = (
+				862141092CAAB0E600B109A4 /* Models */,
+				862141012CA9D26900B109A4 /* PaygateView.swift */,
+				862141072CAAAEB100B109A4 /* PaygateViewModel.swift */,
+			);
+			path = Paygate;
+			sourceTree = "<group>";
+		};
+		862141092CAAB0E600B109A4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8621410A2CAAB0F600B109A4 /* PaygateProduct.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		86B501962CA707E7005EE450 = {
 			isa = PBXGroup;
 			children = (
@@ -67,8 +282,10 @@
 		86B501A12CA707E7005EE450 /* SportCards */ = {
 			isa = PBXGroup;
 			children = (
+				862140C82CA71A9D00B109A4 /* Info.plist */,
+				862140B82CA713C200B109A4 /* Classes */,
+				862140B92CA713D900B109A4 /* Resource */,
 				86B501A22CA707E7005EE450 /* SportCardsApp.swift */,
-				86B501A42CA707E7005EE450 /* ContentView.swift */,
 				86B501A62CA707E9005EE450 /* Assets.xcassets */,
 				86B501A82CA707E9005EE450 /* SportCards.entitlements */,
 				86B501A92CA707E9005EE450 /* Preview Content */,
@@ -90,7 +307,6 @@
 				52C72FC2E95DE9A3FFBF475D /* Pods-SportCards.debug.xcconfig */,
 				E994AC1537ABC3BD524DFFA3 /* Pods-SportCards.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -154,8 +370,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				862141062CAAA1AB00B109A4 /* Inter-Medium.otf in Resources */,
+				862140D82CA83CFF00B109A4 /* Localizable.strings in Resources */,
 				86B501AB2CA707E9005EE450 /* Preview Assets.xcassets in Resources */,
+				862140C72CA7176200B109A4 /* Inter-Bold.otf in Resources */,
+				862140C52CA7175100B109A4 /* Inter-Regular.otf in Resources */,
 				86B501A72CA707E9005EE450 /* Assets.xcassets in Resources */,
+				862141042CAA9B3500B109A4 /* Inter-SemiBold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,12 +429,47 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86B501A52CA707E7005EE450 /* ContentView.swift in Sources */,
+				862140EB2CA8461400B109A4 /* OnboardingCardView4.swift in Sources */,
+				862140F82CA95A0D00B109A4 /* SplashView.swift in Sources */,
+				862140CE2CA71AFA00B109A4 /* Scalable.swift in Sources */,
+				862140DD2CA83E1C00B109A4 /* String+Extension.swift in Sources */,
+				862141082CAAAEB100B109A4 /* PaygateViewModel.swift in Sources */,
+				862140CC2CA71AE300B109A4 /* ScreenSize.swift in Sources */,
+				862140C22CA715C900B109A4 /* Fonts.swift in Sources */,
+				862140D52CA727A000B109A4 /* Button+Styles.swift in Sources */,
+				862140E02CA83F2300B109A4 /* OnboardingCardView1.swift in Sources */,
+				862140D22CA71B7B00B109A4 /* OnboardingView.swift in Sources */,
+				862140E42CA83F5800B109A4 /* OnboardingCardView3.swift in Sources */,
+				862141022CA9D26900B109A4 /* PaygateView.swift in Sources */,
+				862140EF2CA942CA00B109A4 /* OnboardingCardView5.swift in Sources */,
+				862140ED2CA8487A00B109A4 /* TagLayout.swift in Sources */,
+				862140F52CA951C700B109A4 /* Grade.swift in Sources */,
+				862140F32CA9519900B109A4 /* Game.swift in Sources */,
+				862140CA2CA71ACF00B109A4 /* TextAttributes.swift in Sources */,
+				862140FF2CA9A6B500B109A4 /* SplashViewModel.swift in Sources */,
+				862140F12CA9510200B109A4 /* OnboardingViewModel.swift in Sources */,
+				862140BF2CA7153300B109A4 /* Appearance.swift in Sources */,
 				86B501A32CA707E7005EE450 /* SportCardsApp.swift in Sources */,
+				862140E22CA83F4200B109A4 /* OnboardingCardView2.swift in Sources */,
+				862140D02CA71B1500B109A4 /* GlobalDefinitions.swift in Sources */,
+				862140FB2CA95A1C00B109A4 /* HomeView.swift in Sources */,
+				862140E72CA83F8800B109A4 /* OnboardingPageItem.swift in Sources */,
+				8621410B2CAAB0F600B109A4 /* PaygateProduct.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		862140DA2CA83CFF00B109A4 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				862140D92CA83CFF00B109A4 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		86B501AC2CA707E9005EE450 /* Debug */ = {
@@ -253,7 +509,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -315,7 +571,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -346,20 +602,26 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SportCards/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = sportcards.SportCards;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -388,20 +650,26 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SportCards/Info.plist;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = sportcards.SportCards;
 				PRODUCT_NAME = "$(TARGET_NAME)";
