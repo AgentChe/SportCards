@@ -1,5 +1,6 @@
 PODS:
   - Amplitude-iOS (4.10.0)
+  - Branch (1.45.2)
   - FBAEMKit (17.1.0):
     - FBSDKCoreKit_Basics (= 17.1.0)
   - FBSDKCoreKit (17.1.0):
@@ -115,6 +116,7 @@ PODS:
 
 DEPENDENCIES:
   - Amplitude-iOS
+  - Branch
   - FBSDKCoreKit
   - Firebase/Analytics
   - Firebase/Messaging
@@ -124,6 +126,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Amplitude-iOS
+    - Branch
     - FBAEMKit
     - FBSDKCoreKit
     - FBSDKCoreKit_Basics
@@ -151,6 +154,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Amplitude-iOS: 7d8cdc3408ba35c2e68368fc7c692cd104606b94
+  Branch: c1a7fa1811ef9203c01bc6c2588a229eb3ee1a84
   FBAEMKit: cb719c53575a3be86ea873279f30d6a2c4e15881
   FBSDKCoreKit: ecdb980a24633ccb012700299ceb16d0235e14d2
   FBSDKCoreKit_Basics: 045101c4a9ef10c845347424d73a29aae02c3e43
@@ -168,6 +172,6 @@ SPEC CHECKSUMS:
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
 
-PODFILE CHECKSUM: 02fdbb8c3420fe5a38b5d440e3eb5176e3ad1b76
+PODFILE CHECKSUM: 0d9fb943959324348d9d9c2aa9914a0cf25b4eb1
 
 COCOAPODS: 1.15.2

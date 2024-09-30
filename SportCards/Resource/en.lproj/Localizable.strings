@@ -1,0 +1,63 @@
+/* 
+  Localizable.strings
+  SportCards
+
+  Created by Vitaliy Zagorodnov on 28.09.2024.
+  
+*/
+
+// MARK: Other
+"Continue" = "Continue";
+"Skip" = "Skip";
+
+// MARK: Splash
+"Splash.Title" = "Welcome to CardCollector";
+"Splash.Subtitle" = "Discover, scan, and collect your favorite sports cards all in one place.";
+
+// MARK: Onboarding
+"Onboarding.Title1" = "Personalize Your Experience";
+"Onboarding.Title2" = "Scan and Add Cards";
+"Onboarding.Title3" = "Explore and Manage";
+"Onboarding.Title4" = "Pick the game you want to follow";
+"Onboarding.Title5" = "Pick the card grades you want to monitor";
+"Onboarding.Subtitle1" = "Set your preferences to get personalized card recommendations and updates.";
+"Onboarding.Subtitle2" = "Use your camera to scan and add new cards to your collection effortlessly.";
+"Onboarding.Subtitle3" = "Track your collection & discover latest releases";
+"Onboarding.Tag.AllGames" = "All games";
+"Onboarding.Tag.Baseball" = "Baseball";
+"Onboarding.Tag.Basketball" = "Basketball";
+"Onboarding.Tag.MMA" = "MMA";
+"Onboarding.Tag.Football" = "Football";
+"Onboarding.Tag.Racing" = "Racing";
+"Onboarding.Tag.Soccer" = "Soccer";
+"Onboarding.Tag.Hockey" = "Hockey";
+"Onboarding.Tag.Wresting" = "Wresting";
+
+// MARK: Grade
+"Grade.ALL" = "All Grades";
+"Grade.RAW.Title" = "RAW";
+"Grade.PSA.Title" = "PSA (Professional Sports Authenticator)";
+"Grade.BGS.Title" = "BGS (Beckett Grading Services)";
+"Grade.SGC.Title" = "SGC (Sportscard Guaranty Corporation)";
+"Grade.CSG.Title" = "CSG (Certified Sports Guaranty)";
+"Grade.RAW.Description" = "Uncertified cards directly from packs or collections. Their condition varies, lacking professional grading.";
+"Grade.PSA.Description" = "Renowned for strict grading standards, PSA grades cards from 1 (Poor) to 10 (Gem Mint), ensuring authenticity and quality.";
+"Grade.BGS.Description" = "Known for detailed sub-grades, BGS evaluates centering, corners, edges, and surface, providing a comprehensive grade from 1 to 10.";
+"Grade.SGC.Description" = "Trusted for vintage and modern cards, SGC grades on a 1 to 10 scale with a black holder that highlights the card's condition.";
+"Grade.CSG.Description" = "Provides accurate and consistent grading for sports cards, using a scale from 1 to 10, with a focus on modern cards.";
+
+// MARK: Paygate
+"Paygate.Title" = "Upgrade Premium";
+"Paygate.Subtitle1" = "Personalized card picks & updates";
+"Paygate.Subtitle2" = "Scan to easily add new cards";
+"Paygate.Subtitle3" = "Track your collection & discover latest releases";
+"Paygate.Trial.Toggle" = "Free Trial Enabled";
+"Paygate.Trial.Action" = "Try free & subscribe";
+"Paygate.Trial.Security" = "No payment now";
+"Paygate.Yearly.Toggle" = "Enable Free Trial";
+"Paygate.Yearly.Action" = "Continue";
+"Paygate.Yearly.Security" = "Cancel anytime";
+"Paygate.BestOffer" = "⭐ Best Offer";
+"Paygate.TermsOfUse" = "Terms of Use";
+"Paygate.PrivacyPolicy" = "Privacy Policy";
+"Paygate.RestorePurchases" = "Restore Purchases";
