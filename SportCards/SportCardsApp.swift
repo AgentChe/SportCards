@@ -28,7 +28,7 @@ struct RootView: View {
             OnboardingView()
                 .environmentObject(manager)
         case .home:
-            HomeView()
+            MainTabView()
         }
     }
 }

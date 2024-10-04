@@ -5,6 +5,8 @@ use_frameworks!
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'SportCards' do
+  pod 'Alamofire'
+  
   pod 'SwiftyStoreKit'
 
   pod 'OtterScaleiOS', :git => "https://github.com/AgentChe/OtterScaleiOS.git"

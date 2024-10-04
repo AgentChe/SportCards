@@ -9,6 +9,7 @@
 // MARK: Other
 "Continue" = "Continue";
 "Skip" = "Skip";
+"Search" = "Search";
 
 // MARK: Splash
 "Splash.Title" = "Welcome to CardCollector";
@@ -45,6 +46,11 @@
 "Grade.BGS.Description" = "Known for detailed sub-grades, BGS evaluates centering, corners, edges, and surface, providing a comprehensive grade from 1 to 10.";
 "Grade.SGC.Description" = "Trusted for vintage and modern cards, SGC grades on a 1 to 10 scale with a black holder that highlights the card's condition.";
 "Grade.CSG.Description" = "Provides accurate and consistent grading for sports cards, using a scale from 1 to 10, with a focus on modern cards.";
+"Grade.RAW.Short" = "RAW";
+"Grade.PSA.Short" = "PSA";
+"Grade.PSA.Short" = "PSA";
+"Grade.SGC.Short" = "SGC";
+"Grade.CSG.Short" = "CSG";
 
 // MARK: Paygate
 "Paygate.Title" = "Upgrade Premium";
@@ -61,3 +67,17 @@
 "Paygate.TermsOfUse" = "Terms of Use";
 "Paygate.PrivacyPolicy" = "Privacy Policy";
 "Paygate.RestorePurchases" = "Restore Purchases";
+
+// MARK: Home
+"Home.Title.Home" = "Home";
+"Home.Title.Collection" = "My Collection";
+"Home.Scanner.Title" = "Card scanner";
+"Home.Scanner.Subtitle" = "Add your first card to the collection";
+"Home.Scanner.OpenScanner" = "Open scanner";
+"Home.Section.Recommended" = "Recommended cards for you";
+"Home.Section.Other" = "Other categories";
+
+// MARK: Chart
+"Chart.Title.Report" = "Price Report";
+"Chart.Title.Collection" = "Card collection price report";
+"Chart.Empty" = "Cannot load data";

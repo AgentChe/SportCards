@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Grade: CaseIterable {
+enum Grade: String, CaseIterable, Decodable {
     case all
     case raw
     case psa
@@ -48,6 +48,23 @@ extension Grade {
             "Grade.SGC.Description".localized
         case .csg:
             "Grade.CSG.Description".localized
+        }
+    }
+    
+    var shortName: String? {
+        switch self {
+        case .all:
+            nil
+        case .raw:
+            "Grade.RAW.Short".localized
+        case .psa:
+            "Grade.PSA.Short".localized
+        case .bgs:
+            "Grade.PSA.Short".localized
+        case .sgc:
+            "Grade.SGC.Short".localized
+        case .csg:
+            "Grade.CSG.Short".localized
         }
     }
 }

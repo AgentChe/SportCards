@@ -33,7 +33,7 @@ struct SportCardsButtonStyle: ButtonStyle {
             .font(Fonts.Inter.font(size: 16.scale, weight: .w700))
             .foregroundStyle(Appearance.mono100.opacity(isEnabled ? 1 : 0.5))
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 16.scale)
+            .padding(16.scale)
             .background(buttonType.background, in: Capsule())
     }
 }
