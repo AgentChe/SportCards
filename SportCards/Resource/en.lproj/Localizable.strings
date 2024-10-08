@@ -51,6 +51,8 @@
 "Grade.PSA.Short" = "PSA";
 "Grade.SGC.Short" = "SGC";
 "Grade.CSG.Short" = "CSG";
+"Grade.All.Short" = "All";
+
 
 // MARK: Paygate
 "Paygate.Title" = "Upgrade Premium";
@@ -76,8 +78,28 @@
 "Home.Scanner.OpenScanner" = "Open scanner";
 "Home.Section.Recommended" = "Recommended cards for you";
 "Home.Section.Other" = "Other categories";
+"Home.Approximate" = "Approximate estimate";
 
 // MARK: Chart
 "Chart.Title.Report" = "Price Report";
 "Chart.Title.Collection" = "Card collection price report";
 "Chart.Empty" = "Cannot load data";
+
+// MARK: Filters
+"Filters.Title" = "Filters";
+"Filters.Section.Sorting" = "Sorting";
+"Filters.Section.Category" = "Category";
+"Filters.Section.Grade" = "Grade";
+"Filters.Apply" = "Apply filters";
+"Filters.Clear" = "Clear all";
+"Filters.Sort.Low" = "Price: high to low";
+"Filters.Sort.Hight" = "Price: low to high";
+
+// MARK: Collection
+"Collection.Tab.Scanned" = "Scanned Cards";
+"Collection.Tab.WishList" = "My Wish List";
+"Collection.Empty.Title" = "Your collection is empty";
+"Collection.Empty.Subtitle" = "Scan your cards to get started";
+"Collection.Total.Price" = "Total Estimated Value";
+"Collection.Total.Count" = "Cards";
+

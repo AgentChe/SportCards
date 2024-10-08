@@ -27,43 +27,6 @@ extension HomeModel {
     }
 }
 
-//extension HomeModel: Decodable {
-//    enum ContainerKeys: String, CodingKey {
-//        case body
-//    }
-//    
-//    enum CodingKeys: String, CodingKey {
-//        case personalScanner = "personal_scanner"
-//        case recommendation
-//        case other
-//    }
-//    
-//    init(from decoder: Decoder) throws {
-//        let root = try decoder.container(keyedBy: ContainerKeys.self)
-//        
-//        let container = try root.nestedContainer(keyedBy: CodingKeys.self, forKey: .body)
-//        
-//        personalScanner = try? container.decode(PriceReport.self, forKey: .personalScanner)
-//        let recommendationObjects = try? container.decode([OptionalObject<CardDiscover>].self, forKey: .recommendation)
-//        let otherObjects = try? container.decode([OptionalObject<OtherCardModel>].self, forKey: .other)
-//        recommendation = recommendationObjects?.compactMap(\.value) ?? []
-//        other = otherObjects?.compactMap(\.value) ?? []
-//    }
-//}
-//
-//
-//struct OptionalObject<T: Decodable>: Decodable {
-//    public let value: T?
-//
-//    public init(from decoder: Decoder) throws {
-//        do {
-//            let container = try decoder.singleValueContainer()
-//            self.value = try container.decode(T.self)
-//        } catch {
-//            self.value = nil
-//        }
-//    }
-//}
 
 extension Result {
     var success: Success? {

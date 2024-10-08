@@ -22,26 +22,11 @@ struct HomeView: View {
     var body: some View {
         ScrollView(.vertical) {
             LazyVStack(alignment: .leading, spacing: 0) {
-                HStack {
-                    SearchField(searchText: $viewModel.searchText)
-                    
-                    Button(action: {}) {
-                        Image("Home.Settings")
-                            .frame(width: 50.scale, height: 50.scale)
-                            .background(.main300, in: Circle())
-                    }
-                    .overlay(alignment: .topTrailing) {
-                        Text("3")
-                            .font(Fonts.Inter.font(size: 12.scale, weight: .w700))
-                            .foregroundStyle(.white)
-                            .padding(4.scale)
-                            .background(.main100, in: Circle())
-                            .alignmentGuide(.top, computeValue: { dimension in
-                                dimension[.top] + 4.scale
-                            })
-                    }
-                    
-                }
+                SearchView(
+                    searchText: $viewModel.searchText,
+                    isFocused: $viewModel.searchIsFocused,
+                    filters: $viewModel.filters
+                )
                 .padding(.top, 14.scale)
                 .padding(.horizontal, 16.scale)
                 
@@ -79,7 +64,7 @@ struct HomeView: View {
                     }
                 }
             }
-            .padding(.bottom, 22.scale)
+            .padding(.bottom, 32.scale)
         }
         .animation(.easeOut, value: viewModel.dataSource)
         .scrollIndicators(.never)
@@ -87,6 +72,38 @@ struct HomeView: View {
         .background(.black)
         .navigationBarBackButtonHidden()
         .task { viewModel.makeData() }
+    }
+}
+
+struct SearchView: View {
+    @Binding var searchText: String
+    @Binding var isFocused: Bool
+    @Binding var filters: Filters
+    
+    var body: some View {
+        HStack {
+            SearchField(searchText: $searchText, isFocused: $isFocused)
+            if isFocused {
+                NavigationLink(destination: FiltersView(alias: [], filters: $filters)) {
+                    Image("Home.Settings")
+                        .frame(width: 50.scale, height: 50.scale)
+                        .background(.main300, in: Circle())
+                }
+                .overlay(alignment: .topTrailing) {
+                    if filters.count > 0 {
+                        Text("\(filters.count)")
+                            .font(Fonts.Inter.font(size: 12.scale, weight: .w700))
+                            .foregroundStyle(.white)
+                            .padding(4.scale)
+                            .background(.main100, in: Circle())
+                            .alignmentGuide(.top, computeValue: { dimension in
+                                dimension[.top] + 4.scale
+                            })
+                    }
+                }
+            }
+        }
+        .animation(.easeIn, value: isFocused)
     }
 }
 

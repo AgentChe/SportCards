@@ -43,7 +43,7 @@ struct SplashView: View {
 
 
 struct LoaderView: View {
-    @State var isLoading = false
+    @State var isLoading = true
     var body: some View {
         Image("Loader")
             .resizable()

@@ -35,7 +35,7 @@ struct RecommendedCardView: View {
                     }
                     Spacer()
                     
-                    Text(card.grade.shortName ?? "")
+                    Text(card.grade.shortName)
                         .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
                         .foregroundStyle(.mono100)
                         .padding(.horizontal, 16.5.scale)
@@ -45,8 +45,9 @@ struct RecommendedCardView: View {
                 }
                 
                 Spacer()
+                    .frame(maxHeight: 27.scale)
                 
-                Text("Approximate estimate")
+                Text("Home.Approximate".localized)
                     .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
                     .foregroundStyle(.mono100.opacity(0.5))
                     .padding(.bottom, 10.scale)
@@ -96,7 +97,7 @@ struct RecommendedCardView: View {
             title: "Smoltz John Smoltz Chamberlain",
             subtitle: "Topps",
             grade: .raw,
-            currentPrice: "$249.99",
+            currentPrice: "$954 - $1,234",
             currentPriceRaw: 249.99,
             collectionName: "Finest"
         )

@@ -34,26 +34,26 @@ final class RestAPITransport {
         .eraseToAnyPublisher()
     }
     
-    func callServerApi<T: Decodable>(requestBody: APIRequestBody) -> AnyPublisher<Result<T, NetworkError>, Never> {
-        let manager = Alamofire.Session.default
-        manager.session.configuration.timeoutIntervalForRequest = 30
-        
-        let encodedUrl = requestBody.url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        
-        
-        return manager
-            .request(encodedUrl,
-                     method: requestBody.method,
-                     parameters: requestBody.parameters,
-                     encoding: requestBody.encoding,
-                     headers: requestBody.headers
-            )
-            .validate(statusCode: [200, 201])
-            .publishDecodable(type: T.self)
-            .result()
-            .map { result in
-                result.mapError { NetworkError(.serverNotAvailable, underlyingError: $0) }
-            }
-            .eraseToAnyPublisher()
-    }
+//    func callServerApi<T: Decodable>(requestBody: APIRequestBody) -> AnyPublisher<Result<T, NetworkError>, Never> {
+//        let manager = Alamofire.Session.default
+//        manager.session.configuration.timeoutIntervalForRequest = 30
+//        
+//        let encodedUrl = requestBody.url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+//        
+//        
+//        return manager
+//            .request(encodedUrl,
+//                     method: requestBody.method,
+//                     parameters: requestBody.parameters,
+//                     encoding: requestBody.encoding,
+//                     headers: requestBody.headers
+//            )
+//            .validate(statusCode: [200, 201])
+//            .publishDecodable(type: T.self)
+//            .result()
+//            .map { result in
+//                result.mapError { NetworkError(.serverNotAvailable, underlyingError: $0) }
+//            }
+//            .eraseToAnyPublisher()
+//    }
 }

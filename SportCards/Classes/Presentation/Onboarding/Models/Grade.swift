@@ -51,10 +51,10 @@ extension Grade {
         }
     }
     
-    var shortName: String? {
+    var shortName: String {
         switch self {
         case .all:
-            nil
+            "Grade.All.Short".localized
         case .raw:
             "Grade.RAW.Short".localized
         case .psa:

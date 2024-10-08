@@ -29,4 +29,21 @@ extension ProfileManager: ProfileManagerProtocol {
             .asResult()
             .eraseToAnyPublisher()
     }
+    
+    func collection(filters: Filters, page: Int?, type: CollectionTab) -> AnyPublisher<Result<ProfileCollectionCards?, NetworkError>, Never> {
+        
+        let request = ProfileCollectionRequest(
+            anonymousId: "",
+            internalId: "",
+            filters: filters,
+            page: page,
+            type: type
+        )
+        
+        return restApiTransport
+            .callServerApi(requestBody: request)
+            .map(ProfileCollectionCards.init(from:))
+            .asResult()
+            .eraseToAnyPublisher()
+    }
 }

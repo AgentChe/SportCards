@@ -38,6 +38,15 @@ extension CardDiscover {
         self.currentPriceRaw = currentPriceRaw
         self.collectionName = body["collection_name"] as? String
     }
+    
+    static func map(response: Any) -> [CardDiscover] {
+        guard
+            let json = response as? [String: Any],
+            let body = json["body"] as? [[String: Any]]
+        else { return [] }
+        
+        return body.compactMap { CardDiscover(from: $0) }
+    }
 }
 
 //extension CardDiscover: Decodable {

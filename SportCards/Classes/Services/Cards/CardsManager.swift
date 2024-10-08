@@ -35,6 +35,21 @@ extension CardsManager: CardsManagerProtocol {
             .eraseToAnyPublisher()
     }
     
+    func cards(text: String, filters: Filters, for page: Int) -> AnyPublisher<Result<[CardDiscover], NetworkError>, Never> {
+        let request = DiscoverRequest(
+            anonymousId: "",
+            internalId: "",
+            text: text,
+            filters: filters,
+            page: page
+        )
+        
+        return restApiTransport.callServerApi(requestBody: request)
+            .map { CardDiscover.map(response: $0) }
+            .asResult()
+            .eraseToAnyPublisher()
+    }
+    
     func cachedCategories() -> AnyPublisher<[Alias], Never> {
         Future { promise in
             let categories = UserDefaults.standard.data(forKey: Constants.categories).flatMap {
