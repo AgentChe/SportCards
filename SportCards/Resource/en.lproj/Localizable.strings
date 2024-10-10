@@ -103,3 +103,13 @@
 "Collection.Total.Price" = "Total Estimated Value";
 "Collection.Total.Count" = "Cards";
 
+// MARK: Error
+"Error.Internet.Title" = "No internet connection available";
+"Error.Internet.Subtitle" = "Error when receiving data, check your internet connection";
+"Error.Request.Title" = "The app failed to perform a request";
+"Error.Request.Subtitle" = "If there’s a connection issue on your side try one more time. If the connection is fine and the error keeps on repeating please get in touch with the support.";
+"Error.Appstore.Title" = "Appstore isn’t available";
+"Error.Appstore.Subtitle" = "Something went wrong. Please, try one more time.";
+"Error.TryAgain" = "Try again";
+"Error.Support" = "Contact the support";
+

@@ -6,25 +6,23 @@
 //
 
 import SwiftUI
+import NukeUI
 
 struct OtherCardView: View {
     let model: OtherCardModel
     var body: some View {
         HStack(spacing: 0) {
-            AsyncImage(
-                url: model.image,
-                content: { image in
+            LazyImage(source: model.image) { state in
+                if let image = state.image {
                     image
-                        .resizable()
-                        .scaledToFill()
-                },
-                placeholder: {
+                        .resizingMode(.aspectFill)
+                        .clipShape(RoundedRectangle(cornerRadius: 6.scale))
+                } else {
                     RoundedRectangle(cornerRadius: 6.scale)
-                        .fill(.gray)
+                        .fill(.main200)
                 }
-            )
+            }
             .frame(width: 60.scale, height: 87.scale)
-            .clipped()
             .padding(.trailing, 20.scale)
             
             VStack(alignment: .leading, spacing: 8.scale) {
@@ -41,7 +39,7 @@ struct OtherCardView: View {
             
             Spacer()
             
-            Text(model.grade.shortName ?? "")
+            Text(model.grade.shortName)
                 .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
                 .foregroundStyle(.mono100)
                 .padding(.horizontal, 16.5.scale)

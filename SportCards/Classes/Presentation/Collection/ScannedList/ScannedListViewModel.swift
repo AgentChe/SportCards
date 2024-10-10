@@ -1,25 +1,20 @@
 //
-//  CollectionViewModel.swift
+//  ScannedListViewModel.swift
 //  SportCards
 //
-//  Created by Vitaliy Zagorodnov on 08.10.2024.
+//  Created by Vitaliy Zagorodnov on 09.10.2024.
 //
 
 import Foundation
 import Combine
 
-final class CollectionViewModel: ObservableObject {
+final class ScannedListViewModel: ObservableObject {
     @Published var filters: Filters = Filters()
     @Published var cards: [CardDiscover] = []
     @Published var price: TotalPriceModel? = nil
     
     private lazy var profileManager = ProfileManager()
     private let loadNext = PassthroughSubject<Void, Never>()
-    private let tab: CollectionTab
-    
-    init(tab: CollectionTab) {
-        self.tab = tab
-    }
     
     func makeData() {
         let result = $filters
@@ -34,7 +29,7 @@ final class CollectionViewModel: ObservableObject {
                     .flatMap { [weak self] pageNumber -> AnyPublisher<Result<ProfileCollectionCards?, NetworkError>, Never> in
                         guard let self else { return Empty().eraseToAnyPublisher() }
                         return profileManager
-                            .collection(filters: filters, page: pageNumber, type: tab)
+                            .scannedCards(filters: filters, page: pageNumber)
                             .handleEvents(receiveOutput: { result in
                                 let model = result.success?.flatMap { $0 }
                                 if let model, model.items.count > 0 {
@@ -78,7 +73,7 @@ final class CollectionViewModel: ObservableObject {
     }
 }
 
-extension CollectionViewModel {
+extension ScannedListViewModel {
     func makeLoadNext() {
         loadNext.send(())
     }

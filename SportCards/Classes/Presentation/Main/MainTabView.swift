@@ -13,6 +13,14 @@ struct MainTabView: View {
     
     private let tabs = MainTabType.allCases
     
+    init() {
+        let coloredNavAppearance = UINavigationBarAppearance()
+        coloredNavAppearance.configureWithOpaqueBackground()
+        coloredNavAppearance.backgroundColor = .black
+        UINavigationBar.appearance().standardAppearance = coloredNavAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = coloredNavAppearance
+    }
+    
     var body: some View {
         NavigationStack {
             TabBarView(items: tabs, selected: $selectedTab) {

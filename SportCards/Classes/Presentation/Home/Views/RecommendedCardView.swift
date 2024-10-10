@@ -6,22 +6,23 @@
 //
 
 import SwiftUI
+import NukeUI
 
 struct RecommendedCardView: View {
     let card: CardDiscover
     var body: some View {
         HStack(spacing: 16.scale) {
-            AsyncImage(url: card.imageURL) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 83.scale, height: 120.scale)
-                    .clipShape(RoundedRectangle(cornerRadius: 8.scale))
-            } placeholder: {
-                RoundedRectangle(cornerRadius: 8.scale)
-                    .fill(.main200)
-                    .frame(width: 83.scale, height: 120.scale)
+            LazyImage(source: card.imageURL) { state in
+                if let image = state.image {
+                    image
+                        .resizingMode(.aspectFill)
+                        .clipShape(RoundedRectangle(cornerRadius: 8.scale))
+                } else {
+                    RoundedRectangle(cornerRadius: 8.scale)
+                        .fill(.main200)
+                }
             }
+            .frame(width: 83.scale, height: 120.scale)
             
             VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: 6.scale) {
@@ -94,6 +95,16 @@ struct RecommendedCardView: View {
         .init(
             id: "3",
             imageURL: URL(string: "https://www.scottssportscards.com/wp-content/uploads/Scotts-Jewelry-Sports-Cards-barry-sanders-min.jpg"),
+            title: "Smoltz John Smoltz Chamberlain",
+            subtitle: "Topps",
+            grade: .raw,
+            currentPrice: "$954 - $1,234",
+            currentPriceRaw: 249.99,
+            collectionName: "Finest"
+        ),
+        .init(
+            id: "4",
+            imageURL: URL(string: "https://sportscards.com/cdn/shop/products/90740-1_2000x.jpg?v=1679610183"),
             title: "Smoltz John Smoltz Chamberlain",
             subtitle: "Topps",
             grade: .raw,

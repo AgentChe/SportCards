@@ -71,7 +71,9 @@ struct HomeView: View {
         .frame(maxHeight: .infinity)
         .background(.black)
         .navigationBarBackButtonHidden()
-        .task { viewModel.makeData() }
+        .onViewDidLoad {
+            viewModel.makeData()
+        }
     }
 }
 
@@ -84,7 +86,7 @@ struct SearchView: View {
         HStack {
             SearchField(searchText: $searchText, isFocused: $isFocused)
             if isFocused {
-                NavigationLink(destination: FiltersView(alias: [], filters: $filters)) {
+                NavigationLink(destination: FiltersView(filters: $filters)) {
                     Image("Home.Settings")
                         .frame(width: 50.scale, height: 50.scale)
                         .background(.main300, in: Circle())

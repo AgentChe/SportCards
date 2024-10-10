@@ -12,4 +12,7 @@ enum GlobalDefinitions {
     static let apiKey = ""
     static let privacyPolicy = ""
     static let termsOfUse = ""
+    
+    static let applicationTag = ""
+    static let amplitudeApiKey = ""
 }

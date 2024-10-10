@@ -32,7 +32,7 @@ final class ReplaySubject<Output, Failure: Error>: Subject {
     }
     
     private var subscriptions = [ReplaySubjectSubscription<Output, Failure>]()
-        private var completion: Subscribers.Completion<Failure>?
+    private var completion: Subscribers.Completion<Failure>?
 
         func receive<Downstream: Subscriber>(subscriber: Downstream) where Downstream.Failure == Failure, Downstream.Input == Output {
             lock.lock(); defer { lock.unlock() }

@@ -16,7 +16,7 @@ struct DiscoverRequest: APIRequestBody {
     
     var url: String {
         return URL(fileURLWithPath: Bundle.main.path(forResource: "DiscoverResponse", ofType: "json")!).absoluteString
-//        GlobalDefinitions.domain + "/cards/discover"
+//        GlobalDefinitions.domain + "/api/v1/cards/discover"
     }
     
     var method: HTTPMethod {

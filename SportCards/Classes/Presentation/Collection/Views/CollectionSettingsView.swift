@@ -32,7 +32,7 @@ struct CollectionSettingsView: View {
                 .foregroundStyle(.mono100.opacity(0.5))
             
             NavigationLink(
-                destination: FiltersView(alias: [], filters: $filters),
+                destination: FiltersView(filters: $filters),
                 label: {
                     Image("Collection.Filters")
                         .resizable()

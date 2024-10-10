@@ -1,20 +1,19 @@
 //
-//  HomeRequest.swift
-//  SportCards
+//  ProfileBindingRequest.swift
+//  ScienceSolver
 //
-//  Created by Vitaliy Zagorodnov on 30.09.2024.
+//  Created by Андрей Чернышев on 06.09.2024.
 //
 
 import Alamofire
 
-struct HomeRequest: APIRequestBody {
+struct ProfileBindingRequest: APIRequestBody {
     let anonymousId: String
     let internalId: String
     
     var url: String {
-        let path = Bundle.main.path(forResource: "HomeResponse", ofType: "json")!
-        return URL(fileURLWithPath: path).absoluteString
-//        GlobalDefinitions.domain + "/profile/home"
+        URL(fileURLWithPath: Bundle.main.path(forResource: "ProfileBindingResponse", ofType: "json")!).absoluteString
+//        GlobalDefinitions.domain + "/api/v1/profile/binding"
     }
     
     var method: HTTPMethod {
@@ -30,7 +29,7 @@ struct HomeRequest: APIRequestBody {
     var parameters: Parameters? {
         [
             "anonymous_id": anonymousId,
-            "internal_id": internalId,
+            "internal_id": internalId
         ]
     }
 }

@@ -13,7 +13,7 @@ struct CategoriestRequest: APIRequestBody {
     
     var url: String {
         return URL(fileURLWithPath: Bundle.main.path(forResource: "CategoriesResponse", ofType: "json")!).absoluteString
-//        GlobalDefinitions.domain + "/cards/categories"
+//        GlobalDefinitions.domain + "/api/v1/cards/categories"
     }
     
     var method: HTTPMethod {

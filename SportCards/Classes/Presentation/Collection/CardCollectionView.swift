@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct CardCollectionView: View {
-    @StateObject private var viewModel = CardCollectionViewModel()
     @State private var currentTab: CollectionTab = .scanned
     
     var body: some View {
         VStack {
             CollectionTabView(selectedTab: $currentTab)
-                .padding(.vertical, 14.scale)
             TabView(selection: $currentTab) {
                 ScannedListView()
                     .tag(CollectionTab.scanned)
@@ -38,20 +36,7 @@ extension CollectionLayoutType {
     }
 }
 
-struct CardGridView: View {
-    let card: CardDiscover
-    var body: some View {
-        AsyncImage(url: card.imageURL) { image in
-            image
-                .resizable()
-                .scaledToFill()
-                .clipShape(RoundedRectangle(cornerRadius: 8.scale))
-        } placeholder: {
-            RoundedRectangle(cornerRadius: 8.scale)
-                .fill(.main200)
-        }
-    }
-}
+import NukeUI
 
 #Preview {
     CardCollectionView()

@@ -9,18 +9,23 @@ import Foundation
 import Combine
 
 protocol CardsManagerProtocol {
-    func categories() -> AnyPublisher<Result<[Alias], NetworkError>, Never>
+    func categories() -> AnyPublisher<[Alias], NetworkError>
 }
 
 final class CardsManager {
     private lazy var restApiTransport = RestAPITransport()
+    private lazy var sessionManager = SessionManager()
 }
 
 extension CardsManager: CardsManagerProtocol {
-    func categories() -> AnyPublisher<Result<[Alias], NetworkError>, Never> {
+    func makeCategories(forceUpdate: Bool) -> AnyPublisher<[Alias], NetworkError> {
+        forceUpdate ? categories() : cachedCategories()
+    }
+    
+    func categories() -> AnyPublisher<[Alias], NetworkError> {
         let request = CategoriestRequest(
-            anonymousId: "",
-            internalId: ""
+            anonymousId: sessionManager.anonymousId,
+            internalId: sessionManager.anonymousId
         )
         
         return restApiTransport
@@ -31,14 +36,13 @@ extension CardsManager: CardsManagerProtocol {
                     UserDefaults.standard.set(data, forKey: Constants.categories)
                 }
             })
-            .asResult()
             .eraseToAnyPublisher()
     }
     
     func cards(text: String, filters: Filters, for page: Int) -> AnyPublisher<Result<[CardDiscover], NetworkError>, Never> {
         let request = DiscoverRequest(
-            anonymousId: "",
-            internalId: "",
+            anonymousId: sessionManager.anonymousId,
+            internalId: sessionManager.anonymousId,
             text: text,
             filters: filters,
             page: page
@@ -50,7 +54,7 @@ extension CardsManager: CardsManagerProtocol {
             .eraseToAnyPublisher()
     }
     
-    func cachedCategories() -> AnyPublisher<[Alias], Never> {
+    func cachedCategories() -> AnyPublisher<[Alias], NetworkError> {
         Future { promise in
             let categories = UserDefaults.standard.data(forKey: Constants.categories).flatMap {
                 try? JSONDecoder().decode([Alias].self, from: $0)

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ScannedListView: View {
-    @StateObject private var viewModel = CollectionViewModel(tab: .scanned)
+    @StateObject private var viewModel = ScannedListViewModel()
     @State private var layout: CollectionLayoutType = .list
     
     var body: some View {
@@ -16,6 +16,7 @@ struct ScannedListView: View {
             if let model = viewModel.price {
                 CollectionTotalHeader(model: model)
                     .padding(.horizontal, 16.scale)
+                    .padding(.top, 24.scale)
             }
             
             CollectionSettingsView(
@@ -42,23 +43,12 @@ struct ScannedListView: View {
         }
         .overlay {
             if viewModel.cards.isEmpty {
-                VStack(spacing: 16.scale) {
-                    Spacer()
-                    Image("Onboarding4")
-                        .resizable()
-                        .frame(width: 150.scale, height: 150.scale)
-                    Text("Collection.Empty.Title".localized)
-                        .font(Fonts.Inter.font(size: 22.scale, weight: .w700))
-                        .foregroundStyle(.mono100)
-                    Text("Collection.Empty.Subtitle".localized)
-                        .font(Fonts.Inter.font(size: 16.scale, weight: .w400))
-                        .foregroundStyle(.mono100.opacity(0.5))
-                    Spacer()
-                }
-                .frame(maxWidth: .infinity)
-                .background(.black)
-                .transition(.opacity)
+                CardCollectionEmptyView()
+                    .transition(.opacity)
             }
+        }
+        .onViewDidLoad {
+            viewModel.makeData()
         }
     }
 }

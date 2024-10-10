@@ -11,10 +11,9 @@ struct FiltersView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var cacheFilters: Filters
     @Binding private var filters: Filters
-    private let alias: [Alias]
+    @StateObject private var viewModel = FiltersViewModel()
     
-    init(alias: [Alias], filters: Binding<Filters>) {
-        self.alias = alias
+    init(filters: Binding<Filters>) {
         self._filters = filters
         self._cacheFilters = State(initialValue: filters.wrappedValue)
     }
@@ -41,7 +40,7 @@ struct FiltersView: View {
                         .foregroundStyle(.white)
                         .padding(.vertical, 10.scale)
                     TagLayout(spacing: 12.scale, alignment: .leading) {
-                        ForEach(alias, id: \.self) { item in
+                        ForEach(viewModel.alias, id: \.self) { item in
                             Button(
                                 action: {
                                     if cacheFilters.category.contains(item) {
@@ -122,9 +121,6 @@ struct FiltersView: View {
 
 #Preview {
     NavigationStack {
-        FiltersView(
-            alias: [Alias(alias: "all", name: "All"), Alias(alias: "mma", name: "MMA"), Alias(alias: "football", name: "Football")],
-            filters: .constant(Filters())
-        )
+        FiltersView(filters: .constant(Filters()))
     }
 }
