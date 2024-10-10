@@ -1,0 +1,41 @@
+{
+    "body": [
+        {
+            "alias": "all",
+            "name": "All"
+        },
+        {
+            "alias": "basketball",
+            "name": "Basketball"
+        },
+        {
+            "alias": "baseball",
+            "name": "Baseball"
+        },
+        {
+            "alias": "mma",
+            "name": "MMA"
+        },
+        {
+            "alias": "soccer",
+            "name": "Soccer!"
+        },
+        {
+            "alias": "hockey",
+            "name": "Hockey"
+        },
+        {
+            "alias": "wrestling",
+            "name": "Wrestling"
+        },
+        {
+            "alias": "racing",
+            "name": "Racing"
+        },
+        {
+            "alias": "football",
+            "name": "Football"
+        }
+    ],
+    "error": null
+}

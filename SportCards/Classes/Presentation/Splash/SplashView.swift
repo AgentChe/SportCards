@@ -7,6 +7,27 @@
 
 import SwiftUI
 
+struct ViewDidLoadModifier: ViewModifier {
+    @State private var isLoaded: Bool = false
+    let action: () -> Void
+    
+    func body(content: Content) -> some View {
+        content
+            .onAppear {
+                if !isLoaded {
+                    isLoaded = true
+                    action()
+                }
+            }
+    }
+}
+
+extension View {
+    func onViewDidLoad(action: @escaping () -> Void) -> some View {
+        modifier(ViewDidLoadModifier(action: action))
+    }
+}
+
 enum SplashRouter: Hashable {
     case splash
     case onboarding
@@ -43,18 +64,19 @@ struct SplashView: View {
 
 
 struct LoaderView: View {
-    @State var isLoading = false
+    @State private var rotation:  Double = 0
     var body: some View {
         Image("Loader")
             .resizable()
-            .rotationEffect(isLoading ? .degrees(-360) : .degrees(0))
-        .task {
-            withAnimation(.linear(duration: 1).speed(0.8).repeatForever(autoreverses: false)) {
-                isLoading = true
+            .rotationEffect(.radians(-rotation))
+            .onAppear {
+                withAnimation(.linear(duration: 1).speed(0.8).repeatForever(autoreverses: false)) {
+                    rotation = .pi * 2
+                }
             }
-        }
     }
 }
+
 #Preview {
     SplashView()
 }

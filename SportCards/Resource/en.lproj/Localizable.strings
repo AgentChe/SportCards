@@ -9,6 +9,7 @@
 // MARK: Other
 "Continue" = "Continue";
 "Skip" = "Skip";
+"Search" = "Search";
 
 // MARK: Splash
 "Splash.Title" = "Welcome to CardCollector";
@@ -45,6 +46,13 @@
 "Grade.BGS.Description" = "Known for detailed sub-grades, BGS evaluates centering, corners, edges, and surface, providing a comprehensive grade from 1 to 10.";
 "Grade.SGC.Description" = "Trusted for vintage and modern cards, SGC grades on a 1 to 10 scale with a black holder that highlights the card's condition.";
 "Grade.CSG.Description" = "Provides accurate and consistent grading for sports cards, using a scale from 1 to 10, with a focus on modern cards.";
+"Grade.RAW.Short" = "RAW";
+"Grade.PSA.Short" = "PSA";
+"Grade.PSA.Short" = "PSA";
+"Grade.SGC.Short" = "SGC";
+"Grade.CSG.Short" = "CSG";
+"Grade.All.Short" = "All";
+
 
 // MARK: Paygate
 "Paygate.Title" = "Upgrade Premium";
@@ -61,3 +69,47 @@
 "Paygate.TermsOfUse" = "Terms of Use";
 "Paygate.PrivacyPolicy" = "Privacy Policy";
 "Paygate.RestorePurchases" = "Restore Purchases";
+
+// MARK: Home
+"Home.Title.Home" = "Home";
+"Home.Title.Collection" = "My Collection";
+"Home.Scanner.Title" = "Card scanner";
+"Home.Scanner.Subtitle" = "Add your first card to the collection";
+"Home.Scanner.OpenScanner" = "Open scanner";
+"Home.Section.Recommended" = "Recommended cards for you";
+"Home.Section.Other" = "Other categories";
+"Home.Approximate" = "Approximate estimate";
+
+// MARK: Chart
+"Chart.Title.Report" = "Price Report";
+"Chart.Title.Collection" = "Card collection price report";
+"Chart.Empty" = "Cannot load data";
+
+// MARK: Filters
+"Filters.Title" = "Filters";
+"Filters.Section.Sorting" = "Sorting";
+"Filters.Section.Category" = "Category";
+"Filters.Section.Grade" = "Grade";
+"Filters.Apply" = "Apply filters";
+"Filters.Clear" = "Clear all";
+"Filters.Sort.Low" = "Price: high to low";
+"Filters.Sort.Hight" = "Price: low to high";
+
+// MARK: Collection
+"Collection.Tab.Scanned" = "Scanned Cards";
+"Collection.Tab.WishList" = "My Wish List";
+"Collection.Empty.Title" = "Your collection is empty";
+"Collection.Empty.Subtitle" = "Scan your cards to get started";
+"Collection.Total.Price" = "Total Estimated Value";
+"Collection.Total.Count" = "Cards";
+
+// MARK: Error
+"Error.Internet.Title" = "No internet connection available";
+"Error.Internet.Subtitle" = "Error when receiving data, check your internet connection";
+"Error.Request.Title" = "The app failed to perform a request";
+"Error.Request.Subtitle" = "If there’s a connection issue on your side try one more time. If the connection is fine and the error keeps on repeating please get in touch with the support.";
+"Error.Appstore.Title" = "Appstore isn’t available";
+"Error.Appstore.Subtitle" = "Something went wrong. Please, try one more time.";
+"Error.TryAgain" = "Try again";
+"Error.Support" = "Contact the support";
+

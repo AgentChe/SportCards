@@ -87,7 +87,7 @@ struct TagLayout: Layout {
 #Preview {
     TagLayout(spacing: 16.scale, alignment: .trailing) {
         ForEach(Game.allCases, id: \.self) { item in
-            TagView(title: item.name, isSelected: false)
+            TagView(item.name, isSelected: false)
         }
     }
 }

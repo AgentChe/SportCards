@@ -1,0 +1,55 @@
+{
+    "body": [
+        {
+            "id": "1",
+            "image": "https://sportscards.com/cdn/shop/products/90267_1_5000x.jpg?v=1645545967",
+            "title": "Wilt Chamberlain",
+            "subtitle": "Fleer Basketball",
+            "grade": "psa",
+            "current_price": "$5499.99",
+            "current_price_raw": 5499.99,
+            "collection_name": null
+        },
+        {
+            "id": "2",
+            "image": "https://sportscards.com/cdn/shop/products/90746-1_2000x.jpg?v=1679610030",
+            "title": "John Smoltz",
+            "subtitle": "Topps",
+            "grade": "psa",
+            "current_price": "$249.99",
+            "current_price_raw": 249.99,
+            "collection_name": "Finest"
+        },
+        {
+            "id": "3",
+            "image": "https://sportscards.com/cdn/shop/products/90740-1_2000x.jpg?v=1679610183",
+            "title": "Joe Carter",
+            "subtitle": "Topps",
+            "grade": "raw",
+            "current_price": "$299.99",
+            "current_price_raw": 299.99,
+            "collection_name": "Finest"
+        },
+        {
+            "id": "4",
+            "image": "https://sportscards.com/cdn/shop/products/90179_1_2000x.jpg?v=1645545622",
+            "title": "Barry Sanders",
+            "subtitle": "Fleer",
+            "grade": "psa",
+            "current_price": "$450",
+            "current_price_raw": 450,
+            "collection_name": "E-X Century"
+        },
+        {
+            "id": "5",
+            "image": "https://sportscards.com/cdn/shop/products/90233_1_2000x.jpg?v=1645545951",
+            "title": "Barry Sanders",
+            "subtitle": "Topps",
+            "grade": "psa",
+            "current_price": "$449.99",
+            "current_price_raw": 449.99,
+            "collection_name": "Chrome Football"
+        },
+    ],
+    "error": null
+}

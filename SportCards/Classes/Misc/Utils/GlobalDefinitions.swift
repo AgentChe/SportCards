@@ -8,6 +8,11 @@
 import Foundation
 
 enum GlobalDefinitions {
+    static let domain = ""
+    static let apiKey = ""
     static let privacyPolicy = ""
     static let termsOfUse = ""
+    
+    static let applicationTag = ""
+    static let amplitudeApiKey = ""
 }
