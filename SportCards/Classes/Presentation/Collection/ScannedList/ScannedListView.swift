@@ -43,7 +43,7 @@ struct ScannedListView: View {
         }
         .overlay {
             if viewModel.cards.isEmpty {
-                CardCollectionEmptyView()
+                CardCollectionEmptyView().gradientBackground()
                     .transition(.opacity)
             }
         }

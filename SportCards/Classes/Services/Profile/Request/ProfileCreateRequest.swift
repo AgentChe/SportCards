@@ -12,8 +12,7 @@ struct ProfileCreateRequest: APIRequestBody {
     let internalId: String?
     
     var url: String {
-        URL(fileURLWithPath: Bundle.main.path(forResource: "ProfileCreateResponse", ofType: "json")!).absoluteString
-//        GlobalDefinitions.domain + "/api/v1/profile/create"
+        GlobalDefinitions.domain + "/api/v1/profile/create"
     }
     
     var method: HTTPMethod {

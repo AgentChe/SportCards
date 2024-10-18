@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct OnboardingCardView5: View {
+    let grades: [Grade]
     let continueAction: (Set<Grade>) -> Void
     let skipAction: () -> Void
-    
     @State private var selected: Set<Grade> = []
     var body: some View {
         VStack(spacing: 0) {
@@ -27,7 +27,7 @@ struct OnboardingCardView5: View {
             
             ScrollView(.vertical) {
                 LazyVStack(spacing: 16.scale) {
-                    ForEach(Grade.allCases, id: \.self) { grage in
+                    ForEach(grades, id: \.self) { grage in
                         Button(
                             action: { gradeAction(for: grage) },
                             label: { GradeView(grade: grage, isSelected: selected.contains(grage))}
@@ -61,14 +61,9 @@ struct OnboardingCardView5: View {
     private func gradeAction(for item: Grade) {
         withAnimation {
             if selected.contains(item) {
-                selected.remove(.all)
                 selected.remove(item)
             } else {
                 selected.insert(item)
-            }
-            
-            if selected.contains(.all) {
-                selected = Set(Grade.allCases)
             }
         }
     }
@@ -81,11 +76,11 @@ struct GradeView: View {
     var body: some View {
         HStack(spacing: 15.scale) {
             VStack(alignment: .leading, spacing: 10.scale) {
-                Text(grade.title)
+                Text(grade.alias)
                     .font(Fonts.Inter.font(size: 14.scale, weight: .w700))
                     .lineSpacing(8.scale)
-                if let description = grade.description, isSelected {
-                    Text(description)
+                if isSelected {
+                    Text(grade.name)
                         .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
                         .lineSpacing(8.scale)
                 }
@@ -102,12 +97,11 @@ struct GradeView: View {
         .clipShape(RoundedRectangle(cornerRadius: 12.scale))
         .overlay {
             RoundedRectangle(cornerRadius: 12.scale)
-                .stroke(lineWidth: 1.scale)
-                .fill(Appearance.main200)
+                .stroke(.main200, lineWidth: 1.scale)
         }
     }
 }
 
 #Preview {
-    OnboardingCardView5(continueAction: { _ in }, skipAction: {})
+    OnboardingCardView5(grades: [], continueAction: { _ in }, skipAction: {})
 }

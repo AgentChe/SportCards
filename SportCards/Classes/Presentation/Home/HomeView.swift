@@ -7,14 +7,9 @@
 
 import SwiftUI
 
-enum Route {
-    case paygate
-}
-
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     
-    @State private var path: [Route] = []
     @State private var presentPaygate: Bool = false
     @State private var searchText: String = ""
     @State private var isLoaded: Bool = false
@@ -69,11 +64,11 @@ struct HomeView: View {
         .animation(.easeOut, value: viewModel.dataSource)
         .scrollIndicators(.never)
         .frame(maxHeight: .infinity)
-        .background(.black)
         .navigationBarBackButtonHidden()
         .onViewDidLoad {
             viewModel.makeData()
         }
+        
     }
 }
 
@@ -111,4 +106,5 @@ struct SearchView: View {
 
 #Preview {
     HomeView()
+        .gradientBackground()
 }

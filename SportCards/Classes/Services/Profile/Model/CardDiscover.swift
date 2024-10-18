@@ -12,7 +12,7 @@ struct CardDiscover: Equatable, Hashable {
     let imageURL: URL?
     let title: String
     let subtitle: String
-    let grade: Grade
+    let grade: String
     let currentPrice: String
     let currentPriceRaw: Double
     let collectionName: String?
@@ -24,7 +24,7 @@ extension CardDiscover {
             let id = body["id"] as? String,
             let title = body["title"] as? String,
             let subtitle = body["subtitle"] as? String,
-            let grade = (body["grade"] as? String).flatMap({ Grade(rawValue: $0) }),
+            let grade = body["grade"] as? String,
             let currentPrice = body["current_price"] as? String,
             let currentPriceRaw = body["current_price_raw"] as? Double
         else { return nil }
@@ -49,15 +49,77 @@ extension CardDiscover {
     }
 }
 
-//extension CardDiscover: Decodable {
-//    enum CodingKeys: String, CodingKey {
-//        case id
-//        case imageURL = "image"
-//        case title
-//        case subtitle
-//        case grade
-//        case currentPrice = "current_price"
-//        case currentPriceRaw = "current_price_raw"
-//        case collectionName = "collection_name"
-//    }
-//}
+extension CardDiscover {
+    static let mock: [CardDiscover] = [
+        .init(
+            id: "2",
+            imageURL: URL(string: "https://www.scottssportscards.com/wp-content/uploads/Scotts-Jewelry-Sports-Cards-barry-sanders-min.jpg"),
+            title: "John Smoltz",
+            subtitle: "Topps",
+            grade: "PSA",
+            currentPrice: "$249.99",
+            currentPriceRaw: 249.99,
+            collectionName: "Finest"
+        ),
+        .init(
+            id: "1",
+            imageURL: URL(string: "https://www.scottssportscards.com/wp-content/uploads/Scotts-Jewelry-Sports-Cards-aaron-mays-min.jpg"),
+            title: "Wilt Chamberlain Smoltz",
+            subtitle: "Fleer Basketball",
+            grade: "PSA",
+            currentPrice: "$5499.99",
+            currentPriceRaw: 5499.99,
+            collectionName: nil
+        ),
+        .init(
+            id: "3",
+            imageURL: URL(string: "https://www.scottssportscards.com/wp-content/uploads/Scotts-Jewelry-Sports-Cards-barry-sanders-min.jpg"),
+            title: "Smoltz John Smoltz Chamberlain",
+            subtitle: "Topps",
+            grade: "RAW",
+            currentPrice: "$249.99",
+            currentPriceRaw: 249.99,
+            collectionName: "Finest"
+        ),
+        .init(
+            id: "4",
+            imageURL: URL(string: "https://www.scottssportscards.com/wp-content/uploads/Scotts-Jewelry-Sports-Cards-aaron-mays-min.jpg"),
+            title: "Wilt Chamberlain Smoltz",
+            subtitle: "Fleer Basketball",
+            grade: "RAW",
+            currentPrice: "$5499.99",
+            currentPriceRaw: 5499.99,
+            collectionName: nil
+        ),
+        .init(
+            id: "5",
+            imageURL: URL(string: "https://www.scottssportscards.com/wp-content/uploads/Scotts-Jewelry-Sports-Cards-barry-sanders-min.jpg"),
+            title: "Smoltz John Smoltz Chamberlain",
+            subtitle: "Topps",
+            grade: "PSA",
+            currentPrice: "$249.99",
+            currentPriceRaw: 249.99,
+            collectionName: "Finest"
+        ),
+        .init(
+            id: "6",
+            imageURL: URL(string: "https://www.scottssportscards.com/wp-content/uploads/Scotts-Jewelry-Sports-Cards-aaron-mays-min.jpg"),
+            title: "Wilt Chamberlain Smoltz",
+            subtitle: "Fleer Basketball",
+            grade: "PSA",
+            currentPrice: "$5499.99",
+            currentPriceRaw: 5499.99,
+            collectionName: nil
+        ),
+        .init(
+            id: "7",
+            imageURL: URL(string: "https://www.scottssportscards.com/wp-content/uploads/Scotts-Jewelry-Sports-Cards-barry-sanders-min.jpg"),
+            title: "Smoltz John Smoltz Chamberlain",
+            subtitle: "Topps",
+            grade: "RAW",
+            currentPrice: "$249.99",
+            currentPriceRaw: 249.99,
+            collectionName: "Finest"
+        )
+    ]
+}

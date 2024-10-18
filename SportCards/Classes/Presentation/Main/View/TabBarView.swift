@@ -47,24 +47,19 @@ struct TabBarView<Content: View>: View {
             .clipShape(UnevenRoundedRectangle(topLeadingRadius: 24.scale, topTrailingRadius: 24.scale))
             .overlay {
                 UnevenRoundedRectangle(topLeadingRadius: 24.scale, topTrailingRadius: 24.scale)
-                    .stroke(lineWidth: 1.scale)
-                    .fill(.main200)
+                    .stroke(.main200, lineWidth: 1.scale)
             }
             .overlay(alignment: .top) {
-                Button(
-                    action: {}, 
-                    label: {
-                        Image("Home.Scanner")
-                            .padding(22.scale)
-                            .background(.main100, in: Circle())
-                    }
-                )
+                NavigationLink(value: Route.cardIdetifier) {
+                    Image("Home.Scanner")
+                        .padding(22.scale)
+                        .background(.main100, in: Circle())
+                }
                 .alignmentGuide(.top, computeValue: { dimension in
                     dimension[.top] + 22.scale
                 })
             }
         }
-        .background( Color.black)
         .ignoresSafeArea(edges: [.bottom])
     }
 }

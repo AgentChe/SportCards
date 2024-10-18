@@ -36,7 +36,6 @@ struct WishListView: View {
                 .padding(.bottom, 32.scale)
             }
         }
-        .background(.black)
         .overlay {
             if viewModel.cards.isEmpty {
                 CardCollectionEmptyView()

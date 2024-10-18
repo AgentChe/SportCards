@@ -135,8 +135,7 @@ struct PaygateView: View {
         .overlay {
             if viewModel.currentProduct == .yearly {
                 RoundedRectangle(cornerRadius: 10.scale)
-                    .stroke(lineWidth: 2.scale)
-                    .fill(.main100)
+                    .stroke(.main100, lineWidth: 2.scale)
             }
         }
         .overlay(alignment: .topTrailing) {
@@ -185,8 +184,7 @@ struct PaygateView: View {
         .overlay {
             if viewModel.currentProduct == .trial {
                 RoundedRectangle(cornerRadius: 10.scale)
-                    .stroke(lineWidth: 2.scale)
-                    .fill(.main100)
+                    .stroke(.main100, lineWidth: 2.scale)
             }
         }
     }

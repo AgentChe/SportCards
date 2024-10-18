@@ -15,8 +15,7 @@ struct DiscoverRequest: APIRequestBody {
     let page: Int
     
     var url: String {
-        return URL(fileURLWithPath: Bundle.main.path(forResource: "DiscoverResponse", ofType: "json")!).absoluteString
-//        GlobalDefinitions.domain + "/api/v1/cards/discover"
+        GlobalDefinitions.domain + "/api/v1/cards/discover"
     }
     
     var method: HTTPMethod {
@@ -44,7 +43,7 @@ struct DiscoverRequest: APIRequestBody {
         }
         
         if !filters.grade.isEmpty {
-            filtersParams["grade"] = filters.grade.map(\.rawValue)
+            filtersParams["grade"] = filters.grade.map(\.alias)
         }
         
         if !filtersParams.isEmpty {

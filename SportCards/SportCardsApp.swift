@@ -18,20 +18,19 @@ struct SportCardsApp: App {
 struct RootView: View {
     @StateObject private var manager = RootViewManager()
     var body: some View {
-        switch manager.currentRoute {
-        case .splash:
-            SplashView()
-                .task {
-                    manager.makeInitialize()
-                }
-                .tryAgain(error: $manager.error) {
-                    manager.login()
-                }
-        case .onboarding:
-            OnboardingView()
-                .environmentObject(manager)
-        case .home:
-            MainTabView()
+        ZStack {
+            switch manager.currentRoute {
+            case .splash:
+                SplashView()
+                    .task { manager.makeInitialize() }
+                    .tryAgain(error: $manager.error) { manager.login() }
+                    .transition(.opacity)
+            case .onboarding:
+                OnboardingView().environmentObject(manager)
+            case .home:
+                MainTabView()
+                    .transition(.opacity)
+            }
         }
     }
 }
@@ -64,6 +63,7 @@ final class RootViewManager: ObservableObject {
     }
     
     func makeInitialize() {
+        // TODO: FIX ME
 //        sdkInitialize.observe { [weak self] in
 //            self?.login()
 //        }
@@ -80,16 +80,23 @@ final class RootViewManager: ObservableObject {
         
         cancellable = request
             .map { [cardsManager] _ -> AnyPublisher<Void, NetworkError> in
-                cardsManager.makeCategories(forceUpdate: true)
-                    .map { _ in () }
-                    .eraseToAnyPublisher()
+                let categories = cardsManager.makeCategories(forceUpdate: true)
+                    .mapToVoid()
+                
+                let grades = cardsManager.makeGrades(forceUpdate: true)
+                    .mapToVoid()
+                
+                return Publishers.Zip(categories, grades)
+                    .mapToVoid()
             }
             .switchToLatest()
-            .delay(for: 0.5, scheduler: DispatchQueue.main)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
-                if case let .failure(error) = completion {
-                    self?.error = .request
-                }
+                // TODO: FIX ME
+//                if case let .failure(error) = completion {
+//                    self?.error = .request
+//                }
+                self?.makeStartRoute()
             }, receiveValue: { [weak self] _ in
                 self?.makeStartRoute()
             })

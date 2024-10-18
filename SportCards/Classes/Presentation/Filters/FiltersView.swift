@@ -40,7 +40,7 @@ struct FiltersView: View {
                         .foregroundStyle(.white)
                         .padding(.vertical, 10.scale)
                     TagLayout(spacing: 12.scale, alignment: .leading) {
-                        ForEach(viewModel.alias, id: \.self) { item in
+                        ForEach(viewModel.categories, id: \.self) { item in
                             Button(
                                 action: {
                                     if cacheFilters.category.contains(item) {
@@ -63,7 +63,7 @@ struct FiltersView: View {
                         .padding(.vertical, 10.scale)
                     
                     TagLayout(spacing: 12.scale, alignment: .leading) {
-                        ForEach(Grade.allCases, id: \.self) { item in
+                        ForEach(viewModel.grades, id: \.self) { item in
                             Button(
                                 action: { 
                                     if cacheFilters.grade.contains(item) {
@@ -73,7 +73,7 @@ struct FiltersView: View {
                                     }
                                 },
                                 label: {
-                                    TagView(item.shortName, isSelected: cacheFilters.grade.contains(item))
+                                    TagView(item.alias, isSelected: cacheFilters.grade.contains(item))
                                 }
                             )
                         }
@@ -82,6 +82,7 @@ struct FiltersView: View {
                 }
             }
             .scrollIndicators(.never)
+            .padding(.top, 24.scale)
             
             Button(
                 action: {
@@ -100,10 +101,7 @@ struct FiltersView: View {
             .padding(.top, 16.scale)
             .padding(.bottom, ScreenSize.isIphoneXFamily ? 44.scale : 24.scale)
         }
-        .navigationBarBackButtonHidden()
-        .ignoresSafeArea(edges: [.bottom])
         .padding(.horizontal, 16.scale)
-        .background(.black)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: dismiss.callAsFunction) {
@@ -116,6 +114,9 @@ struct FiltersView: View {
                 }
             }
         }
+        .ignoresSafeArea(edges: [.bottom])
+        .navigationBarBackButtonHidden()
+        .gradientBackground()
     }
 }
 

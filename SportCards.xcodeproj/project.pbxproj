@@ -28,7 +28,6 @@
 		862140EF2CA942CA00B109A4 /* OnboardingCardView5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140EE2CA942CA00B109A4 /* OnboardingCardView5.swift */; };
 		862140F12CA9510200B109A4 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140F02CA9510200B109A4 /* OnboardingViewModel.swift */; };
 		862140F32CA9519900B109A4 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140F22CA9519900B109A4 /* Game.swift */; };
-		862140F52CA951C700B109A4 /* Grade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140F42CA951C700B109A4 /* Grade.swift */; };
 		862140F82CA95A0D00B109A4 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140F72CA95A0D00B109A4 /* SplashView.swift */; };
 		862140FB2CA95A1C00B109A4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140FA2CA95A1C00B109A4 /* HomeView.swift */; };
 		862141022CA9D26900B109A4 /* PaygateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862141012CA9D26900B109A4 /* PaygateView.swift */; };
@@ -59,10 +58,9 @@
 		8659D18E2CAEB34D00CCC40B /* HomeAliasList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D18D2CAEB34D00CCC40B /* HomeAliasList.swift */; };
 		8659D1902CAED49E00CCC40B /* OtherCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D18F2CAED49E00CCC40B /* OtherCardView.swift */; };
 		8659D1922CAED7B200CCC40B /* CardOtherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D1912CAED7B200CCC40B /* CardOtherModel.swift */; };
-		8659D1942CAED7BA00CCC40B /* Alias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D1932CAED7BA00CCC40B /* Alias.swift */; };
-		8659D1962CAF0A2C00CCC40B /* CategoriesResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8659D1952CAF0A2C00CCC40B /* CategoriesResponse.json */; };
+		8659D1942CAED7BA00CCC40B /* CardCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D1932CAED7BA00CCC40B /* CardCategory.swift */; };
 		8659D1992CAF0A4E00CCC40B /* CardsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D1982CAF0A4E00CCC40B /* CardsManager.swift */; };
-		8659D19C2CAF0A6700CCC40B /* CategoriestRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D19B2CAF0A6700CCC40B /* CategoriestRequest.swift */; };
+		8659D19C2CAF0A6700CCC40B /* CategoriesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D19B2CAF0A6700CCC40B /* CategoriesRequest.swift */; };
 		8659D19E2CAFD75500CCC40B /* Combine+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D19D2CAFD75500CCC40B /* Combine+Extension.swift */; };
 		8659D1A02CAFE50700CCC40B /* HomeCardScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D19F2CAFE50700CCC40B /* HomeCardScannerView.swift */; };
 		8659D1A32CAFE58300CCC40B /* FiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D1A22CAFE58300CCC40B /* FiltersView.swift */; };
@@ -90,18 +88,29 @@
 		8659D1EE2CB66E3B00CCC40B /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D1EA2CB66E3B00CCC40B /* AmplitudeManager.swift */; };
 		8659D1EF2CB66E3B00CCC40B /* FacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D1EB2CB66E3B00CCC40B /* FacebookManager.swift */; };
 		8659D1F02CB66E3B00CCC40B /* BranchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D1EC2CB66E3B00CCC40B /* BranchManager.swift */; };
-		8659D1F32CB6E4BB00CCC40B /* ProfileCreateResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8659D1F22CB6E4BB00CCC40B /* ProfileCreateResponse.json */; };
-		8659D1F52CB6E4E100CCC40B /* ProfileBindingResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8659D1F42CB6E4E100CCC40B /* ProfileBindingResponse.json */; };
-		8659D1F82CB6E7A600CCC40B /* CollectResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8659D1F72CB6E7A600CCC40B /* CollectResponse.json */; };
-		8659D1FA2CB6E7F000CCC40B /* ScannedResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 8659D1F92CB6E7F000CCC40B /* ScannedResponse.json */; };
 		8659D1FD2CB6E9B000CCC40B /* ScannedListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D1FC2CB6E9B000CCC40B /* ScannedListViewModel.swift */; };
 		8659D1FF2CB6EA4300CCC40B /* WishListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D1FE2CB6EA4300CCC40B /* WishListViewModel.swift */; };
 		8659D2012CB7E7FE00CCC40B /* CardGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D2002CB7E7FE00CCC40B /* CardGridView.swift */; };
 		8659D2032CB7EC4F00CCC40B /* FiltersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D2022CB7EC4F00CCC40B /* FiltersViewModel.swift */; };
 		8659D2052CB7F39200CCC40B /* CardCollectionEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D2042CB7F39200CCC40B /* CardCollectionEmptyView.swift */; };
+		8659D2082CB7F73000CCC40B /* CardIdentifierMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D2072CB7F73000CCC40B /* CardIdentifierMethodView.swift */; };
+		86853F8B2CB808DD00B775A1 /* GradientBackgorund.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86853F8A2CB808DD00B775A1 /* GradientBackgorund.swift */; };
+		86853F8E2CB8199900B775A1 /* CardScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86853F8D2CB8199900B775A1 /* CardScannerView.swift */; };
+		86853F902CB81FDC00B775A1 /* CardScannedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86853F8F2CB81FDC00B775A1 /* CardScannedImageView.swift */; };
+		86853F942CB9162700B775A1 /* CardScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86853F932CB9162700B775A1 /* CardScannerViewModel.swift */; };
+		86853F962CB92BC700B775A1 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86853F952CB92BC700B775A1 /* CameraView.swift */; };
+		86853F982CB94DC100B775A1 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86853F972CB94DC100B775A1 /* CameraManager.swift */; };
 		86B501A32CA707E7005EE450 /* SportCardsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B501A22CA707E7005EE450 /* SportCardsApp.swift */; };
 		86B501A72CA707E9005EE450 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86B501A62CA707E9005EE450 /* Assets.xcassets */; };
 		86B501AB2CA707E9005EE450 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86B501AA2CA707E9005EE450 /* Preview Assets.xcassets */; };
+		86B5493C2CC2AF0700BC555C /* CardDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5493B2CC2AF0700BC555C /* CardDescriptionView.swift */; };
+		86B5493E2CC2AF1400BC555C /* CardDescriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B5493D2CC2AF1400BC555C /* CardDescriptionViewModel.swift */; };
+		86CF473D2CC006B30058C697 /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CF473C2CC006B30058C697 /* NavigationManager.swift */; };
+		86CF47412CC0DC7C0058C697 /* GradesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CF47402CC0DC7C0058C697 /* GradesRequest.swift */; };
+		86CF47442CC0DCD30058C697 /* Grade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CF47432CC0DCD30058C697 /* Grade.swift */; };
+		86CF47462CC1273F0058C697 /* CardScannedImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CF47452CC1273F0058C697 /* CardScannedImageViewModel.swift */; };
+		86CF47492CC1660C0058C697 /* DetectCardErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CF47482CC1660C0058C697 /* DetectCardErrorAlert.swift */; };
+		86CF474C2CC170640058C697 /* CardScannerTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CF474B2CC170640058C697 /* CardScannerTabBar.swift */; };
 		9091322ACC55B81D4C5F8F75 /* Pods_SportCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 411FEB746756F480AF6A9624 /* Pods_SportCards.framework */; };
 /* End PBXBuildFile section */
 
@@ -130,7 +139,6 @@
 		862140EE2CA942CA00B109A4 /* OnboardingCardView5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCardView5.swift; sourceTree = "<group>"; };
 		862140F02CA9510200B109A4 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		862140F22CA9519900B109A4 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		862140F42CA951C700B109A4 /* Grade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grade.swift; sourceTree = "<group>"; };
 		862140F72CA95A0D00B109A4 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		862140FA2CA95A1C00B109A4 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		862141012CA9D26900B109A4 /* PaygateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaygateView.swift; sourceTree = "<group>"; };
@@ -161,10 +169,9 @@
 		8659D18D2CAEB34D00CCC40B /* HomeAliasList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAliasList.swift; sourceTree = "<group>"; };
 		8659D18F2CAED49E00CCC40B /* OtherCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherCardView.swift; sourceTree = "<group>"; };
 		8659D1912CAED7B200CCC40B /* CardOtherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardOtherModel.swift; sourceTree = "<group>"; };
-		8659D1932CAED7BA00CCC40B /* Alias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alias.swift; sourceTree = "<group>"; };
-		8659D1952CAF0A2C00CCC40B /* CategoriesResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CategoriesResponse.json; sourceTree = "<group>"; };
+		8659D1932CAED7BA00CCC40B /* CardCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCategory.swift; sourceTree = "<group>"; };
 		8659D1982CAF0A4E00CCC40B /* CardsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsManager.swift; sourceTree = "<group>"; };
-		8659D19B2CAF0A6700CCC40B /* CategoriestRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriestRequest.swift; sourceTree = "<group>"; };
+		8659D19B2CAF0A6700CCC40B /* CategoriesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesRequest.swift; sourceTree = "<group>"; };
 		8659D19D2CAFD75500CCC40B /* Combine+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+Extension.swift"; sourceTree = "<group>"; };
 		8659D19F2CAFE50700CCC40B /* HomeCardScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCardScannerView.swift; sourceTree = "<group>"; };
 		8659D1A22CAFE58300CCC40B /* FiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersView.swift; sourceTree = "<group>"; };
@@ -192,20 +199,31 @@
 		8659D1EA2CB66E3B00CCC40B /* AmplitudeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmplitudeManager.swift; sourceTree = "<group>"; };
 		8659D1EB2CB66E3B00CCC40B /* FacebookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookManager.swift; sourceTree = "<group>"; };
 		8659D1EC2CB66E3B00CCC40B /* BranchManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BranchManager.swift; sourceTree = "<group>"; };
-		8659D1F22CB6E4BB00CCC40B /* ProfileCreateResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProfileCreateResponse.json; sourceTree = "<group>"; };
-		8659D1F42CB6E4E100CCC40B /* ProfileBindingResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProfileBindingResponse.json; sourceTree = "<group>"; };
-		8659D1F72CB6E7A600CCC40B /* CollectResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CollectResponse.json; sourceTree = "<group>"; };
-		8659D1F92CB6E7F000CCC40B /* ScannedResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ScannedResponse.json; sourceTree = "<group>"; };
 		8659D1FC2CB6E9B000CCC40B /* ScannedListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedListViewModel.swift; sourceTree = "<group>"; };
 		8659D1FE2CB6EA4300CCC40B /* WishListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewModel.swift; sourceTree = "<group>"; };
 		8659D2002CB7E7FE00CCC40B /* CardGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGridView.swift; sourceTree = "<group>"; };
 		8659D2022CB7EC4F00CCC40B /* FiltersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewModel.swift; sourceTree = "<group>"; };
 		8659D2042CB7F39200CCC40B /* CardCollectionEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionEmptyView.swift; sourceTree = "<group>"; };
+		8659D2072CB7F73000CCC40B /* CardIdentifierMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardIdentifierMethodView.swift; sourceTree = "<group>"; };
+		86853F8A2CB808DD00B775A1 /* GradientBackgorund.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBackgorund.swift; sourceTree = "<group>"; };
+		86853F8D2CB8199900B775A1 /* CardScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardScannerView.swift; sourceTree = "<group>"; };
+		86853F8F2CB81FDC00B775A1 /* CardScannedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardScannedImageView.swift; sourceTree = "<group>"; };
+		86853F932CB9162700B775A1 /* CardScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardScannerViewModel.swift; sourceTree = "<group>"; };
+		86853F952CB92BC700B775A1 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		86853F972CB94DC100B775A1 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		86B5019F2CA707E7005EE450 /* SportCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86B501A22CA707E7005EE450 /* SportCardsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportCardsApp.swift; sourceTree = "<group>"; };
 		86B501A62CA707E9005EE450 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		86B501A82CA707E9005EE450 /* SportCards.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SportCards.entitlements; sourceTree = "<group>"; };
 		86B501AA2CA707E9005EE450 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		86B5493B2CC2AF0700BC555C /* CardDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDescriptionView.swift; sourceTree = "<group>"; };
+		86B5493D2CC2AF1400BC555C /* CardDescriptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDescriptionViewModel.swift; sourceTree = "<group>"; };
+		86CF473C2CC006B30058C697 /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
+		86CF47402CC0DC7C0058C697 /* GradesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradesRequest.swift; sourceTree = "<group>"; };
+		86CF47432CC0DCD30058C697 /* Grade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grade.swift; sourceTree = "<group>"; };
+		86CF47452CC1273F0058C697 /* CardScannedImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardScannedImageViewModel.swift; sourceTree = "<group>"; };
+		86CF47482CC1660C0058C697 /* DetectCardErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectCardErrorAlert.swift; sourceTree = "<group>"; };
+		86CF474B2CC170640058C697 /* CardScannerTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardScannerTabBar.swift; sourceTree = "<group>"; };
 		E994AC1537ABC3BD524DFFA3 /* Pods-SportCards.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportCards.release.xcconfig"; path = "Target Support Files/Pods-SportCards/Pods-SportCards.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -251,6 +269,8 @@
 		862140BA2CA713EC00B109A4 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				86B5493A2CC2AEF300BC555C /* CardDescription */,
+				8659D2062CB7F67F00CCC40B /* CardScanner */,
 				8659D1E32CB669DE00CCC40B /* Error */,
 				8659D1A12CAFE57700CCC40B /* Filters */,
 				8659D1872CAE9DE500CCC40B /* Collection */,
@@ -272,6 +292,7 @@
 				862140D32CA7278F00B109A4 /* Components */,
 				862140C02CA715AE00B109A4 /* Utils */,
 				862140BE2CA7153300B109A4 /* Appearance.swift */,
+				86853F972CB94DC100B775A1 /* CameraManager.swift */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -279,7 +300,7 @@
 		862140BC2CA713F800B109A4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				8659D1D92CB59D0300CCC40B /* Account */,
+				86CF473B2CC006980058C697 /* Navigation */,
 				8659D1D32CB59A2300CCC40B /* Session */,
 				8659D1972CAF0A3400CCC40B /* Cards */,
 				862141172CAAF0F400B109A4 /* Profile */,
@@ -330,6 +351,7 @@
 				862140EC2CA8487A00B109A4 /* TagLayout.swift */,
 				8659D1752CAC0D3000CCC40B /* SearchField.swift */,
 				8659D1A42CB022D100CCC40B /* TagView.swift */,
+				86853F8A2CB808DD00B775A1 /* GradientBackgorund.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -360,7 +382,6 @@
 			children = (
 				862140E62CA83F8800B109A4 /* OnboardingPageItem.swift */,
 				862140F22CA9519900B109A4 /* Game.swift */,
-				862140F42CA951C700B109A4 /* Grade.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -448,7 +469,6 @@
 				8621411B2CAAF26100B109A4 /* PriceReport.swift */,
 				8621411D2CAAF45300B109A4 /* HomeModel.swift */,
 				8659D1912CAED7B200CCC40B /* CardOtherModel.swift */,
-				8659D1932CAED7BA00CCC40B /* Alias.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -535,7 +555,7 @@
 		8659D1972CAF0A3400CCC40B /* Cards */ = {
 			isa = PBXGroup;
 			children = (
-				8659D1FB2CB6E80100CCC40B /* Response */,
+				86CF47422CC0DCC30058C697 /* Model */,
 				8659D19A2CAF0A5100CCC40B /* Request */,
 				8659D1982CAF0A4E00CCC40B /* CardsManager.swift */,
 			);
@@ -545,8 +565,9 @@
 		8659D19A2CAF0A5100CCC40B /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				8659D19B2CAF0A6700CCC40B /* CategoriestRequest.swift */,
+				8659D19B2CAF0A6700CCC40B /* CategoriesRequest.swift */,
 				8659D1A92CB0490C00CCC40B /* DiscoverRequest.swift */,
+				86CF47402CC0DC7C0058C697 /* GradesRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -625,22 +646,6 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		8659D1D92CB59D0300CCC40B /* Account */ = {
-			isa = PBXGroup;
-			children = (
-				8659D1F12CB6E46700CCC40B /* Response */,
-				8659D1DC2CB59D2B00CCC40B /* Request */,
-			);
-			path = Account;
-			sourceTree = "<group>";
-		};
-		8659D1DC2CB59D2B00CCC40B /* Request */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Request;
-			sourceTree = "<group>";
-		};
 		8659D1E32CB669DE00CCC40B /* Error */ = {
 			isa = PBXGroup;
 			children = (
@@ -660,31 +665,32 @@
 			path = Analytics;
 			sourceTree = "<group>";
 		};
-		8659D1F12CB6E46700CCC40B /* Response */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Response;
-			sourceTree = "<group>";
-		};
 		8659D1F62CB6E59300CCC40B /* Response */ = {
 			isa = PBXGroup;
 			children = (
-				8659D1F42CB6E4E100CCC40B /* ProfileBindingResponse.json */,
-				8659D1F22CB6E4BB00CCC40B /* ProfileCreateResponse.json */,
-				8659D1F92CB6E7F000CCC40B /* ScannedResponse.json */,
-				8659D1F72CB6E7A600CCC40B /* CollectResponse.json */,
-				8659D1952CAF0A2C00CCC40B /* CategoriesResponse.json */,
 				862141222CABE29200B109A4 /* HomeResponse.json */,
 			);
 			path = Response;
 			sourceTree = "<group>";
 		};
-		8659D1FB2CB6E80100CCC40B /* Response */ = {
+		8659D2062CB7F67F00CCC40B /* CardScanner */ = {
 			isa = PBXGroup;
 			children = (
+				86CF473F2CC00C780058C697 /* Camera */,
+				86853F8C2CB8198700B775A1 /* ScannedImage */,
+				8659D2072CB7F73000CCC40B /* CardIdentifierMethodView.swift */,
 			);
-			path = Response;
+			path = CardScanner;
+			sourceTree = "<group>";
+		};
+		86853F8C2CB8198700B775A1 /* ScannedImage */ = {
+			isa = PBXGroup;
+			children = (
+				86CF47472CC165F20058C697 /* View */,
+				86853F8F2CB81FDC00B775A1 /* CardScannedImageView.swift */,
+				86CF47452CC1273F0058C697 /* CardScannedImageViewModel.swift */,
+			);
+			path = ScannedImage;
 			sourceTree = "<group>";
 		};
 		86B501962CA707E7005EE450 = {
@@ -725,6 +731,59 @@
 				86B501AA2CA707E9005EE450 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		86B5493A2CC2AEF300BC555C /* CardDescription */ = {
+			isa = PBXGroup;
+			children = (
+				86B5493B2CC2AF0700BC555C /* CardDescriptionView.swift */,
+				86B5493D2CC2AF1400BC555C /* CardDescriptionViewModel.swift */,
+			);
+			path = CardDescription;
+			sourceTree = "<group>";
+		};
+		86CF473B2CC006980058C697 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				86CF473C2CC006B30058C697 /* NavigationManager.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		86CF473E2CC00C650058C697 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				86853F952CB92BC700B775A1 /* CameraView.swift */,
+				86CF474B2CC170640058C697 /* CardScannerTabBar.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		86CF473F2CC00C780058C697 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				86CF473E2CC00C650058C697 /* View */,
+				86853F8D2CB8199900B775A1 /* CardScannerView.swift */,
+				86853F932CB9162700B775A1 /* CardScannerViewModel.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		86CF47422CC0DCC30058C697 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8659D1932CAED7BA00CCC40B /* CardCategory.swift */,
+				86CF47432CC0DCD30058C697 /* Grade.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		86CF47472CC165F20058C697 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				86CF47482CC1660C0058C697 /* DetectCardErrorAlert.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		A9EAC229345153855629FBB2 /* Pods */ = {
@@ -797,14 +856,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				862141062CAAA1AB00B109A4 /* Inter-Medium.otf in Resources */,
-				8659D1F82CB6E7A600CCC40B /* CollectResponse.json in Resources */,
-				8659D1962CAF0A2C00CCC40B /* CategoriesResponse.json in Resources */,
 				862141232CABE29200B109A4 /* HomeResponse.json in Resources */,
 				862140D82CA83CFF00B109A4 /* Localizable.strings in Resources */,
-				8659D1F32CB6E4BB00CCC40B /* ProfileCreateResponse.json in Resources */,
-				8659D1FA2CB6E7F000CCC40B /* ScannedResponse.json in Resources */,
 				86B501AB2CA707E9005EE450 /* Preview Assets.xcassets in Resources */,
-				8659D1F52CB6E4E100CCC40B /* ProfileBindingResponse.json in Resources */,
 				862140C72CA7176200B109A4 /* Inter-Bold.otf in Resources */,
 				862140C52CA7175100B109A4 /* Inter-Regular.otf in Resources */,
 				86B501A72CA707E9005EE450 /* Assets.xcassets in Resources */,
@@ -863,6 +917,7 @@
 			files = (
 				8659D1ED2CB66E3B00CCC40B /* FirebaseManager.swift in Sources */,
 				862141212CAAF56300B109A4 /* HomeRequest.swift in Sources */,
+				86CF47492CC1660C0058C697 /* DetectCardErrorAlert.swift in Sources */,
 				862140EB2CA8461400B109A4 /* OnboardingCardView4.swift in Sources */,
 				8659D1762CAC0D3000CCC40B /* SearchField.swift in Sources */,
 				862140F82CA95A0D00B109A4 /* SplashView.swift in Sources */,
@@ -870,17 +925,24 @@
 				8659D1A32CAFE58300CCC40B /* FiltersView.swift in Sources */,
 				8621411E2CAAF45300B109A4 /* HomeModel.swift in Sources */,
 				862140CE2CA71AFA00B109A4 /* Scalable.swift in Sources */,
+				86CF473D2CC006B30058C697 /* NavigationManager.swift in Sources */,
 				8659D1FD2CB6E9B000CCC40B /* ScannedListViewModel.swift in Sources */,
 				862140DD2CA83E1C00B109A4 /* String+Extension.swift in Sources */,
 				8659D1CF2CB594CD00CCC40B /* ScannedListView.swift in Sources */,
 				862141082CAAAEB100B109A4 /* PaygateViewModel.swift in Sources */,
+				86853F962CB92BC700B775A1 /* CameraView.swift in Sources */,
+				86853F8B2CB808DD00B775A1 /* GradientBackgorund.swift in Sources */,
 				862140CC2CA71AE300B109A4 /* ScreenSize.swift in Sources */,
 				862141282CABF8E600B109A4 /* RecommendedCardView.swift in Sources */,
 				8659D1BF2CB569AE00CCC40B /* ProfileCollectionCards.swift in Sources */,
 				8659D2032CB7EC4F00CCC40B /* FiltersViewModel.swift in Sources */,
 				8659D1B32CB4487700CCC40B /* CollectionTotalHeader.swift in Sources */,
+				86CF47412CC0DC7C0058C697 /* GradesRequest.swift in Sources */,
 				8659D1EE2CB66E3B00CCC40B /* AmplitudeManager.swift in Sources */,
 				862140C22CA715C900B109A4 /* Fonts.swift in Sources */,
+				86853F902CB81FDC00B775A1 /* CardScannedImageView.swift in Sources */,
+				8659D2082CB7F73000CCC40B /* CardIdentifierMethodView.swift in Sources */,
+				86CF474C2CC170640058C697 /* CardScannerTabBar.swift in Sources */,
 				862140D52CA727A000B109A4 /* Button+Styles.swift in Sources */,
 				8659D1922CAED7B200CCC40B /* CardOtherModel.swift in Sources */,
 				8659D1D82CB59AE400CCC40B /* SplashReceiptValidationObserver.swift in Sources */,
@@ -890,6 +952,7 @@
 				862140D22CA71B7B00B109A4 /* OnboardingView.swift in Sources */,
 				8659D1822CAD8ACB00CCC40B /* TabBarView.swift in Sources */,
 				8659D1B82CB448BC00CCC40B /* CollectionTabView.swift in Sources */,
+				86853F982CB94DC100B775A1 /* CameraManager.swift in Sources */,
 				862140E42CA83F5800B109A4 /* OnboardingCardView3.swift in Sources */,
 				8659D1A02CAFE50700CCC40B /* HomeCardScannerView.swift in Sources */,
 				862141022CA9D26900B109A4 /* PaygateView.swift in Sources */,
@@ -901,11 +964,13 @@
 				8659D1EF2CB66E3B00CCC40B /* FacebookManager.swift in Sources */,
 				8659D1AC2CB0596B00CCC40B /* SearchListView.swift in Sources */,
 				8659D17B2CAD842400CCC40B /* PriceChartViewModel.swift in Sources */,
+				86CF47462CC1273F0058C697 /* CardScannedImageViewModel.swift in Sources */,
 				8659D18C2CAEA12100CCC40B /* MainTabType.swift in Sources */,
 				8621410E2CAAD4D800B109A4 /* CardDiscover.swift in Sources */,
-				862140F52CA951C700B109A4 /* Grade.swift in Sources */,
+				86CF47442CC0DCD30058C697 /* Grade.swift in Sources */,
 				862140F32CA9519900B109A4 /* Game.swift in Sources */,
 				8659D1BA2CB449F200CCC40B /* CollectionTab.swift in Sources */,
+				86853F8E2CB8199900B775A1 /* CardScannerView.swift in Sources */,
 				8659D1742CAC070A00CCC40B /* HomeViewCellType.swift in Sources */,
 				862140CA2CA71ACF00B109A4 /* TextAttributes.swift in Sources */,
 				8659D1C22CB569F500CCC40B /* ProfileCollectionRequest.swift in Sources */,
@@ -917,6 +982,7 @@
 				862140F12CA9510200B109A4 /* OnboardingViewModel.swift in Sources */,
 				8659D2052CB7F39200CCC40B /* CardCollectionEmptyView.swift in Sources */,
 				8659D1782CAC20EE00CCC40B /* PriceChartView.swift in Sources */,
+				86B5493E2CC2AF1400BC555C /* CardDescriptionViewModel.swift in Sources */,
 				8659D1CB2CB593C300CCC40B /* WishListView.swift in Sources */,
 				8659D1DE2CB59D4000CCC40B /* ProfileCreateRequest.swift in Sources */,
 				8659D2012CB7E7FE00CCC40B /* CardGridView.swift in Sources */,
@@ -924,7 +990,8 @@
 				862140BF2CA7153300B109A4 /* Appearance.swift in Sources */,
 				8659D1D52CB59A2B00CCC40B /* SessionManager.swift in Sources */,
 				862141192CAAF10000B109A4 /* ProfileManager.swift in Sources */,
-				8659D19C2CAF0A6700CCC40B /* CategoriestRequest.swift in Sources */,
+				8659D19C2CAF0A6700CCC40B /* CategoriesRequest.swift in Sources */,
+				86B5493C2CC2AF0700BC555C /* CardDescriptionView.swift in Sources */,
 				86B501A32CA707E7005EE450 /* SportCardsApp.swift in Sources */,
 				862140E22CA83F4200B109A4 /* OnboardingCardView2.swift in Sources */,
 				8659D1992CAF0A4E00CCC40B /* CardsManager.swift in Sources */,
@@ -935,6 +1002,7 @@
 				8659D1E02CB59D5700CCC40B /* ProfileBindingRequest.swift in Sources */,
 				8659D1D22CB5993300CCC40B /* TotalPriceModel.swift in Sources */,
 				8659D1A82CB02F8A00CCC40B /* Filters.swift in Sources */,
+				86853F942CB9162700B775A1 /* CardScannerViewModel.swift in Sources */,
 				862140FB2CA95A1C00B109A4 /* HomeView.swift in Sources */,
 				8659D1842CAD915000CCC40B /* MainTabView.swift in Sources */,
 				8659D1B62CB4489500CCC40B /* CollectionLayoutType.swift in Sources */,
@@ -942,7 +1010,7 @@
 				862140E72CA83F8800B109A4 /* OnboardingPageItem.swift in Sources */,
 				8621411C2CAAF26200B109A4 /* PriceReport.swift in Sources */,
 				8621410B2CAAB0F600B109A4 /* PaygateProduct.swift in Sources */,
-				8659D1942CAED7BA00CCC40B /* Alias.swift in Sources */,
+				8659D1942CAED7BA00CCC40B /* CardCategory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1091,6 +1159,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SportCards/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "The app will access the camera so it can identify your card.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -1139,6 +1208,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SportCards/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "The app will access the camera so it can identify your card.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;

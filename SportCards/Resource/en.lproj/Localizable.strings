@@ -10,6 +10,8 @@
 "Continue" = "Continue";
 "Skip" = "Skip";
 "Search" = "Search";
+"Ok" = "Ok";
+"Cancel" = "Cancel";
 
 // MARK: Splash
 "Splash.Title" = "Welcome to CardCollector";
@@ -33,26 +35,6 @@
 "Onboarding.Tag.Soccer" = "Soccer";
 "Onboarding.Tag.Hockey" = "Hockey";
 "Onboarding.Tag.Wresting" = "Wresting";
-
-// MARK: Grade
-"Grade.ALL" = "All Grades";
-"Grade.RAW.Title" = "RAW";
-"Grade.PSA.Title" = "PSA (Professional Sports Authenticator)";
-"Grade.BGS.Title" = "BGS (Beckett Grading Services)";
-"Grade.SGC.Title" = "SGC (Sportscard Guaranty Corporation)";
-"Grade.CSG.Title" = "CSG (Certified Sports Guaranty)";
-"Grade.RAW.Description" = "Uncertified cards directly from packs or collections. Their condition varies, lacking professional grading.";
-"Grade.PSA.Description" = "Renowned for strict grading standards, PSA grades cards from 1 (Poor) to 10 (Gem Mint), ensuring authenticity and quality.";
-"Grade.BGS.Description" = "Known for detailed sub-grades, BGS evaluates centering, corners, edges, and surface, providing a comprehensive grade from 1 to 10.";
-"Grade.SGC.Description" = "Trusted for vintage and modern cards, SGC grades on a 1 to 10 scale with a black holder that highlights the card's condition.";
-"Grade.CSG.Description" = "Provides accurate and consistent grading for sports cards, using a scale from 1 to 10, with a focus on modern cards.";
-"Grade.RAW.Short" = "RAW";
-"Grade.PSA.Short" = "PSA";
-"Grade.PSA.Short" = "PSA";
-"Grade.SGC.Short" = "SGC";
-"Grade.CSG.Short" = "CSG";
-"Grade.All.Short" = "All";
-
 
 // MARK: Paygate
 "Paygate.Title" = "Upgrade Premium";
@@ -113,3 +95,23 @@
 "Error.TryAgain" = "Try again";
 "Error.Support" = "Contact the support";
 
+// MARK: Card Identifier
+"CardIdentifier.BackTitle" = "Card Identifier";
+"CardIdentifier.Title" = "Add a card to the collection";
+"CardIdentifier.Subtitle" = "Search for a card using a scanner or enter the card's name manually";
+"CardIdentifier.Action.Scan" = "Scan the card";
+"CardIdentifier.Action.Manual" = "Add card manually";
+"CardIdentifier.BackButton" = "Go back";
+
+// MARK: Card scanner
+"CardScanner.Subtitle" = "Make sure the whole card is visible within the frame for the best scanning results";
+"CardScanner.Accept" = "Accept photo";
+"CardScanner.Retake" = "Retake";
+"CardScanner.GradeTitle" = "Select the grade";
+"CardScanner.Error.Title" = "We couldn’t identify the card";
+"CardScanner.Error.Subtitle" = "Make sure the whole card is visible within the frame for the best scanning results.";
+"CardScanner.Error.PrimaryAction" = "Retake photo";
+"CardScanner.Error.SecondaryAction" = "Add card manually";
+"CardScanner.Progress" = "Identifying card...";
+"CardScanner.CameraAlert.Title" = "Camera not available";
+"CardScanner.CameraAlert.Message" = "Open settings?";

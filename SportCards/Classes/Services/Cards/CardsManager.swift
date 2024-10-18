@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol CardsManagerProtocol {
-    func categories() -> AnyPublisher<[Alias], NetworkError>
+    func categories() -> AnyPublisher<[CardCategory], NetworkError>
 }
 
 final class CardsManager {
@@ -18,22 +18,43 @@ final class CardsManager {
 }
 
 extension CardsManager: CardsManagerProtocol {
-    func makeCategories(forceUpdate: Bool) -> AnyPublisher<[Alias], NetworkError> {
+    func makeCategories(forceUpdate: Bool) -> AnyPublisher<[CardCategory], NetworkError> {
         forceUpdate ? categories() : cachedCategories()
     }
     
-    func categories() -> AnyPublisher<[Alias], NetworkError> {
-        let request = CategoriestRequest(
+    func makeGrades(forceUpdate: Bool) -> AnyPublisher<[Grade], NetworkError> {
+        forceUpdate ? grades() : cachedGrades()
+    }
+    
+    func categories() -> AnyPublisher<[CardCategory], NetworkError> {
+        let request = CategoriesRequest(
             anonymousId: sessionManager.anonymousId,
             internalId: sessionManager.anonymousId
         )
         
         return restApiTransport
             .callServerApi(requestBody: request)
-            .map { Alias.map(response: $0) }
+            .map { CardCategory.map(response: $0) }
             .handleEvents(receiveOutput: { items in
                 if let data = try? JSONEncoder().encode(items) {
                     UserDefaults.standard.set(data, forKey: Constants.categories)
+                }
+            })
+            .eraseToAnyPublisher()
+    }
+    
+    func grades() -> AnyPublisher<[Grade], NetworkError> {
+        let request = GradesRequest(
+            anonymousId: sessionManager.anonymousId,
+            internalId: sessionManager.anonymousId
+        )
+        
+        return restApiTransport
+            .callServerApi(requestBody: request)
+            .map { Grade.map(response: $0) }
+            .handleEvents(receiveOutput: { items in
+                if let data = try? JSONEncoder().encode(items) {
+                    UserDefaults.standard.set(data, forKey: Constants.grades)
                 }
             })
             .eraseToAnyPublisher()
@@ -54,10 +75,10 @@ extension CardsManager: CardsManagerProtocol {
             .eraseToAnyPublisher()
     }
     
-    func cachedCategories() -> AnyPublisher<[Alias], NetworkError> {
+    func cachedCategories() -> AnyPublisher<[CardCategory], NetworkError> {
         Future { promise in
             let categories = UserDefaults.standard.data(forKey: Constants.categories).flatMap {
-                try? JSONDecoder().decode([Alias].self, from: $0)
+                try? JSONDecoder().decode([CardCategory].self, from: $0)
             } ?? []
             
             promise(.success(categories))
@@ -65,9 +86,26 @@ extension CardsManager: CardsManagerProtocol {
         .eraseToAnyPublisher()
     }
     
-    func cachedCategories() -> [Alias] {
+    func cachedGrades() -> AnyPublisher<[Grade], NetworkError> {
+        Future { promise in
+            let categories = UserDefaults.standard.data(forKey: Constants.categories).flatMap {
+                try? JSONDecoder().decode([Grade].self, from: $0)
+            } ?? []
+            
+            promise(.success(categories))
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func cachedCategories() -> [CardCategory] {
         UserDefaults.standard.data(forKey: Constants.categories).flatMap {
-            try? JSONDecoder().decode([Alias].self, from: $0)
+            try? JSONDecoder().decode([CardCategory].self, from: $0)
+        } ?? []
+    }
+    
+    func cachedGrades() -> [Grade] {
+        UserDefaults.standard.data(forKey: Constants.grades).flatMap {
+            try? JSONDecoder().decode([Grade].self, from: $0)
         } ?? []
     }
 }
@@ -75,5 +113,6 @@ extension CardsManager: CardsManagerProtocol {
 private extension CardsManager {
     enum Constants {
         static let categories = "cards_manager_categories_key"
+        static let grades = "cards_manager_grades_key"
     }
 }

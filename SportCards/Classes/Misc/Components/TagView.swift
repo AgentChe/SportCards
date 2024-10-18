@@ -52,8 +52,7 @@ struct DefaultTagStyle: TagStyle {
             .overlay {
                 if !configuration.isSelected {
                     Capsule()
-                        .stroke(lineWidth: 1.scale)
-                        .fill(Appearance.main200)
+                        .stroke(.main200, lineWidth: 1.scale)
                 }
             }
     }
@@ -76,8 +75,7 @@ struct CheckboxTagStyle: TagStyle {
         .background(.main300, in: Capsule())
         .overlay {
             Capsule()
-                .stroke(lineWidth: 1.scale)
-                .fill(Appearance.main200)
+                .stroke(.main200, lineWidth: 1.scale)
         }
     }
 }

@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Filters {
+struct Filters: Hashable {
     var price: SortType?
-    var category: Set<Alias>
+    var category: Set<CardCategory>
     var grade: Set<Grade>
     
     enum SortType: String, CaseIterable {

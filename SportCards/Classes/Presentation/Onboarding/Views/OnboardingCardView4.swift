@@ -9,7 +9,8 @@ import SwiftUI
 
 struct OnboardingCardView4: View {
     
-    @Binding var selected: Set<Game>
+    let categories: [CardCategory]
+    @Binding var selected: Set<CardCategory>
     let continueAction: () -> Void
     
     var body: some View {
@@ -23,7 +24,7 @@ struct OnboardingCardView4: View {
                 .padding(.top, 24.scale)
             
             TagLayout(spacing: 16.scale) {
-                ForEach(Game.allCases, id: \.self) { item in
+                ForEach(categories, id: \.self) { item in
                     Button(
                         action: { tagAction(for: item) },
                         label: {
@@ -50,20 +51,15 @@ struct OnboardingCardView4: View {
         .background(.black)
     }
     
-    private func tagAction(for item: Game) {
+    private func tagAction(for item: CardCategory) {
         if selected.contains(item) {
-            selected.remove(.allGames)
             selected.remove(item)
         } else {
             selected.insert(item)
-        }
-        
-        if selected.contains(.allGames) {
-            selected = Set(Game.allCases)
         }
     }
 }
 
 #Preview {
-    OnboardingCardView4(selected: .constant([]), continueAction: {  })
+    OnboardingCardView4(categories: [], selected: .constant([]), continueAction: {  })
 }

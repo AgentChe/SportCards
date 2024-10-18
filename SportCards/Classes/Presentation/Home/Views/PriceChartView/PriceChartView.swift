@@ -90,8 +90,7 @@ struct PriceChartView: View {
                     .overlay {
                         if viewModel.currentFilter != filter {
                             Capsule()
-                                .stroke(lineWidth: 1.scale)
-                                .fill(.main200)
+                                .stroke(.main200, lineWidth: 1.scale)
                         }
                     }
                 }
@@ -101,8 +100,7 @@ struct PriceChartView: View {
         .background(.main300, in: RoundedRectangle(cornerRadius: 16.scale))
         .overlay {
             RoundedRectangle(cornerRadius: 16.scale)
-                .stroke(lineWidth: 1.scale)
-                .fill(.main200)
+                .stroke(.main200, lineWidth: 1.scale)
         }
     }
     

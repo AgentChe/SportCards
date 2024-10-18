@@ -12,12 +12,15 @@ extension Publisher {
     func shareReplay(_ bufferSize: Int) -> AnyPublisher<Output, Failure> {
         return multicast(subject: ReplaySubject(bufferSize)).autoconnect().eraseToAnyPublisher()
     }
-}
-
-extension Publisher {
+    
     func asResult() -> AnyPublisher<Result<Output, Failure>, Never> {
         self.map { .success($0)}
             .catch { Just(.failure($0) ) }
+            .eraseToAnyPublisher()
+    }
+    
+    func mapToVoid() -> AnyPublisher<Void, Failure> {
+        self.map { _ in () }
             .eraseToAnyPublisher()
     }
 }

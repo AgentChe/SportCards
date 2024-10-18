@@ -8,8 +8,8 @@
 import Foundation
 
 enum GlobalDefinitions {
-    static let domain = ""
-    static let apiKey = ""
+    static let domain = "https://sportcards.korrekted.com"
+    static let apiKey = "aB2AKoWZ6yYOcqrSO5"
     static let privacyPolicy = ""
     static let termsOfUse = ""
     

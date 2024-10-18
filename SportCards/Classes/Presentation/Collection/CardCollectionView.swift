@@ -21,7 +21,7 @@ struct CardCollectionView: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
         }
-        .background(.black)
+        .gradientBackground()
     }
 }
 
