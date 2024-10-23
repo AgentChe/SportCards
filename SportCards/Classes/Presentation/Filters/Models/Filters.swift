@@ -9,8 +9,8 @@ import Foundation
 
 struct Filters: Hashable {
     var price: SortType?
-    var category: Set<CardCategory>
-    var grade: Set<Grade>
+    var category: CardCategory?
+    var grade: Grade?
     
     enum SortType: String, CaseIterable {
         case low
@@ -19,15 +19,17 @@ struct Filters: Hashable {
 }
 
 extension Filters {
-    init() {
-        price = nil
-        category = []
-        grade = []
-    }
+//    init() {
+//        price = nil
+//        category = nil
+//        grade = nil
+//    }
     
     var count: Int {
         let price = price == nil ? 0 : 1
-        return category.count + grade.count + price
+        let category = category == nil ? 0 : 1
+        let grade = grade == nil ? 0 : 1
+        return category + grade + price
     }
 }
 

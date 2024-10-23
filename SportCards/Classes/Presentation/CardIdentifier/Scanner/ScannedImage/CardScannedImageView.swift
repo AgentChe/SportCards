@@ -9,7 +9,7 @@ import SwiftUI
 
 enum ScannerState {
     case photo
-    case grade
+    case grade([String])
     case request
 }
 
@@ -47,21 +47,26 @@ struct CardScannedImageView: View {
                 Button(action: dismiss.callAsFunction, label: { Image("Back") })
             }
         }
-        .onReceive(viewModel.$isSuccessScanned, perform: { value in
-            guard let value else { return }
-            if value {
-                currentState = .grade
-            } else {
+        .onReceive(viewModel.$action) { action in
+            switch action {
+            case let .step(step):
+                currentState = step
+            case let .details(id, grade):
+                router.replacePush(from: .cardDescription)
+            case .error:
                 showAlert = true
             }
-        })
+        }
         .confirmAlert(isPresented: $showAlert) {
             DetectCardErrorAlert(
                 primaryAction: { 
                     showAlert = false
                     router.pop()
                 },
-                secondaryAction: { showAlert = false }
+                secondaryAction: {
+                    showAlert = false
+                    router.replacePush(route: .manualSearch, replaced: .scanner)
+                }
             )
         }
         .animation(.easeInOut, value: showAlert)
@@ -75,7 +80,7 @@ private extension CardScannedImageView {
         case .photo:
             VStack(spacing: 0) {
                 Button(
-                    action: { withAnimation { currentState = .request }},
+                    action: { viewModel.acceptPhoto() },
                     label: { Text("CardScanner.Accept".localized) }
                 )
                 .buttonStyle(.button(.primary))
@@ -88,14 +93,14 @@ private extension CardScannedImageView {
                 .padding(.top, 16.scale)
             }
             .padding(.horizontal, 16.scale)
-        case .grade:
+        case let .grade(grades):
             VStack(spacing: 0) {
                 ScrollView(.horizontal) {
                     HomeAliasLayout {
-                        ForEach(viewModel.grades, id: \.self) { item in
+                        ForEach(grades, id: \.self) { item in
                             Button(
                                 action: { viewModel.selectedGrade = item },
-                                label: { TagView(item.alias, isSelected: viewModel.selectedGrade == item) }
+                                label: { TagView(item, isSelected: viewModel.selectedGrade == item) }
                             )
                         }
                     }
@@ -106,7 +111,7 @@ private extension CardScannedImageView {
                 .scrollIndicators(.never)
                 
                 Button(
-                    action: { router.replacePush(from: .cardDescription) },
+                    action: { viewModel.acceptGrade() },
                     label: { Text("Continue".localized) }
                 )
                 .buttonStyle(.button(.primary))
@@ -116,7 +121,8 @@ private extension CardScannedImageView {
         case .request:
             VStack(spacing: 0) {
                 VStack(spacing: 2.scale) {
-                    LoaderView()
+                    ProgressView()
+                        .progressViewStyle(.sportCards)
                         .foregroundStyle(.main100)
                         .frame(width: 24.scale, height: 24.scale)
                     
@@ -127,10 +133,11 @@ private extension CardScannedImageView {
                 .padding(.vertical, 50.scale)
                 
                 Button(
-                    action: { currentState = .grade},
+                    action: { },
                     label: { Text("Continue".localized) }
                 )
-                .buttonStyle(.button(.primary))
+                .buttonStyle(.button(.secondary))
+                .disabled(true)
             }
             .padding(.horizontal, 16.scale)
         }

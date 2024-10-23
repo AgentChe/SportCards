@@ -72,7 +72,7 @@ struct RecommendedCardView: View {
 #Preview {
     ScrollView(.vertical) {
         LazyVStack(spacing: 16.scale) {
-            ForEach(CardDiscover.mock, id: \.id) {
+            ForEach(CardDiscover.mock) {
                 RecommendedCardView(card: $0)
             }
         }

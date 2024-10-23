@@ -34,26 +34,27 @@ final class RestAPITransport {
         .eraseToAnyPublisher()
     }
     
-//    func callServerApi<T: Decodable>(requestBody: APIRequestBody) -> AnyPublisher<Result<T, NetworkError>, Never> {
-//        let manager = Alamofire.Session.default
-//        manager.session.configuration.timeoutIntervalForRequest = 30
-//        
-//        let encodedUrl = requestBody.url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-//        
-//        
-//        return manager
-//            .request(encodedUrl,
-//                     method: requestBody.method,
-//                     parameters: requestBody.parameters,
-//                     encoding: requestBody.encoding,
-//                     headers: requestBody.headers
-//            )
-//            .validate(statusCode: [200, 201])
-//            .publishDecodable(type: T.self)
-//            .result()
-//            .map { result in
-//                result.mapError { NetworkError(.serverNotAvailable, underlyingError: $0) }
-//            }
-//            .eraseToAnyPublisher()
-//    }
+    func callServerApi1(requestBody: APIRequestBody) async throws -> Any {
+        return try await withUnsafeThrowingContinuation { continuation in
+            let manager = Alamofire.Session.default
+            manager.session.configuration.timeoutIntervalForRequest = 30
+            
+            let encodedUrl = requestBody.url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+            
+            let request = manager.request(encodedUrl,
+                                          method: requestBody.method,
+                                          parameters: requestBody.parameters,
+                                          encoding: requestBody.encoding,
+                                          headers: requestBody.headers)
+                .validate(statusCode: [200, 201])
+                .responseJSON(completionHandler: { response in
+                    switch response.result {
+                    case .success(let json):
+                        continuation.resume(returning: json)
+                    case .failure(let error):
+                        continuation.resume(throwing: NetworkError(.serverNotAvailable, underlyingError: error))
+                    }
+                })
+        }
+    }
 }

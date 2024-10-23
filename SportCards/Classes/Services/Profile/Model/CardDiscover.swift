@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CardDiscover: Equatable, Hashable {
+struct CardDiscover: Equatable, Hashable, Identifiable {
     let id: String
     let imageURL: URL?
     let title: String
@@ -19,6 +19,16 @@ struct CardDiscover: Equatable, Hashable {
 }
 
 extension CardDiscover {
+    init?(response: Any) {
+        guard
+            let json = response as? [String: Any],
+            let body = json["body"] as? [String: Any],
+            let model = CardDiscover(from: body)
+        else { return nil }
+        
+        self = model
+    }
+    
     init?(from body: [String: Any]) {
         guard
             let id = body["id"] as? String,

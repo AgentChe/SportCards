@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CardIdentifierMethodView: View {
     @Environment(\.dismiss) private var dismiss
-    
     var body: some View {
         VStack(spacing: 0) {
             Text("CardIdentifier.Title".localized)
@@ -35,21 +34,22 @@ struct CardIdentifierMethodView: View {
             .buttonStyle(ScannerButtonStyle())
             .padding(.bottom, 16.scale)
             
-            Button(
-                action: {},
-                label: {
-                    VStack(spacing: 16.scale) {
-                        Image("Scanner.Manual")
-                        Text("CardIdentifier.Action.Manual".localized)
-                            .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
-                            .foregroundStyle(.mono100)
-                    }
+            NavigationLink(value: Route.manualSearch) {
+                VStack(spacing: 16.scale) {
+                    Image("Scanner.Manual")
+                    Text("CardIdentifier.Action.Manual".localized)
+                        .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
+                        .foregroundStyle(.mono100)
                 }
-            )
+            }
             .buttonStyle(ScannerButtonStyle())
+            
             Spacer()
-            Button(action: dismiss.callAsFunction, label: { Text("CardIdentifier.BackButton") })
-                .buttonStyle(.button(.secondary))
+            
+            Button(action: dismiss.callAsFunction) {
+                Text("CardIdentifier.BackButton")
+            }
+            .buttonStyle(.button(.secondary))
         }
         .multilineTextAlignment(.center)
         .navigationBarBackButtonHidden()

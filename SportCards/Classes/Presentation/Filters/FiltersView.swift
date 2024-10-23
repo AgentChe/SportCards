@@ -42,15 +42,9 @@ struct FiltersView: View {
                     TagLayout(spacing: 12.scale, alignment: .leading) {
                         ForEach(viewModel.categories, id: \.self) { item in
                             Button(
-                                action: {
-                                    if cacheFilters.category.contains(item) {
-                                        cacheFilters.category.remove(item)
-                                    } else {
-                                        cacheFilters.category.insert(item)
-                                    }
-                                },
+                                action: { cacheFilters.category = item },
                                 label: {
-                                    TagView(item.name, isSelected: cacheFilters.category.contains(item))
+                                    TagView(item.name, isSelected: cacheFilters.category == item)
                                 }
                             )
                         }
@@ -65,15 +59,9 @@ struct FiltersView: View {
                     TagLayout(spacing: 12.scale, alignment: .leading) {
                         ForEach(viewModel.grades, id: \.self) { item in
                             Button(
-                                action: { 
-                                    if cacheFilters.grade.contains(item) {
-                                        cacheFilters.grade.remove(item)
-                                    } else {
-                                        cacheFilters.grade.insert(item)
-                                    }
-                                },
+                                action: { cacheFilters.grade = item },
                                 label: {
-                                    TagView(item.alias, isSelected: cacheFilters.grade.contains(item))
+                                    TagView(item.alias, isSelected: cacheFilters.grade == item)
                                 }
                             )
                         }

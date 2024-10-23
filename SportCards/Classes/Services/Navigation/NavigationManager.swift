@@ -14,6 +14,7 @@ enum Route {
     case scannedImage(Data)
     case filters(Binding<Filters>)
     case cardDescription
+    case manualSearch
 }
 
 extension Route: Identifiable, Hashable {
@@ -29,6 +30,8 @@ extension Route: Identifiable, Hashable {
             "filters"
         case .cardDescription:
             "cardDescription"
+        case .manualSearch:
+            "manualSearch"
         }
     }
     
@@ -60,6 +63,13 @@ final class NavigationManager: ObservableObject {
         let index = path.count - 1
         path[index] = route
     }
+    
+    func replacePush(route: Route, replaced: Route) {
+        guard let index = path.lastIndex(of: replaced) else { return }
+        path.removeLast(path.count - index)
+        path.append(route)
+        
+    }
 }
 
 struct RootNavigationStack<Content: View>: View {
@@ -85,6 +95,8 @@ struct RootNavigationStack<Content: View>: View {
                         FiltersView(filters: filters)
                     case .cardDescription:
                         CardDescriptionView()
+                    case .manualSearch:
+                        ManualCardSearchView()
                     }
                 }
         }

@@ -22,7 +22,7 @@ final class CardScannerViewModel: ObservableObject {
     init() {
         Task { await handleCameraPreviews() }
         Task { await handleCameraPhotos() }
-        handlePhotoLibrary()
+        Task { await handlePhotoLibrary() }
         isFlashOn = cameraManager.isFlashOn
     }
     
@@ -35,7 +35,9 @@ extension CardScannerViewModel {
     func start() {
         Task { [cameraManager] in
             let isAuthorized = await cameraManager.isAuthorized
-            isShowAlert = !isAuthorized
+            await MainActor.run { [weak self] in
+                self?.isShowAlert = !isAuthorized
+            }
             guard isAuthorized else { return }
             await cameraManager.start()
         }
@@ -83,20 +85,16 @@ private extension CardScannerViewModel {
         }
     }
     
-    func handlePhotoLibrary() {
-        $selectedPhoto
-            .delay(for: 0.3, scheduler: DispatchQueue.main)
-            .map { item -> AnyPublisher<Data?, Never> in
-                Future { promise in
-                    item?.loadTransferable(type: Data.self) { promise($0) }
+    func handlePhotoLibrary() async {
+        for await item in $selectedPhoto.values {
+            Task {
+                try? await Task.sleep(for: .milliseconds(500))
+                let data = try? await item?.loadTransferable(type: Data.self)
+                await MainActor.run { [weak self] in
+                    self?.savedImage = data
                 }
-                .replaceError(with: nil)
-                .eraseToAnyPublisher()
             }
-            .switchToLatest()
-            .compactMap { $0 }
-            .receive(on: DispatchQueue.main)
-            .assign(to: &$savedImage)
+        }
     }
 }
 

@@ -78,33 +78,37 @@ struct SearchView: View {
     @Binding var filters: Filters
     
     var body: some View {
-        HStack {
-            SearchField(searchText: $searchText, isFocused: $isFocused)
-            if isFocused {
-                NavigationLink(destination: FiltersView(filters: $filters)) {
-                    Image("Home.Settings")
-                        .frame(width: 50.scale, height: 50.scale)
-                        .background(.main300, in: Circle())
-                }
-                .overlay(alignment: .topTrailing) {
-                    if filters.count > 0 {
-                        Text("\(filters.count)")
-                            .font(Fonts.Inter.font(size: 12.scale, weight: .w700))
-                            .foregroundStyle(.white)
-                            .padding(4.scale)
-                            .background(.main100, in: Circle())
-                            .alignmentGuide(.top, computeValue: { dimension in
-                                dimension[.top] + 4.scale
-                            })
-                    }
-                }
+        ZStack(alignment: .trailing) {
+            let isExpanded = isFocused || filters.count > 0 || !searchText.isEmpty
+            NavigationLink(value: Route.filters($filters)) {
+                Image("Home.Settings")
+                    .frame(width: 50.scale, height: 50.scale)
+                    .background(.main300, in: Circle())
             }
+            .overlay(counterOverlay, alignment: .topTrailing)
+            .opacity(isExpanded ? 1 : 0)
+            
+            SearchField(searchText: $searchText, isFocused: $isFocused)
+                .padding(.trailing, isExpanded ? 66.scale : 0)
         }
-        .animation(.easeIn, value: isFocused)
+    }
+    
+    @ViewBuilder
+    private var counterOverlay: some View {
+        if filters.count > 0 {
+            Text("\(filters.count)")
+                .font(Fonts.Inter.font(size: 12.scale, weight: .w700))
+                .foregroundStyle(.white)
+                .padding(6.scale)
+                .background(.main100, in: Circle())
+                .offset(y: -10.scale)
+        }
     }
 }
 
 #Preview {
-    HomeView()
-        .gradientBackground()
+    NavigationStack {
+        HomeView()
+            .gradientBackground()
+    }
 }

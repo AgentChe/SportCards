@@ -115,3 +115,7 @@
 "CardScanner.Progress" = "Identifying card...";
 "CardScanner.CameraAlert.Title" = "Camera not available";
 "CardScanner.CameraAlert.Message" = "Open settings?";
+
+// MARK: Manual Search
+"ManualSearch.Title" = "Manual search";
+"ManualSearch.Subtitle" = "Type in the card name";

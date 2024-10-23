@@ -54,6 +54,7 @@ struct CardScannerView: View {
         .onReceive(viewModel.$savedImage) { image in
             if let image {
                 router.push(to: .scannedImage(image))
+                viewModel.selectedPhoto = nil
             }
         }
         .onAppear { viewModel.start() }

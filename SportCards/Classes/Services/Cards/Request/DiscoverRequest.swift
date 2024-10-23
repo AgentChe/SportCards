@@ -38,13 +38,9 @@ struct DiscoverRequest: APIRequestBody {
         params["sort"] = filters.price?.rawValue
         
         var filtersParams: [String: Any] = [:]
-        if !filters.category.isEmpty {
-            filtersParams["category"] = filters.category.map(\.alias)
-        }
         
-        if !filters.grade.isEmpty {
-            filtersParams["grade"] = filters.grade.map(\.alias)
-        }
+        filtersParams["category"] = filters.category?.alias
+        filtersParams["grade"] = filters.grade?.alias
         
         if !filtersParams.isEmpty {
             params["filter"] = filtersParams

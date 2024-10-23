@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 import Combine
 
 protocol CardsManagerProtocol {
@@ -60,7 +61,7 @@ extension CardsManager: CardsManagerProtocol {
             .eraseToAnyPublisher()
     }
     
-    func cards(text: String, filters: Filters, for page: Int) -> AnyPublisher<Result<[CardDiscover], NetworkError>, Never> {
+    func cards(text: String, filters: Filters, for page: Int) -> AnyPublisher<Result<CardDiscoverResponse?, NetworkError>, Never> {
         let request = DiscoverRequest(
             anonymousId: sessionManager.anonymousId,
             internalId: sessionManager.anonymousId,
@@ -70,9 +71,23 @@ extension CardsManager: CardsManagerProtocol {
         )
         
         return restApiTransport.callServerApi(requestBody: request)
-            .map { CardDiscover.map(response: $0) }
+            .map(CardDiscoverResponse.init(from:))
             .asResult()
             .eraseToAnyPublisher()
+    }
+    
+    func cards(text: String, filters: Filters, for page: Int) async throws -> CardDiscoverResponse? {
+        let request = DiscoverRequest(
+            anonymousId: sessionManager.anonymousId,
+            internalId: sessionManager.anonymousId,
+            text: text,
+            filters: filters,
+            page: page
+        )
+        
+        let data = try await restApiTransport.callServerApi1(requestBody: request)
+        
+        return CardDiscoverResponse(from: data)
     }
     
     func cachedCategories() -> AnyPublisher<[CardCategory], NetworkError> {
@@ -88,11 +103,11 @@ extension CardsManager: CardsManagerProtocol {
     
     func cachedGrades() -> AnyPublisher<[Grade], NetworkError> {
         Future { promise in
-            let categories = UserDefaults.standard.data(forKey: Constants.categories).flatMap {
+            let grades = UserDefaults.standard.data(forKey: Constants.grades).flatMap {
                 try? JSONDecoder().decode([Grade].self, from: $0)
             } ?? []
             
-            promise(.success(categories))
+            promise(.success(grades))
         }
         .eraseToAnyPublisher()
     }
@@ -107,6 +122,44 @@ extension CardsManager: CardsManagerProtocol {
         UserDefaults.standard.data(forKey: Constants.grades).flatMap {
             try? JSONDecoder().decode([Grade].self, from: $0)
         } ?? []
+    }
+    
+    func upload(image: UIImage) -> AnyPublisher<CardUploadResponse?, Never> {
+        let anonymousId = sessionManager.anonymousId.data(using: .utf8)
+        let internalId = sessionManager.internalId.data(using: .utf8)
+        
+        return Future { promise in
+            let url = URL(string: GlobalDefinitions.domain + "/api/v1/cards/scan")
+            let jpeg = image.jpegData(compressionQuality: 0.5)
+            
+            
+            guard let url, let jpeg, let anonymousId, let internalId else {
+                promise(.success(nil))
+                return
+            }
+            
+            let headers: HTTPHeaders = [
+                "Access-Token": GlobalDefinitions.apiKey
+            ]
+            
+            let request = AF.upload(multipartFormData: { multipartFormData in
+                multipartFormData.append(jpeg, withName: "image", fileName: "\(UUID().uuidString).jpeg", mimeType: "image/jpeg")
+                multipartFormData.append(anonymousId, withName: "anonymous_id")
+                multipartFormData.append(internalId, withName: "internal_id")
+            }, to: url, headers: headers)
+            
+            request
+                .response { response in
+                    guard let data = response.data else {
+                        promise(.success(nil))
+                        return
+                    }
+                    
+                    let result = CardUploadResponse(response: data)
+                    promise(.success(result))
+                }
+        }
+        .eraseToAnyPublisher()
     }
 }
 

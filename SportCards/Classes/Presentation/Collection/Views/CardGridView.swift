@@ -28,7 +28,7 @@ struct CardGridView: View {
 #Preview {
     ScrollView(.vertical) {
         LazyVGrid(columns: [GridItem(.flexible(), spacing: 17.5.scale), .init(.flexible(), spacing: 17.5.scale)], spacing: 16.scale) {
-            ForEach(CardDiscover.mock, id: \.id) {
+            ForEach(CardDiscover.mock) {
                 CardGridView(card: $0)
             }
         }

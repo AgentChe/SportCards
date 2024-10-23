@@ -28,7 +28,7 @@ struct ScannedListView: View {
             
             ScrollView(.vertical) {
                 LazyVGrid(columns: layout.columns, spacing: 16.scale) {
-                    ForEach(viewModel.cards, id: \.id) { card in
+                    ForEach(viewModel.cards) { card in
                         switch layout {
                         case .list:
                             RecommendedCardView(card: card)
