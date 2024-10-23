@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeAliasList: View {
-    let alias: [Alias]
+    let alias: [CardCategory]
     
     var body: some View {
         ScrollView(.horizontal) {
@@ -22,8 +22,7 @@ struct HomeAliasList: View {
                         .background(.main300, in: Capsule())
                         .overlay {
                             Capsule()
-                                .stroke(lineWidth: 1.scale)
-                                .fill(.main200)
+                                .stroke(.main200, lineWidth: 1.scale)
                         }
                         .gridColumnAlignment(.leading)
                 }

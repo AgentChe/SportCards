@@ -14,5 +14,6 @@ enum Appearance {
     static let main400 = Color("main400")
     static let main500 = Color("main500")
     static let mono100 = Color("mono100")
-    static let bestOfferBorder = Color("BestOfferBorder")
+    static let gradientBackground = Color("GradientBackground")
+    static let gradientSubstrate = Color("GradientSubstrate")
 }

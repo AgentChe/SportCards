@@ -12,8 +12,7 @@ struct ProfileBindingRequest: APIRequestBody {
     let internalId: String
     
     var url: String {
-        URL(fileURLWithPath: Bundle.main.path(forResource: "ProfileBindingResponse", ofType: "json")!).absoluteString
-//        GlobalDefinitions.domain + "/api/v1/profile/binding"
+        GlobalDefinitions.domain + "/api/v1/profile/binding"
     }
     
     var method: HTTPMethod {

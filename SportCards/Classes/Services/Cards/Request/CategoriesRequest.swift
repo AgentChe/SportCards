@@ -1,5 +1,5 @@
 //
-//  CategoriestRequest.swift
+//  CategoriesRequest.swift
 //  SportCards
 //
 //  Created by Vitaliy Zagorodnov on 03.10.2024.
@@ -7,13 +7,12 @@
 
 import Alamofire
 
-struct CategoriestRequest: APIRequestBody {
+struct CategoriesRequest: APIRequestBody {
     let anonymousId: String
     let internalId: String
     
     var url: String {
-        return URL(fileURLWithPath: Bundle.main.path(forResource: "CategoriesResponse", ofType: "json")!).absoluteString
-//        GlobalDefinitions.domain + "/api/v1/cards/categories"
+        GlobalDefinitions.domain + "/api/v1/cards/categories"
     }
     
     var method: HTTPMethod {

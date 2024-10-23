@@ -1,0 +1,69 @@
+//
+//  CardScannerTabBar.swift
+//  SportCards
+//
+//  Created by Vitaliy Zagorodnov on 17.10.2024.
+//
+
+import SwiftUI
+import PhotosUI
+
+struct CardScannerTabBar: View {
+    @Binding private var selectedPhoto: PhotosPickerItem?
+    private let toggleAction: () -> Void
+    private let cameraAction: () -> Void
+    
+    init(selectedPhoto: Binding<PhotosPickerItem?>, toggleAction: @escaping () -> Void, cameraAction: @escaping () -> Void) {
+        self._selectedPhoto = selectedPhoto
+        self.toggleAction = toggleAction
+        self.cameraAction = cameraAction
+    }
+    
+    var body: some View {
+        HStack {
+            Button(
+                action: toggleAction,
+                label: {
+                    Image("Scanner.Rotate")
+                        .padding(11.scale)
+                        .background(.main100, in: Circle())
+                }
+            )
+            Spacer()
+            
+            PhotosPicker(selection: $selectedPhoto, matching: .images, photoLibrary: .shared()) {
+                Image("Scanner.Library")
+                    .padding(11.scale)
+                    .background(.main100, in: Circle())
+            }
+        }
+        .padding(.init(
+            top: 18.scale,
+            leading: 54.scale,
+            bottom: ScreenSize.isIphoneXFamily ? 36.scale : 16.scale,
+            trailing: 54.scale
+        ))
+        .background(.main300)
+        .clipShape(UnevenRoundedRectangle(topLeadingRadius: 24.scale, topTrailingRadius: 24.scale))
+        .overlay {
+            UnevenRoundedRectangle(topLeadingRadius: 24.scale, topTrailingRadius: 24.scale)
+                .stroke(.main200, lineWidth: 1.scale)
+        }
+        .overlay(alignment: .top) {
+            Button(action: cameraAction,
+                label: {
+                    Image("Home.Scanner")
+                        .padding(22.scale)
+                        .background(.main100, in: Circle())
+                }
+            )
+            .alignmentGuide(.top, computeValue: { dimension in
+                dimension[.top] + 22.scale
+            })
+        }
+    }
+}
+
+#Preview {
+    CardScannerTabBar(selectedPhoto: .constant(nil), toggleAction: {}, cameraAction: {})
+}

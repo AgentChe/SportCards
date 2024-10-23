@@ -23,7 +23,7 @@ struct CardCollectionEmptyView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity)
-        .background(.black)
+        .gradientBackground()
     }
 }
 

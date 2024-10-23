@@ -41,12 +41,17 @@ struct OnboardingView: View {
             OnboardingCardView3(continueAction: nextPage, skipAction: nextPage)
                 .tag(2)
         case .onboarding4:
-            OnboardingCardView4(selected: $viewModel.games, continueAction: nextPage)
-                .tag(3)
+            OnboardingCardView4(
+                categories: viewModel.categories,
+                selected: $viewModel.selectedCategories,
+                continueAction: nextPage
+            )
+            .tag(3)
         case .onboarding5:
             OnboardingCardView5(
+                grades: viewModel.grades,
                 continueAction: { grades in
-                    viewModel.grades = grades
+                    viewModel.selectedGrades = grades
                     nextPage()
                 }, 
                 skipAction: nextPage

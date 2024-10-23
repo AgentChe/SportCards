@@ -10,7 +10,7 @@ import SwiftUI
 struct WishListView: View {
     @StateObject private var viewModel = WishListViewModel()
     @State private var layout: CollectionLayoutType = .list
-    @Namespace var namespace
+    @Namespace var wishAnim
     
     var body: some View {
         VStack(spacing: 0) {
@@ -23,12 +23,14 @@ struct WishListView: View {
             
             ScrollView(.vertical) {
                 LazyVGrid(columns: layout.columns, spacing: 16.scale) {
-                    ForEach(viewModel.cards, id: \.id) { card in
+                    ForEach(viewModel.cards) { card in
                         switch layout {
                         case .list:
                             RecommendedCardView(card: card)
+                                .matchedGeometryEffect(id: card.id, in: wishAnim)
                         case .grid:
                             CardGridView(card: card)
+                                .matchedGeometryEffect(id: card.id, in: wishAnim)
                         }
                     }
                 }
@@ -36,7 +38,6 @@ struct WishListView: View {
                 .padding(.bottom, 32.scale)
             }
         }
-        .background(.black)
         .overlay {
             if viewModel.cards.isEmpty {
                 CardCollectionEmptyView()
@@ -51,4 +52,5 @@ struct WishListView: View {
 
 #Preview {
     WishListView()
+        .gradientBackground()
 }

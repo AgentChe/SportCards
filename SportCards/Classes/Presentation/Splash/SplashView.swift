@@ -51,7 +51,8 @@ struct SplashView: View {
                 .lineSpacing(10.scale)
             
             Spacer()
-            LoaderView()
+            ProgressView()
+                .progressViewStyle(.sportCards)
                 .frame(width: 40.scale, height: 40.scale)
                 .padding(.bottom, 56.scale)
                 .foregroundStyle(.white)
@@ -61,22 +62,6 @@ struct SplashView: View {
         .background(.black)
     }
 }
-
-
-struct LoaderView: View {
-    @State private var rotation:  Double = 0
-    var body: some View {
-        Image("Loader")
-            .resizable()
-            .rotationEffect(.radians(-rotation))
-            .onAppear {
-                withAnimation(.linear(duration: 1).speed(0.8).repeatForever(autoreverses: false)) {
-                    rotation = .pi * 2
-                }
-            }
-    }
-}
-
 #Preview {
     SplashView()
 }

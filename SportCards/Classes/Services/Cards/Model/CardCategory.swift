@@ -1,5 +1,5 @@
 //
-//  Alias.swift
+//  CardCategory.swift
 //  SportCards
 //
 //  Created by Vitaliy Zagorodnov on 03.10.2024.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Alias: Hashable {
+struct CardCategory: Hashable {
     let alias: String
     let name: String
 }
 
-extension Alias {
+extension CardCategory {
     init?(from json: [String: Any]) {
         guard
             let alias = json["alias"] as? String,
@@ -23,14 +23,14 @@ extension Alias {
         self.name = name
     }
     
-    static func map(response: Any) -> [Alias] {
+    static func map(response: Any) -> [CardCategory] {
         guard
             let json = response as? [String: Any],
             let body = json["body"] as? [[String: Any]]
         else { return [] }
         
-        return body.compactMap { Alias(from: $0) }
+        return body.compactMap { CardCategory(from: $0) }
     }
 }
 
-extension Alias: Codable {}
+extension CardCategory: Codable {}

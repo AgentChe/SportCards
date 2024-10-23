@@ -12,7 +12,7 @@ enum HomeViewCellType: Hashable {
     case priceReport(PriceReport)
     case sectionTitle(String)
     case recommendedCard(CardDiscover)
-    case allias([Alias])
+    case allias([CardCategory])
     case other(OtherCardModel)
 }
 

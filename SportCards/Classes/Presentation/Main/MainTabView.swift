@@ -15,21 +15,19 @@ struct MainTabView: View {
     
     init() {
         let coloredNavAppearance = UINavigationBarAppearance()
-        coloredNavAppearance.configureWithOpaqueBackground()
-        coloredNavAppearance.backgroundColor = .black
+        coloredNavAppearance.configureWithTransparentBackground()
         UINavigationBar.appearance().standardAppearance = coloredNavAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = coloredNavAppearance
     }
     
     var body: some View {
-        NavigationStack {
+        RootNavigationStack {
             TabBarView(items: tabs, selected: $selectedTab) {
                 ForEach(tabs, id: \.self) {
                     $0.screen
                 }
             }
             .frame(maxHeight: .infinity)
-            .background(.black)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Text(selectedTab.navigationTitle)
@@ -48,6 +46,7 @@ struct MainTabView: View {
             }
             .animation(.easeInOut, value: selectedTab)
             .navigationBarBackButtonHidden()
+            .gradientBackground()
         }
         .fullScreenCover(isPresented: $presentPaygate, content: { PaygateView() })
     }

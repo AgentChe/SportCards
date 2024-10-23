@@ -14,14 +14,16 @@ struct SearchField: View {
     var body: some View {
         HStack {
             TextField(text: $searchText) {
-                Text("Search")
+                Text("Search".localized)
                     .font(Fonts.Inter.font(size: 18.scale, weight: .w400))
                     .foregroundStyle(.white.opacity(0.5))
             }
+            .autocorrectionDisabled()
             .font(Fonts.Inter.font(size: 18.scale, weight: .w400))
             .foregroundStyle(.white)
             .frame(height: 50.scale)
             .focused($isFocus)
+            
             if isFocus {
                 Button(
                     action: { searchText = "" },
@@ -31,6 +33,9 @@ struct SearchField: View {
         }
         .padding(.horizontal, 24.scale)
         .background(.main300, in: Capsule())
+        .onTapGesture { 
+            isFocus = true
+        }
         .onChange(of: isFocus) { newValue in
             isFocused = newValue
         }

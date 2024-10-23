@@ -39,7 +39,7 @@ struct OtherCardView: View {
             
             Spacer()
             
-            Text(model.grade.shortName)
+            Text(model.grade)
                 .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
                 .foregroundStyle(.mono100)
                 .padding(.horizontal, 16.5.scale)
@@ -51,15 +51,14 @@ struct OtherCardView: View {
         .background(.main300, in: RoundedRectangle(cornerRadius: 12.scale))
         .overlay {
             RoundedRectangle(cornerRadius: 12.scale)
-                .stroke(lineWidth: 1.scale)
-                .fill(.main200)
+                .stroke(.main200, lineWidth: 1.scale)
         }
     }
 }
 
 #Preview {
     VStack(spacing: 16.scale) {
-        OtherCardView(model: .init(category: .init(alias: "mma", name: "MMA"), image: URL(string: "https://sportscards.com/cdn/shop/products/90233_1_2000x.jpg?v=1645545951"), name: "Name", grade: .psa))
+        OtherCardView(model: .init(category: .init(alias: "mma", name: "MMA"), image: URL(string: "https://sportscards.com/cdn/shop/products/90233_1_2000x.jpg?v=1645545951"), name: "Name", grade: "PSA"))
     }
     
     .padding(.horizontal, 16.scale)

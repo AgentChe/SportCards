@@ -12,9 +12,7 @@ struct HomeRequest: APIRequestBody {
     let internalId: String
     
     var url: String {
-        let path = Bundle.main.path(forResource: "HomeResponse", ofType: "json")!
-        return URL(fileURLWithPath: path).absoluteString
-//        GlobalDefinitions.domain + "/api/v1/profile/home"
+        GlobalDefinitions.domain + "/api/v1/profile/home"
     }
     
     var method: HTTPMethod {

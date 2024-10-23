@@ -7,17 +7,6 @@
 
 import Alamofire
 
-private extension CollectionTab {
-    var mockName: String {
-        switch self {
-        case .scanned:
-            "ScannedResponse"
-        case .wishList:
-            "CollectResponse"
-        }
-    }
-}
-
 struct ProfileCollectionRequest: APIRequestBody {
     let anonymousId: String
     let internalId: String
@@ -26,8 +15,7 @@ struct ProfileCollectionRequest: APIRequestBody {
     let type: CollectionTab
     
     var url: String {
-        return URL(fileURLWithPath: Bundle.main.path(forResource: type.mockName, ofType: "json")!).absoluteString
-//        GlobalDefinitions.domain + "/api/v1/profile/cards"
+        GlobalDefinitions.domain + "/api/v1/profile/cards"
     }
     
     var method: HTTPMethod {
@@ -50,13 +38,9 @@ struct ProfileCollectionRequest: APIRequestBody {
         params["sort"] = filters.price?.rawValue
         
         var filtersParams: [String: Any] = [:]
-        if !filters.category.isEmpty {
-            filtersParams["category"] = filters.category.map(\.alias)
-        }
         
-        if !filters.grade.isEmpty {
-            filtersParams["grade"] = filters.grade.map(\.rawValue)
-        }
+        filtersParams["category"] = filters.category?.alias
+        filtersParams["grade"] = filters.grade?.alias
         
         filtersParams["type"] = type.rawValue
         
