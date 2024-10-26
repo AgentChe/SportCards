@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject private var route: NavigationManager
     @StateObject private var viewModel = HomeViewModel()
     
     @State private var presentPaygate: Bool = false
@@ -15,94 +16,73 @@ struct HomeView: View {
     @State private var isLoaded: Bool = false
     
     var body: some View {
-        ScrollView(.vertical) {
-            LazyVStack(alignment: .leading, spacing: 0) {
-                SearchView(
-                    searchText: $viewModel.searchText,
-                    isFocused: $viewModel.searchIsFocused,
-                    filters: $viewModel.filters
-                )
-                .padding(.top, 14.scale)
-                .padding(.horizontal, 16.scale)
-                
-                ForEach(viewModel.dataSource) { model in
-                    switch model {
-                    case .cardScanner:
-                        HomeCardScannerView()
-                            .padding(.top, 24.scale)
-                            .padding(.horizontal, 16.scale)
-                    case let .sectionTitle(title):
-                        Text(title)
-                            .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
-                            .foregroundStyle(.white)
-                            .padding(.top, 24.scale)
-                            .padding(.horizontal, 16.scale)
-                    case let .recommendedCard(card):
-                        RecommendedCardView(card: card)
-                            .padding(.top, 16.scale)
-                            .padding(.horizontal, 16.scale)
-                    case let .allias(items):
-                        HomeAliasList(alias: items)
-                            .padding(.leading, 16.scale)
-                            .padding(.top, 24.scale)
-                    case let .priceReport(report):
-                        PriceChartView(
-                            title: "Chart.Title.Collection".localized,
-                            model: report
-                        )
-                        .padding(.top, 24.scale)
-                        .padding(.horizontal, 16.scale)
-                    case let .other(model):
-                        OtherCardView(model: model)
-                            .padding(.top, 16.scale)
-                            .padding(.horizontal, 16.scale)
-                    }
-                }
+        VStack(spacing: 0) {
+            if viewModel.dataSource.isEmpty {
+                LoaderView(type: .fullScreen)
+            } else {
+                content
             }
-            .padding(.bottom, 32.scale)
         }
-        .animation(.easeOut, value: viewModel.dataSource)
-        .scrollIndicators(.never)
-        .frame(maxHeight: .infinity)
+        .homeSearchable()
+        .frame(maxWidth: .infinity)
+        .tryAgain(error: $viewModel.error, tryAgain: viewModel.makeData)
         .navigationBarBackButtonHidden()
         .onViewDidLoad {
             viewModel.makeData()
         }
-        
     }
 }
 
-struct SearchView: View {
-    @Binding var searchText: String
-    @Binding var isFocused: Bool
-    @Binding var filters: Filters
-    
-    var body: some View {
-        ZStack(alignment: .trailing) {
-            let isExpanded = isFocused || filters.count > 0 || !searchText.isEmpty
-            NavigationLink(value: Route.filters($filters)) {
-                Image("Home.Settings")
-                    .frame(width: 50.scale, height: 50.scale)
-                    .background(.main300, in: Circle())
-            }
-            .overlay(counterOverlay, alignment: .topTrailing)
-            .opacity(isExpanded ? 1 : 0)
-            
-            SearchField(searchText: $searchText, isFocused: $isFocused)
-                .padding(.trailing, isExpanded ? 66.scale : 0)
-        }
-    }
-    
+private extension HomeView {
     @ViewBuilder
-    private var counterOverlay: some View {
-        if filters.count > 0 {
-            Text("\(filters.count)")
-                .font(Fonts.Inter.font(size: 12.scale, weight: .w700))
-                .foregroundStyle(.white)
-                .padding(6.scale)
-                .background(.main100, in: Circle())
-                .offset(y: -10.scale)
+    private var content: some View {
+        List {
+            ForEach(viewModel.dataSource) { model in
+                switch model {
+                case .cardScanner:
+                    HomeCardScannerView()
+                        .padding(.horizontal, 16.scale)
+                case let .sectionTitle(title):
+                    Text(title)
+                        .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
+                        .foregroundStyle(.white)
+                        .padding(.top, 24.scale)
+                        .padding(.horizontal, 16.scale)
+                case let .recommendedCard(card):
+                    Button(
+                        action: { route.push(to: .cardDescription(id: card.cardId, grade: card.grade, collection: .wishList)) },
+                        label: { RecommendedCardView(card: card) }
+                    )
+                    .padding(.top, 16.scale)
+                    .padding(.horizontal, 16.scale)
+                case let .allias(items):
+                    HomeAliasList(alias: items)
+                        .padding(.leading, 16.scale)
+                        .padding(.top, 24.scale)
+                case let .priceReport(report):
+                    PriceChartView(
+                        title: "Chart.Title.Collection".localized,
+                        model: report
+                    )
+                    .padding(.horizontal, 16.scale)
+                case let .other(model):
+                    OtherCardView(model: model)
+                        .padding(.top, 16.scale)
+                        .padding(.horizontal, 16.scale)
+                }
+            }
+            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
         }
+        .listRowSpacing(0)
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+        .safeAreaInset(edge: .bottom, content: {
+            Spacer()
+                .frame(height: 32.scale)
+        })
+        .scrollIndicators(.never)
     }
 }
 

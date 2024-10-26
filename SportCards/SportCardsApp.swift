@@ -26,7 +26,8 @@ struct RootView: View {
                     .tryAgain(error: $manager.error) { manager.login() }
                     .transition(.opacity)
             case .onboarding:
-                OnboardingView().environmentObject(manager)
+                OnboardingView()
+                    .environmentObject(manager)
             case .home:
                 MainTabView()
                     .transition(.opacity)
@@ -79,7 +80,7 @@ final class RootViewManager: ObservableObject {
             : profileManager.binding()
         
         cancellable = request
-            .map { [cardsManager] _ -> AnyPublisher<Void, NetworkError> in
+            .map { [cardsManager] _ -> AnyPublisher<Void, Error> in
                 let categories = cardsManager.makeCategories(forceUpdate: true)
                     .mapToVoid()
                 
@@ -94,7 +95,7 @@ final class RootViewManager: ObservableObject {
             .sink(receiveCompletion: { [weak self] completion in
                 // TODO: FIX ME
 //                if case let .failure(error) = completion {
-//                    self?.error = .request
+//                    self?.screenState = .error(error)
 //                }
                 self?.makeStartRoute()
             }, receiveValue: { [weak self] _ in

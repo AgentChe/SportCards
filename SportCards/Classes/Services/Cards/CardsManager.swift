@@ -10,7 +10,11 @@ import Alamofire
 import Combine
 
 protocol CardsManagerProtocol {
-    func categories() -> AnyPublisher<[CardCategory], NetworkError>
+    func makeCategories(forceUpdate: Bool) -> AnyPublisher<[CardCategory], Error>
+    func makeGrades(forceUpdate: Bool) -> AnyPublisher<[Grade], Error>
+    func cards(text: String, filters: Filters, for page: Int) -> AnyPublisher<Result<CardDiscoverResponse?, Error>, Never>
+    func cardDetails(id: String, grade: String) -> AnyPublisher<CardDetails, Error>
+    func upload(image: UIImage) -> AnyPublisher<CardUploadResponse?, Never>
 }
 
 final class CardsManager {
@@ -19,49 +23,15 @@ final class CardsManager {
 }
 
 extension CardsManager: CardsManagerProtocol {
-    func makeCategories(forceUpdate: Bool) -> AnyPublisher<[CardCategory], NetworkError> {
+    func makeCategories(forceUpdate: Bool) -> AnyPublisher<[CardCategory], Error> {
         forceUpdate ? categories() : cachedCategories()
     }
     
-    func makeGrades(forceUpdate: Bool) -> AnyPublisher<[Grade], NetworkError> {
+    func makeGrades(forceUpdate: Bool) -> AnyPublisher<[Grade], Error> {
         forceUpdate ? grades() : cachedGrades()
     }
     
-    func categories() -> AnyPublisher<[CardCategory], NetworkError> {
-        let request = CategoriesRequest(
-            anonymousId: sessionManager.anonymousId,
-            internalId: sessionManager.anonymousId
-        )
-        
-        return restApiTransport
-            .callServerApi(requestBody: request)
-            .map { CardCategory.map(response: $0) }
-            .handleEvents(receiveOutput: { items in
-                if let data = try? JSONEncoder().encode(items) {
-                    UserDefaults.standard.set(data, forKey: Constants.categories)
-                }
-            })
-            .eraseToAnyPublisher()
-    }
-    
-    func grades() -> AnyPublisher<[Grade], NetworkError> {
-        let request = GradesRequest(
-            anonymousId: sessionManager.anonymousId,
-            internalId: sessionManager.anonymousId
-        )
-        
-        return restApiTransport
-            .callServerApi(requestBody: request)
-            .map { Grade.map(response: $0) }
-            .handleEvents(receiveOutput: { items in
-                if let data = try? JSONEncoder().encode(items) {
-                    UserDefaults.standard.set(data, forKey: Constants.grades)
-                }
-            })
-            .eraseToAnyPublisher()
-    }
-    
-    func cards(text: String, filters: Filters, for page: Int) -> AnyPublisher<Result<CardDiscoverResponse?, NetworkError>, Never> {
+    func cards(text: String, filters: Filters, for page: Int) -> AnyPublisher<Result<CardDiscoverResponse?, Error>, Never> {
         let request = DiscoverRequest(
             anonymousId: sessionManager.anonymousId,
             internalId: sessionManager.anonymousId,
@@ -70,58 +40,36 @@ extension CardsManager: CardsManagerProtocol {
             page: page
         )
         
-        return restApiTransport.callServerApi(requestBody: request)
-            .map(CardDiscoverResponse.init(from:))
+        return restApiTransport
+            .callServerApi(requestBody: request)
             .asResult()
             .eraseToAnyPublisher()
     }
     
-    func cards(text: String, filters: Filters, for page: Int) async throws -> CardDiscoverResponse? {
-        let request = DiscoverRequest(
+//    func cards(text: String, filters: Filters, for page: Int) async throws -> CardDiscoverResponse? {
+//        let request = DiscoverRequest(
+//            anonymousId: sessionManager.anonymousId,
+//            internalId: sessionManager.anonymousId,
+//            text: text,
+//            filters: filters,
+//            page: page
+//        )
+//        
+//        let data = try await restApiTransport.callServerApi1(requestBody: request)
+//        
+//        return CardDiscoverResponse(from: data)
+//    }
+    
+    func cardDetails(id: String, grade: String) -> AnyPublisher<CardDetails, Error> {
+        let request = CardDetailsRequest(
             anonymousId: sessionManager.anonymousId,
             internalId: sessionManager.anonymousId,
-            text: text,
-            filters: filters,
-            page: page
+            id: id,
+            grade: grade
         )
-        
-        let data = try await restApiTransport.callServerApi1(requestBody: request)
-        
-        return CardDiscoverResponse(from: data)
-    }
-    
-    func cachedCategories() -> AnyPublisher<[CardCategory], NetworkError> {
-        Future { promise in
-            let categories = UserDefaults.standard.data(forKey: Constants.categories).flatMap {
-                try? JSONDecoder().decode([CardCategory].self, from: $0)
-            } ?? []
             
-            promise(.success(categories))
-        }
-        .eraseToAnyPublisher()
-    }
-    
-    func cachedGrades() -> AnyPublisher<[Grade], NetworkError> {
-        Future { promise in
-            let grades = UserDefaults.standard.data(forKey: Constants.grades).flatMap {
-                try? JSONDecoder().decode([Grade].self, from: $0)
-            } ?? []
-            
-            promise(.success(grades))
-        }
-        .eraseToAnyPublisher()
-    }
-    
-    func cachedCategories() -> [CardCategory] {
-        UserDefaults.standard.data(forKey: Constants.categories).flatMap {
-            try? JSONDecoder().decode([CardCategory].self, from: $0)
-        } ?? []
-    }
-    
-    func cachedGrades() -> [Grade] {
-        UserDefaults.standard.data(forKey: Constants.grades).flatMap {
-            try? JSONDecoder().decode([Grade].self, from: $0)
-        } ?? []
+        return restApiTransport
+            .callServerApi(requestBody: request)
     }
     
     func upload(image: UIImage) -> AnyPublisher<CardUploadResponse?, Never> {
@@ -149,17 +97,84 @@ extension CardsManager: CardsManagerProtocol {
             }, to: url, headers: headers)
             
             request
-                .response { response in
-                    guard let data = response.data else {
+                .responseContainer(of: CardUploadResponse.self) { response in
+                    switch response.result {
+                    case .success(let success):
+                        promise(.success(success))
+                    case .failure(let failure):
                         promise(.success(nil))
-                        return
                     }
-                    
-                    let result = CardUploadResponse(response: data)
-                    promise(.success(result))
                 }
         }
         .eraseToAnyPublisher()
+    }
+}
+
+private extension CardsManager {
+    func categories() -> AnyPublisher<[CardCategory], Error> {
+        let request = CategoriesRequest(
+            anonymousId: sessionManager.anonymousId,
+            internalId: sessionManager.anonymousId
+        )
+        
+        return restApiTransport
+            .callServerApi(requestBody: request)
+            .handleEvents(receiveOutput: { items in
+                if let data = try? JSONEncoder().encode(items) {
+                    UserDefaults.standard.set(data, forKey: Constants.categories)
+                }
+            })
+            .eraseToAnyPublisher()
+    }
+    
+    func grades() -> AnyPublisher<[Grade], Error> {
+        let request = GradesRequest(
+            anonymousId: sessionManager.anonymousId,
+            internalId: sessionManager.anonymousId
+        )
+        
+        return restApiTransport
+            .callServerApi(requestBody: request)
+            .handleEvents(receiveOutput: { items in
+                if let data = try? JSONEncoder().encode(items) {
+                    UserDefaults.standard.set(data, forKey: Constants.grades)
+                }
+            })
+            .eraseToAnyPublisher()
+    }
+    
+    func cachedCategories() -> AnyPublisher<[CardCategory], Error> {
+        Future { promise in
+            let categories = UserDefaults.standard.data(forKey: Constants.categories).flatMap {
+                try? JSONDecoder().decode([CardCategory].self, from: $0)
+            } ?? []
+            
+            promise(.success(categories))
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func cachedGrades() -> AnyPublisher<[Grade], Error> {
+        Future { promise in
+            let grades = UserDefaults.standard.data(forKey: Constants.grades).flatMap {
+                try? JSONDecoder().decode([Grade].self, from: $0)
+            } ?? []
+            
+            promise(.success(grades))
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func cachedCategories() -> [CardCategory] {
+        UserDefaults.standard.data(forKey: Constants.categories).flatMap {
+            try? JSONDecoder().decode([CardCategory].self, from: $0)
+        } ?? []
+    }
+    
+    func cachedGrades() -> [Grade] {
+        UserDefaults.standard.data(forKey: Constants.grades).flatMap {
+            try? JSONDecoder().decode([Grade].self, from: $0)
+        } ?? []
     }
 }
 

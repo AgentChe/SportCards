@@ -1,5 +1,5 @@
 //
-//  ManualCardSearchViewModel.swift
+//  CardSearchViewModel.swift
 //  SportCards
 //
 //  Created by Vitaliy Zagorodnov on 21.10.2024.
@@ -8,10 +8,9 @@
 import Foundation
 import Combine
 
-final class ManualCardSearchViewModel: ObservableObject {
+final class CardSearchViewModel: ObservableObject {
     
     @Published var filters: Filters = .init()
-    @Published var isFocused: Bool = false
     @Published var searchText: String = ""
     @Published var elements: [CardDiscover] = []
     @Published var isFinished: Bool = false
@@ -47,7 +46,7 @@ final class ManualCardSearchViewModel: ObservableObject {
                 }
                 isFinished = false
                 var isLoading = false
-                var pagination: CardDiscoverResponse.Pagination?
+                var pagination: Pagination?
                 
                 return loadNext
                     .prepend(())

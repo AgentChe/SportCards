@@ -8,27 +8,28 @@
 import Foundation
 
 struct CardUploadResponse {
-    let id: String
+    let cardId: String
     let imageURL: URL?
     let title: String
     let subtitle: String?
     let grades: [String]
 }
 
-extension CardUploadResponse {
-    init?(response: Data?) {
-        guard
-            let response,
-            let json = try? JSONSerialization.jsonObject(with: response, options: .allowFragments) as? [String: Any],
-            let body = json["body"] as? [String: Any],
-            let id = body["id"] as? String,
-            let grades = body["grades"] as? [String]
-        else { return nil }
-        
-        self.id = id
-        self.imageURL = (body["image"] as? String).flatMap { URL(string: $0) }
-        self.title = body["title"] as? String ?? ""
-        self.subtitle = body["subtitle"] as? String ?? ""
-        self.grades = grades
+extension CardUploadResponse: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case id
+        case imageURL = "image"
+        case title
+        case subtitle
+        case grades
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.cardId = try container.decode(String.self, forKey: .id)
+        self.imageURL = try container.decodeIfPresent(URL.self, forKey: .imageURL)
+        self.title = (try? container.decode(String.self, forKey: .title)) ?? ""
+        self.subtitle = (try? container.decodeIfPresent(String.self, forKey: .subtitle)) ?? ""
+        self.grades = try container.decode([String].self, forKey: .grades)
     }
 }

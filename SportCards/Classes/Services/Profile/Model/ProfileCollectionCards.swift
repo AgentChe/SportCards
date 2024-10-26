@@ -7,29 +7,20 @@
 
 import Foundation
 
-struct ProfileCollectionCards: Hashable {
-    let totalPrice: String
-    let totalPriceRaw: Double
-    let total: Int
+struct ProfileCollectionCards {
     let items: [CardDiscover]
+    let pagination: Pagination
 }
 
-extension ProfileCollectionCards {
-    init?(from response: Any) {
-        guard
-            let json = response as? [String: Any],
-            let body = json["body"] as? [String: Any]
-        else { return nil }
-        
-        guard
-            let totalPrice = body["total_price"] as? String,
-            let totalPriceRaw = body["total_price_raw"] as? Double,
-            let total = body["total"] as? Int
-        else { return nil }
-        
-        self.totalPrice = totalPrice
-        self.totalPriceRaw = totalPriceRaw
-        self.total = total
-        self.items = (body["items"] as? [[String: Any]]).flatMap { $0.compactMap { CardDiscover(from: $0) } } ?? []
+extension ProfileCollectionCards: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case items
+        case pagination
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.items = (try? container.decode([CardDiscover].self, forKey: .items)) ?? []
+        self.pagination = try container.decode(Pagination.self, forKey: .pagination)
     }
 }

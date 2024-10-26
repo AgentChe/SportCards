@@ -34,8 +34,7 @@ struct MainTabView: View {
                         .font(Fonts.Inter.font(size: 22.scale, weight: .w700))
                         .foregroundStyle(.white)
                 }
-            }
-            .toolbar {
+                
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {}) {
                         Image("Home.Menu")

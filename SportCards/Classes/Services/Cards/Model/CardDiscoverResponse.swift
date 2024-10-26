@@ -12,42 +12,26 @@ struct CardDiscoverResponse {
     let pagination: Pagination
 }
 
-extension CardDiscoverResponse {
-    struct Pagination {
-        let current: Int
-        let next: Int
-        let total: Int
+struct Pagination: Decodable {
+    let current: Int
+    let next: Int
+    let total: Int
+}
+
+extension CardDiscoverResponse: Decodable {
+    enum CodingKeys: CodingKey {
+        case items
+        case pagination
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.items = (try? container.decode([CardDiscover].self, forKey: .items)) ?? []
+        self.pagination = try container.decode(Pagination.self, forKey: .pagination)
     }
 }
 
-extension CardDiscoverResponse.Pagination {
+
+extension Pagination {
     var isEnd: Bool { current >= total }
-}
-
-extension CardDiscoverResponse.Pagination {
-    init?(from json: [String: Any]) {
-        guard
-            let current = json["current"] as? Int,
-            let next = json["next"] as? Int,
-            let total = json["total"] as? Int
-        else { return nil }
-        
-        self.current = current
-        self.next = next
-        self.total = total
-    }
-}
-
-extension CardDiscoverResponse {
-    init?(from response: Any) {
-        guard
-            let json = response as? [String: Any],
-            let body = json["body"] as? [String: Any],
-            let paginationJson = body["pagination"] as? [String: Any],
-            let pagination = Pagination(from: paginationJson)
-        else { return nil }
-        
-        items = (body["items"] as? [[String: Any]]).flatMap { $0.compactMap { CardDiscover(from: $0)} } ?? []
-        self.pagination = pagination
-    }
 }

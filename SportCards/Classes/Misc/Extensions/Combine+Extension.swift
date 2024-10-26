@@ -37,13 +37,13 @@ final class ReplaySubject<Output, Failure: Error>: Subject {
     private var subscriptions = [ReplaySubjectSubscription<Output, Failure>]()
     private var completion: Subscribers.Completion<Failure>?
 
-        func receive<Downstream: Subscriber>(subscriber: Downstream) where Downstream.Failure == Failure, Downstream.Input == Output {
-            lock.lock(); defer { lock.unlock() }
-            let subscription = ReplaySubjectSubscription<Output, Failure>(downstream: AnySubscriber(subscriber))
-            subscriber.receive(subscription: subscription)
-            subscriptions.append(subscription)
-            subscription.replay(buffer, completion: completion)
-        }
+    func receive<Downstream: Subscriber>(subscriber: Downstream) where Downstream.Failure == Failure, Downstream.Input == Output {
+        lock.lock(); defer { lock.unlock() }
+        let subscription = ReplaySubjectSubscription<Output, Failure>(downstream: AnySubscriber(subscriber))
+        subscriber.receive(subscription: subscription)
+        subscriptions.append(subscription)
+        subscription.replay(buffer, completion: completion)
+    }
 }
 extension ReplaySubject {
 

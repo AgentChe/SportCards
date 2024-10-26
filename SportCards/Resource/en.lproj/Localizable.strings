@@ -12,6 +12,7 @@
 "Search" = "Search";
 "Ok" = "Ok";
 "Cancel" = "Cancel";
+"Delete" = "Delete";
 
 // MARK: Splash
 "Splash.Title" = "Welcome to CardCollector";
@@ -119,3 +120,20 @@
 // MARK: Manual Search
 "ManualSearch.Title" = "Manual search";
 "ManualSearch.Subtitle" = "Type in the card name";
+
+// MARK: Card details
+"CardDetails.Title" = "Card description";
+"CardDetails.Approximate" = "Approximate estimate";
+"CardDetails.Report" = "Price Report";
+"CardDetails.NumberSales" = "Number of Sales";
+"CardDetails.LowestPrice" = "Lowest Price";
+"CardDetails.HighestPrice" = "Highest Price";
+"CardDetails.LastSold" = "Last sold";
+"CardDetails.Date" = "Date";
+"CardDetails.Ebay" = "Buy on Ebay";
+"CardDetails.Pwcc" = "Buy on PWCC";
+"CardDetails.Add" = "Add to Collection";
+"CardDetails.Remove" = "Remove from collection";
+"CardDetails.ConfirmMessage" = "Are you sure you want to delete this card?";
+"CardDetails.SalesTab" = "Sales";
+"CardDetails.ParallelsTab" = "Parallels";

@@ -26,7 +26,7 @@ struct TabBarView<Content: View>: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             
-            HStack(spacing: 100) {
+            HStack(spacing: 100.scale) {
                 ForEach(items, id: \.self) { item in
                     Button(
                         action: { withAnimation { selected = item } },

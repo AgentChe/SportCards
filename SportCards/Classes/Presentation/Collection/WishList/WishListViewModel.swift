@@ -11,55 +11,81 @@ import Combine
 final class WishListViewModel: ObservableObject {
     @Published var filters: Filters = Filters()
     @Published var cards: [CardDiscover] = []
+    @Published var isFinished: Bool = false
+    @Published var error: ErrorScreenType? = nil
     
     private lazy var profileManager = ProfileManager()
     private let loadNext = PassthroughSubject<Void, Never>()
+    private var cancellable: Set<AnyCancellable> = []
     
-    func makeData() {
-        let result = $filters
-            .compactMap { [weak self] filters -> AnyPublisher<Result<[CardDiscover], NetworkError>, Never>? in
-                guard let self else { return nil }
-                
-                var page = 1
-                
-                let result = loadNext
-                    .prepend(())
-                    .map { _ in page }
-                    .flatMap { [weak self] pageNumber -> AnyPublisher<Result<[CardDiscover], NetworkError>, Never> in
-                        guard let self else { return Empty().eraseToAnyPublisher() }
-                        return profileManager
-                            .collection(filters: filters, page: pageNumber)
-                            .handleEvents(receiveOutput: { result in
-                                if let model = result.success, model.count > 0 {
-                                    page += 1
-                                }
-                            })
-                            .eraseToAnyPublisher()
-                    }
-                    .shareReplay(1)
-                
-                let success = result
-                    .compactMap { $0.success }
-                    .scan([CardDiscover](), +)
-                    .removeDuplicates()
-                    
-                
-                return Publishers
-                    .Merge(success.map { .success($0) }, result.filter { $0.error != nil } )
-                    .eraseToAnyPublisher()
+    init() {
+        $filters
+            .removeDuplicates()
+            .compactMap { [weak self] in
+                return self?.pagination(filters: $0)
             }
             .switchToLatest()
             .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] result in
+                switch result {
+                case let .success(items):
+                    self?.cards = items
+                case let .failure(error):
+                    self?.error = .request
+                }
+            })
+            .store(in: &cancellable)
+    }
+    
+    func pagination(filters: Filters) -> AnyPublisher<Result<[CardDiscover], Error>, Never> {
+        isFinished = false
+        var isLoading = false
+        var pagination: Pagination?
+        
+        let request = loadNext
+            .prepend(())
+            .compactMap { [weak self] _ -> AnyPublisher<Result<ProfileCollectionCards, Error>, Never>? in
+                guard let self, !isLoading, !isFinished else { return nil }
+                isLoading = true
+                let page = pagination?.next ?? 0
+                
+                return profileManager
+                    .collection(filters: filters, page: page)
+            }
+            .switchToLatest()
             .shareReplay(1)
         
-        result
-            .compactMap { $0.success }
-            .assign(to: &$cards)
+        let success = request
+            .compactMap(\.success)
+            .handleEvents(
+                receiveOutput: { [weak self] result in
+                    pagination = result.pagination
+                    isLoading = false
+                    if let pagination {
+                        self?.isFinished = pagination.isEnd
+                    }
+                }
+            )
+            .map(\.items)
+            .scan([], +)
+            .eraseToAnyPublisher()
+        
+        let error = request.compactMap(\.error)
+        
+        return Publishers
+            .Merge(
+                success.map { Result.success($0) },
+                error.map { Result.failure($0) }
+            )
+            .handleEvents(receiveOutput: { _ in isLoading = false })
+            .eraseToAnyPublisher()
     }
 }
 
 extension WishListViewModel {
-    func makeLoadNext() {
-        loadNext.send(())
+    func makeLoadNext(card: CardDiscover) {
+        if cards.last == card {
+            loadNext.send(())
+        }
     }
 }

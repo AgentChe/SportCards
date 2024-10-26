@@ -10,7 +10,8 @@ import SwiftUI
 struct SearchField: View {
     @Binding var searchText: String
     @Binding var isFocused: Bool
-    @FocusState var isFocus: Bool
+    @FocusState private var isFocus: Bool
+    
     var body: some View {
         HStack {
             TextField(text: $searchText) {
@@ -18,31 +19,37 @@ struct SearchField: View {
                     .font(Fonts.Inter.font(size: 18.scale, weight: .w400))
                     .foregroundStyle(.white.opacity(0.5))
             }
-            .autocorrectionDisabled()
-            .font(Fonts.Inter.font(size: 18.scale, weight: .w400))
             .foregroundStyle(.white)
+            .autocorrectionDisabled()
             .frame(height: 50.scale)
             .focused($isFocus)
             
-            if isFocus {
-                Button(
-                    action: { searchText = "" },
-                    label: { Image("Field.Clear") }
-                )
-            }
+            Button(
+                action: { withAnimation { searchText = "" } },
+                label: { Image("Field.Clear") }
+            )
+            .opacity(searchText.isEmpty ? 0 : 1)
         }
         .padding(.horizontal, 24.scale)
         .background(.main300, in: Capsule())
-        .onTapGesture { 
-            isFocus = true
+        .onChange(of: isFocus) { value in
+            withAnimation {
+                isFocused = value
+            }
         }
-        .onChange(of: isFocus) { newValue in
-            isFocused = newValue
+        .onChange(of: isFocused) { value in
+            withAnimation {
+                isFocus = value
+            }
+        }
+        .onTapGesture {
+            withAnimation {
+                isFocused = true
+            }
         }
     }
 }
 
 #Preview {
-    @State var test: String = ""
-    return SearchField(searchText: $test, isFocused: .constant(false))
+    SearchField(searchText: .constant(""), isFocused: .constant(false))
 }

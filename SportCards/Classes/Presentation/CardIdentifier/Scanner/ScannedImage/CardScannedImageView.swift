@@ -52,7 +52,7 @@ struct CardScannedImageView: View {
             case let .step(step):
                 currentState = step
             case let .details(id, grade):
-                router.replacePush(from: .cardDescription)
+                router.replacePush(from: .cardDescription(id: id, grade: grade, collection: .scanned))
             case .error:
                 showAlert = true
             }

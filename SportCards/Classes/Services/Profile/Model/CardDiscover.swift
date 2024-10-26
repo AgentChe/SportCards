@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct CardDiscover: Equatable, Hashable, Identifiable {
-    let id: String
+struct CardDiscover: Equatable, Hashable {
+    let cardId: String
     let imageURL: URL?
     let title: String
     let subtitle: String
@@ -18,51 +18,39 @@ struct CardDiscover: Equatable, Hashable, Identifiable {
     let collectionName: String?
 }
 
-extension CardDiscover {
-    init?(response: Any) {
-        guard
-            let json = response as? [String: Any],
-            let body = json["body"] as? [String: Any],
-            let model = CardDiscover(from: body)
-        else { return nil }
-        
-        self = model
+extension CardDiscover: Identifiable {
+    var id: String { cardId + grade }
+}
+
+extension CardDiscover: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case id
+        case imageURL = "image"
+        case title
+        case subtitle
+        case grade
+        case currentPrice = "current_price"
+        case currentPriceRaw = "current_price_raw"
+        case collectionName = "collection_name"
     }
     
-    init?(from body: [String: Any]) {
-        guard
-            let id = body["id"] as? String,
-            let title = body["title"] as? String,
-            let subtitle = body["subtitle"] as? String,
-            let grade = body["grade"] as? String,
-            let currentPrice = body["current_price"] as? String,
-            let currentPriceRaw = body["current_price_raw"] as? Double
-        else { return nil }
-        
-        self.id = id
-        self.imageURL = (body["image"] as? String).flatMap { URL(string: $0) }
-        self.title = title
-        self.subtitle = subtitle
-        self.grade = grade
-        self.currentPrice = currentPrice
-        self.currentPriceRaw = currentPriceRaw
-        self.collectionName = body["collection_name"] as? String
-    }
-    
-    static func map(response: Any) -> [CardDiscover] {
-        guard
-            let json = response as? [String: Any],
-            let body = json["body"] as? [[String: Any]]
-        else { return [] }
-        
-        return body.compactMap { CardDiscover(from: $0) }
+    init(from decoder: Decoder) throws {
+        let containter = try decoder.container(keyedBy: CodingKeys.self)
+        cardId = try containter.decode(String.self, forKey: .id)
+        imageURL = try? containter.decodeIfPresent(URL.self, forKey: .imageURL)
+        title = try containter.decode(String.self, forKey: .title)
+        subtitle = try containter.decode(String.self, forKey: .subtitle)
+        grade = try containter.decode(String.self, forKey: .grade)
+        currentPrice = try containter.decode(String.self, forKey: .currentPrice)
+        currentPriceRaw = try containter.decode(Double.self, forKey: .currentPriceRaw)
+        collectionName = try? containter.decode(String.self, forKey: .collectionName)
     }
 }
 
 extension CardDiscover {
     static let mock: [CardDiscover] = [
         .init(
-            id: "2",
+            cardId: "2",
             imageURL: URL(string: "https://www.scottssportscards.com/wp-content/uploads/Scotts-Jewelry-Sports-Cards-barry-sanders-min.jpg"),
             title: "John Smoltz",
             subtitle: "Topps",
@@ -72,7 +60,7 @@ extension CardDiscover {
             collectionName: "Finest"
         ),
         .init(
-            id: "1",
+            cardId: "1",
             imageURL: URL(string: "https://www.scottssportscards.com/wp-content/uploads/Scotts-Jewelry-Sports-Cards-aaron-mays-min.jpg"),
             title: "Wilt Chamberlain Smoltz",
             subtitle: "Fleer Basketball",
@@ -82,7 +70,7 @@ extension CardDiscover {
             collectionName: nil
         ),
         .init(
-            id: "3",
+            cardId: "3",
             imageURL: URL(string: "https://www.scottssportscards.com/wp-content/uploads/Scotts-Jewelry-Sports-Cards-barry-sanders-min.jpg"),
             title: "Smoltz John Smoltz Chamberlain",
             subtitle: "Topps",
@@ -92,7 +80,7 @@ extension CardDiscover {
             collectionName: "Finest"
         ),
         .init(
-            id: "4",
+            cardId: "4",
             imageURL: URL(string: "https://www.scottssportscards.com/wp-content/uploads/Scotts-Jewelry-Sports-Cards-aaron-mays-min.jpg"),
             title: "Wilt Chamberlain Smoltz",
             subtitle: "Fleer Basketball",
@@ -102,7 +90,7 @@ extension CardDiscover {
             collectionName: nil
         ),
         .init(
-            id: "5",
+            cardId: "5",
             imageURL: URL(string: "https://www.scottssportscards.com/wp-content/uploads/Scotts-Jewelry-Sports-Cards-barry-sanders-min.jpg"),
             title: "Smoltz John Smoltz Chamberlain",
             subtitle: "Topps",
@@ -112,7 +100,7 @@ extension CardDiscover {
             collectionName: "Finest"
         ),
         .init(
-            id: "6",
+            cardId: "6",
             imageURL: URL(string: "https://www.scottssportscards.com/wp-content/uploads/Scotts-Jewelry-Sports-Cards-aaron-mays-min.jpg"),
             title: "Wilt Chamberlain Smoltz",
             subtitle: "Fleer Basketball",
@@ -122,7 +110,7 @@ extension CardDiscover {
             collectionName: nil
         ),
         .init(
-            id: "7",
+            cardId: "7",
             imageURL: URL(string: "https://www.scottssportscards.com/wp-content/uploads/Scotts-Jewelry-Sports-Cards-barry-sanders-min.jpg"),
             title: "Smoltz John Smoltz Chamberlain",
             subtitle: "Topps",

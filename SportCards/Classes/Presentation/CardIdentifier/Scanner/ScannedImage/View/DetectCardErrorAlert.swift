@@ -10,6 +10,7 @@ import SwiftUI
 struct DetectCardErrorAlert: View {
     private let primaryAction: () -> Void
     private let secondaryAction: () -> Void
+    
     init(primaryAction: @escaping () -> Void, secondaryAction: @escaping () -> Void) {
         self.primaryAction = primaryAction
         self.secondaryAction = secondaryAction

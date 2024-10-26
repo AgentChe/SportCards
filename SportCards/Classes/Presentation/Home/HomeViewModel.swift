@@ -14,6 +14,7 @@ final class HomeViewModel: ObservableObject {
     @Published var searchIsFocused: Bool = false
     @Published var searchText: String = ""
     @Published var filters: Filters = .init()
+    @Published var error: ErrorScreenType? = nil
     
     private lazy var profileManager: ProfileManagerProtocol = ProfileManager()
     private lazy var cardsManager = CardsManager()
@@ -54,5 +55,10 @@ final class HomeViewModel: ObservableObject {
                 return dataSource
             }
             .assign(to: &$dataSource)
+        
+        homeRequestResult
+            .filter { $0.error != nil }
+            .map { _ in .request }
+            .assign(to: &$error)
     }
 }

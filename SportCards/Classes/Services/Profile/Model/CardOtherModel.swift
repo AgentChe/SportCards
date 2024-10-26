@@ -14,19 +14,4 @@ struct OtherCardModel: Hashable {
     let grade: String
 }
 
-extension OtherCardModel {
-    init?(from json: [String: Any]) {
-        guard
-            let categoryRaw = json["category"] as? [String: Any],
-            let category = CardCategory(from: categoryRaw),
-            let url = json["image"] as? String,
-            let name = json["name"] as? String,
-            let grade = json["grade"] as? String
-        else { return nil }
-        
-        self.category = category
-        self.image = URL(string: url)
-        self.name = name
-        self.grade = grade
-    }
-}
+extension OtherCardModel: Decodable {}

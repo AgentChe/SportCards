@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct ScannedListView: View {
+    @EnvironmentObject private var router: NavigationManager
     @StateObject private var viewModel = ScannedListViewModel()
     @State private var layout: CollectionLayoutType = .list
+    @Namespace private var scannedAnim
     
     var body: some View {
         VStack(spacing: 0) {
@@ -29,16 +31,19 @@ struct ScannedListView: View {
             ScrollView(.vertical) {
                 LazyVGrid(columns: layout.columns, spacing: 16.scale) {
                     ForEach(viewModel.cards) { card in
-                        switch layout {
-                        case .list:
-                            RecommendedCardView(card: card)
-                        case .grid:
-                            CardGridView(card: card)
-                        }
+                        makeItem(card: card)
+                            .onAppear(perform: {
+                                viewModel.makeLoadNext(card: card)
+                            })
                     }
                 }
                 .padding(.horizontal, 16.scale)
-                .padding(.bottom, 32.scale)
+                .padding(.bottom, viewModel.isFinished ? 32.scale : 0)
+                
+                if !viewModel.isFinished {
+                    LoaderView(type: .pagination)
+                        .padding(.bottom, 32.scale)
+                }
             }
         }
         .overlay {
@@ -47,9 +52,25 @@ struct ScannedListView: View {
                     .transition(.opacity)
             }
         }
-        .onViewDidLoad {
-            viewModel.makeData()
-        }
+    }
+}
+
+private extension ScannedListView {
+    @ViewBuilder
+    func makeItem(card: CardDiscover) -> some View {
+        Button(
+            action: { router.push(to: .cardDescription(id: card.cardId, grade: card.grade, collection: .scanned))},
+            label: {
+                switch layout {
+                case .list:
+                    RecommendedCardView(card: card)
+                        .matchedGeometryEffect(id: card.id, in: scannedAnim)
+                case .grid:
+                    CardGridView(card: card)
+                        .matchedGeometryEffect(id: card.id, in: scannedAnim)
+                }
+            }
+        )
     }
 }
 

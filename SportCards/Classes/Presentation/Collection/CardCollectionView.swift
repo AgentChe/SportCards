@@ -12,7 +12,7 @@ struct CardCollectionView: View {
     
     var body: some View {
         VStack {
-            CollectionTabView(selectedTab: $currentTab)
+            PageTabBar(tabs: CollectionTab.allCases, selectedTab: $currentTab)
             TabView(selection: $currentTab) {
                 ScannedListView()
                     .tag(CollectionTab.scanned)
@@ -35,8 +35,6 @@ extension CollectionLayoutType {
         }
     }
 }
-
-import NukeUI
 
 #Preview {
     CardCollectionView()

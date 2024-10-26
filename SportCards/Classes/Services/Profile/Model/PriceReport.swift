@@ -21,45 +21,28 @@ struct PriceReport: Equatable, Hashable {
     }
 }
 
-extension PriceReport {
-    init?(from body: [String: Any]) {
-        today = (body["today"] as? [[String: Any]]).flatMap { $0.compactMap { Item(from: $0) }} ?? []
-        week = (body["week"] as? [[String: Any]]).flatMap { $0.compactMap { Item(from: $0) }} ?? []
-        twoWeek = (body["14_days"] as? [[String: Any]]).flatMap { $0.compactMap { Item(from: $0) }} ?? []
-        month = (body["month"] as? [[String: Any]]).flatMap { $0.compactMap { Item(from: $0) }} ?? []
+extension PriceReport: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case today
+        case week
+        case twoWeek = "14_days"
+        case month
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.today = (try? container.decode([PriceReport.Item].self, forKey: .today)) ?? []
+        self.week = (try? container.decode([PriceReport.Item].self, forKey: .week)) ?? []
+        self.twoWeek = (try? container.decode([PriceReport.Item].self, forKey: .twoWeek)) ?? []
+        self.month = (try? container.decode([PriceReport.Item].self, forKey: .month)) ?? []
     }
 }
 
-private extension PriceReport.Item {
-    init?(from body: [String: Any]) {
-        guard
-            let dateTime = body["datetime"] as? TimeInterval,
-            let price = body["price"] as? String,
-            let priceRaw = body["price_raw"] as? Double,
-            let diffPercent = body["diff_percent"] as? Double
-        else { return nil }
-        
-        self.dateTime = .init(timeIntervalSince1970: dateTime)
-        self.price = price
-        self.priceRaw = priceRaw
-        self.diffPercent = diffPercent
+extension PriceReport.Item: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case dateTime = "datetime"
+        case price
+        case priceRaw = "price_raw"
+        case diffPercent = "diff_percent"
     }
 }
-
-//extension PriceReport: Decodable {
-//    enum CodingKeys: String, CodingKey {
-//        case today
-//        case week
-//        case twoWeek = "14_days"
-//        case month
-//    }
-//}
-//
-//extension PriceReport.Item: Decodable {
-//    enum CodingKeys: String, CodingKey {
-//        case dateTime = "datetime"
-//        case price
-//        case priceRaw = "price_raw"
-//        case diffPercent = "diff_percent"
-//    }
-//}

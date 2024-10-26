@@ -11,3 +11,14 @@ enum CollectionTab: String, CaseIterable {
     case scanned = "scan"
     case wishList = "collect"
 }
+
+extension CollectionTab: TabItemProtocol {
+    var name: String {
+        switch self {
+        case .scanned:
+            "Collection.Tab.Scanned".localized
+        case .wishList:
+            "Collection.Tab.WishList".localized
+        }
+    }
+}

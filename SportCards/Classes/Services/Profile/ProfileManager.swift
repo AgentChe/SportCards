@@ -9,14 +9,16 @@ import Foundation
 import Combine
 
 protocol ProfileManagerProtocol {
-    func home() -> AnyPublisher<Result<HomeModel?, NetworkError>, Never>
-    func collection(filters: Filters, page: Int?) -> AnyPublisher<Result<[CardDiscover], NetworkError>, Never>
-    func scannedCards(filters: Filters, page: Int?) -> AnyPublisher<Result<ProfileCollectionCards?, NetworkError>, Never>
+    func home() -> AnyPublisher<Result<HomeModel?, Error>, Never>
+    func collection(filters: Filters, page: Int?) -> AnyPublisher<Result<ProfileCollectionCards, Error>, Never>
+    func scannedCards(filters: Filters, page: Int?) -> AnyPublisher<Result<ProfileScannedCards, Error>, Never>
+    func addCard(to collection: CollectionTab, id: String, grade: String) -> AnyPublisher<Bool, Error>
+    func removeCard(id: String) -> AnyPublisher<Bool, Error>
 }
 
 protocol ProfileAccountProtocol {
-    func create() -> AnyPublisher<Void, NetworkError>
-    func binding() -> AnyPublisher<Void, NetworkError>
+    func create() -> AnyPublisher<Void, Error>
+    func binding() -> AnyPublisher<Void, Error>
 }
 
 final class ProfileManager {
@@ -25,7 +27,7 @@ final class ProfileManager {
 }
 
 extension ProfileManager: ProfileManagerProtocol {
-    func home() -> AnyPublisher<Result<HomeModel?, NetworkError>, Never> {
+    func home() -> AnyPublisher<Result<HomeModel?, Error>, Never> {
         let request = HomeRequest(
             anonymousId: sessionManager.anonymousId,
             internalId: sessionManager.internalId
@@ -33,12 +35,10 @@ extension ProfileManager: ProfileManagerProtocol {
 
         return restApiTransport
             .callServerApi(requestBody: request)
-            .map(HomeModel.init(from:))
             .asResult()
-            .eraseToAnyPublisher()
     }
     
-    func collection(filters: Filters, page: Int?) -> AnyPublisher<Result<[CardDiscover], NetworkError>, Never> {
+    func collection(filters: Filters, page: Int?) -> AnyPublisher<Result<ProfileCollectionCards, Error>, Never> {
         
         let request = ProfileCollectionRequest(
             anonymousId: sessionManager.anonymousId,
@@ -50,12 +50,10 @@ extension ProfileManager: ProfileManagerProtocol {
         
         return restApiTransport
             .callServerApi(requestBody: request)
-            .map(CardDiscover.map(response:))
             .asResult()
-            .eraseToAnyPublisher()
     }
     
-    func scannedCards(filters: Filters, page: Int?) -> AnyPublisher<Result<ProfileCollectionCards?, NetworkError>, Never> {
+    func scannedCards(filters: Filters, page: Int?) -> AnyPublisher<Result<ProfileScannedCards, Error>, Never> {
         let request = ProfileCollectionRequest(
             anonymousId: sessionManager.anonymousId,
             internalId: sessionManager.internalId,
@@ -66,14 +64,36 @@ extension ProfileManager: ProfileManagerProtocol {
         
         return restApiTransport
             .callServerApi(requestBody: request)
-            .map(ProfileCollectionCards.init(from:))
             .asResult()
-            .eraseToAnyPublisher()
+    }
+    
+    func addCard(to collection: CollectionTab, id: String, grade: String) -> AnyPublisher<Bool, Error> {
+        let request = ProfileAddCardRequest(
+            anonymousId: sessionManager.anonymousId,
+            internalId: sessionManager.internalId,
+            id: id,
+            grade: grade,
+            type: collection
+        )
+        
+        return restApiTransport
+            .callServerApi(requestBody: request)
+    }
+    
+    func removeCard(id: String) -> AnyPublisher<Bool, Error> {
+        let request = ProfileRemoveCardRequest(
+            anonymousId: sessionManager.anonymousId,
+            internalId: sessionManager.internalId,
+            id: id
+        )
+        
+        return restApiTransport
+            .callServerApi(requestBody: request)
     }
 }
 
 extension ProfileManager: ProfileAccountProtocol {
-    func create() -> AnyPublisher<Void, NetworkError> {
+    func create() -> AnyPublisher<Void, Error> {
         let request = ProfileCreateRequest(
             anonymousId: sessionManager.anonymousId,
             internalId: sessionManager.internalId
@@ -85,7 +105,7 @@ extension ProfileManager: ProfileAccountProtocol {
             .eraseToAnyPublisher()
     }
     
-    func binding() -> AnyPublisher<Void, NetworkError> {
+    func binding() -> AnyPublisher<Void, Error> {
         let request = ProfileBindingRequest(
             anonymousId: sessionManager.anonymousId,
             internalId: sessionManager.internalId

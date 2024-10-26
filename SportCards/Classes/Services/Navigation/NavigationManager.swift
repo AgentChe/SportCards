@@ -13,7 +13,7 @@ enum Route {
     case scanner
     case scannedImage(Data)
     case filters(Binding<Filters>)
-    case cardDescription
+    case cardDescription(id: String, grade: String, collection: CollectionTab)
     case manualSearch
 }
 
@@ -93,8 +93,8 @@ struct RootNavigationStack<Content: View>: View {
                         CardScannedImageView(image: data)
                     case let .filters(filters):
                         FiltersView(filters: filters)
-                    case .cardDescription:
-                        CardDescriptionView()
+                    case let .cardDescription(id, grade, collection):
+                        CardDescriptionView(id: id, grade: grade, collection: collection)
                     case .manualSearch:
                         ManualCardSearchView()
                     }

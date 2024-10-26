@@ -42,7 +42,7 @@ final class CardScannedImageViewModel: ObservableObject {
                         guard let response else { return Just(Action.error).eraseToAnyPublisher() }
                         
                         return acceptGradeSubject
-                            .map { _ in Action.details(response.id, self.selectedGrade ?? "")}
+                            .map { _ in Action.details(response.cardId, self.selectedGrade ?? "")}
                             .prepend(.step(.grade(response.grades)))
                             .eraseToAnyPublisher()
                     }

@@ -6,7 +6,85 @@
 //
 
 import Foundation
+import Combine
 
 final class CardDescriptionViewModel: ObservableObject {
+    @Published var isLoading: Bool = false
+    @Published var isAdded: Bool = false
+    @Published var details: CardDetails? = nil
+    @Published var error: ErrorScreenType? = nil
     
+    private lazy var cardsManager = CardsManager()
+    private lazy var profileManager: ProfileManagerProtocol = ProfileManager()
+    
+    private var cancellable = Set<AnyCancellable>()
+    private var actionCancelable: AnyCancellable?
+    private lazy var retryRequest = PassthroughSubject<Void, Never>()
+    private let collection: CollectionTab
+    
+    init(id: String, grade: String, collection: CollectionTab) {
+        self.collection = collection
+        
+        retryRequest
+            .prepend(())
+            .compactMap { [weak self] _  in
+                return self?.cardsManager
+                    .cardDetails(id: id, grade: grade)
+                    .asResult()
+            }
+            .switchToLatest()
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveValue: { [weak self] result in
+                    switch result {
+                    case let .success(details):
+                        self?.details = details
+                        self?.isAdded = details.isFavorite
+                    case .failure:
+                        self?.error = .request
+                    }
+                }
+            )
+            .store(in: &cancellable)
+    }
+    
+    func retry() {
+        retryRequest.send(())
+    }
+    
+    func addAction() {
+        guard !isLoading, let details = details else { return }
+        isLoading = true
+        
+        actionCancelable = profileManager
+            .addCard(to: collection, id: details.cardId, grade: details.grade)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: receiveCompletion) { [weak self] value in
+                self?.isLoading = false
+                if value {
+                    self?.isAdded = true
+                }
+            }
+    }
+    
+    func removeAction() {
+        guard !isLoading, let details = details else { return }
+        isLoading = true
+        
+        actionCancelable = profileManager
+            .removeCard(id: details.cardId)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: receiveCompletion) { [weak self] value in
+                self?.isLoading = false
+                if value {
+                    self?.isAdded = false
+                }
+            }
+    }
+    
+    private var receiveCompletion: ((Subscribers.Completion<Error>)) -> Void {
+        return { [weak self] _ in
+            self?.isLoading = false
+        }
+    }
 }

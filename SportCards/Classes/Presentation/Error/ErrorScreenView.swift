@@ -75,9 +75,16 @@ struct ErrorScreenView: View {
                     .padding(.top, 16.scale)
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: dismiss.callAsFunction, label: {
+                    Image("Close")
+                })
+            }
+        }
         .padding(.horizontal, 28.scale)
         .multilineTextAlignment(.center)
-        .background(.black)
+        .gradientBackground()
     }
 }
 

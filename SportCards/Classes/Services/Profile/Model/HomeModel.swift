@@ -13,20 +13,13 @@ struct HomeModel {
     let other: [OtherCardModel]
 }
 
-extension HomeModel {
-    init?(from response: Any) {
-        guard
-            let json = response as? [String: Any],
-            let body = json["body"] as? [String: Any]
-        else { return nil }
-        
-        personalScanner = (body["personal_scanner"] as? [String: Any]).flatMap { PriceReport(from: $0) }
-        recommendation = (body["recommendation"] as? [[String: Any]]).flatMap { $0.compactMap { CardDiscover(from: $0) } } ?? []
-        
-        other = (body["other"] as? [[String: Any]]).flatMap { $0.compactMap { OtherCardModel(from: $0)}} ?? []
+extension HomeModel: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case personalScanner = "personal_scanner"
+        case recommendation
+        case other
     }
 }
-
 
 extension Result {
     var success: Success? {
