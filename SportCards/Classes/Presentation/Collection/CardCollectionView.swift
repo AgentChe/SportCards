@@ -8,20 +8,26 @@
 import SwiftUI
 
 struct CardCollectionView: View {
+    @StateObject private var viewModel = CardCollectionViewModel()
     @State private var currentTab: CollectionTab = .scanned
     
     var body: some View {
         VStack {
-            PageTabBar(tabs: CollectionTab.allCases, selectedTab: $currentTab)
-            TabView(selection: $currentTab) {
-                ScannedListView()
-                    .tag(CollectionTab.scanned)
-                WishListView()
-                    .tag(CollectionTab.wishList)
+            if viewModel.isAvailable {
+                PageTabBar(tabs: CollectionTab.allCases, selectedTab: $currentTab)
+                TabView(selection: $currentTab) {
+                    ScannedListView()
+                        .tag(CollectionTab.scanned)
+                    WishListView()
+                        .tag(CollectionTab.wishList)
+                }
+                .tabViewStyle(.page(indexDisplayMode: .never))
+            } else {
+                CardCollectionEmptyView()
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
         }
         .gradientBackground()
+        .screenState($viewModel.screenState, bottomOffset: 32.scale, tryAgain: viewModel.makeData)
     }
 }
 

@@ -17,19 +17,12 @@ struct HomeView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            if viewModel.dataSource.isEmpty {
-                LoaderView(type: .fullScreen)
-            } else {
-                content
-            }
+            content
         }
         .homeSearchable()
         .frame(maxWidth: .infinity)
-        .tryAgain(error: $viewModel.error, tryAgain: viewModel.makeData)
+        .screenState($viewModel.screenState, bottomOffset: 32.scale, tryAgain: viewModel.retry)
         .navigationBarBackButtonHidden()
-        .onViewDidLoad {
-            viewModel.makeData()
-        }
     }
 }
 
@@ -66,9 +59,12 @@ private extension HomeView {
                     )
                     .padding(.horizontal, 16.scale)
                 case let .other(model):
-                    OtherCardView(model: model)
-                        .padding(.top, 16.scale)
-                        .padding(.horizontal, 16.scale)
+                    Button(
+                        action: { route.push(to: .cardDescription(id: model.cardId, grade: model.grade, collection: .wishList)) },
+                        label: { OtherCardView(model: model) }
+                    )
+                    .padding(.top, 16.scale)
+                    .padding(.horizontal, 16.scale)
                 }
             }
             .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))

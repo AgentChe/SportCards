@@ -32,20 +32,45 @@ struct WishListView: View {
                     }
                 }
                 .padding(.horizontal, 16.scale)
-                .padding(.bottom, viewModel.isFinished ? 32.scale : 0)
                 
                 if !viewModel.isFinished {
                     LoaderView(type: .pagination)
-                        .padding(.bottom, 32.scale)
                 }
             }
         }
-//        .overlay {
-//            if viewModel.cards.isEmpty {
-//                CardCollectionEmptyView()
-//                    .transition(.opacity)
-//            }
-//        }
+        .safeAreaInset(edge: .bottom, content: {
+            Color.clear.frame(height: 32.scale)
+        })
+        .screenState($viewModel.screenState, bottomOffset: 32.scale, tryAgain: viewModel.retry)
+    }
+}
+
+enum ScreenState {
+    case loading
+    case loaded
+    case error
+}
+
+struct ScreenStateModifier: ViewModifier {
+    @Binding var state: ScreenState
+    let bottomOffset: CGFloat
+    let tryAgain: () -> Void
+    func body(content: Content) -> some View {
+        switch state {
+        case .loading:
+            LoaderView(type: .fullScreen)
+        case .loaded:
+            content
+        case .error:
+            ErrorScreenView(errorType: .request, tryAgain: tryAgain)
+                .padding(.bottom, bottomOffset)
+        }
+    }
+}
+
+extension View {
+    func screenState(_ state: Binding<ScreenState>, bottomOffset: CGFloat = .zero, tryAgain: @escaping () -> Void) -> some View {
+        modifier(ScreenStateModifier(state: state, bottomOffset: bottomOffset, tryAgain: tryAgain))
     }
 }
 

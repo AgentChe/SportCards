@@ -10,11 +10,13 @@ import SwiftUI
 struct CollectionSettingsView: View {
     @Binding var currentLayout: CollectionLayoutType
     @Binding var filters: Filters
+    
     var body: some View {
         HStack(spacing: 10.scale) {
             Text("Display")
                 .font(Fonts.Inter.font(size: 16.scale, weight: .w400))
                 .foregroundStyle(.mono100.opacity(0.5))
+            
             ForEach(CollectionLayoutType.allCases, id: \.self) { layout in
                 Button(action: { withAnimation { currentLayout = layout } }) {
                     Image(layout == currentLayout ? layout.selectedIcon : layout.defaultIcon)
@@ -26,17 +28,21 @@ struct CollectionSettingsView: View {
                     in: RoundedRectangle(cornerRadius: 4.scale)
                 )
             }
+            
             Spacer()
-            Text("Filters")
-                .font(Fonts.Inter.font(size: 16.scale, weight: .w400))
-                .foregroundStyle(.mono100.opacity(0.5))
             
             NavigationLink(
                 destination: FiltersView(filters: $filters),
                 label: {
-                    Image("Collection.Filters")
-                        .resizable()
-                        .frame(width: 24.scale, height: 24.scale)
+                    HStack(spacing: 10.scale) {
+                        Image("Collection.Filters")
+                            .resizable()
+                            .frame(width: 24.scale, height: 24.scale)
+                        
+                        Text("Filters")
+                            .font(Fonts.Inter.font(size: 16.scale, weight: .w400))
+                            .foregroundStyle(.mono100.opacity(0.5))
+                    }
                 }
             )
         }

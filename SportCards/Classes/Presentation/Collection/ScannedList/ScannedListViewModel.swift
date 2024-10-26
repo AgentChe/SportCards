@@ -13,17 +13,26 @@ final class ScannedListViewModel: ObservableObject {
     @Published var cards: [CardDiscover] = []
     @Published var price: TotalPriceModel? = nil
     @Published var isFinished: Bool = false
-    @Published var error: ErrorScreenType? = nil
+    @Published var screenState: ScreenState = .loading
     
     private lazy var profileManager = ProfileManager()
     private let loadNext = PassthroughSubject<Void, Never>()
     private var cancellable: Set<AnyCancellable> = []
     
     init() {
-        $filters
-            .removeDuplicates()
-            .compactMap { [weak self] in
-                return self?.pagination(filters: $0)
+        ProfileManagerMediator.shared
+            .needUpdateCollection
+            .prepend(.scanned)
+            .filter { $0 == .scanned }
+            .compactMap { [weak self] _ -> AnyPublisher<Result<ProfileScannedCards, Error>, Never>? in
+                guard let self else { return nil }
+                return $filters
+                    .removeDuplicates()
+                    .compactMap { [weak self] in
+                        return self?.pagination(filters: $0)
+                    }
+                    .switchToLatest()
+                    .eraseToAnyPublisher()
             }
             .switchToLatest()
             .receive(on: DispatchQueue.main)
@@ -32,8 +41,9 @@ final class ScannedListViewModel: ObservableObject {
                 case let .success(model):
                     self?.cards = model.items
                     self?.price = .init(price: model.totalPrice, count: model.total)
-                case let .failure(error):
-                    self?.error = .request
+                    self?.screenState = .loaded
+                case .failure:
+                    self?.screenState = .error
                 }
             })
             .store(in: &cancellable)
@@ -92,6 +102,11 @@ extension ScannedListViewModel {
         if cards.last == card {
             loadNext.send(())
         }
+    }
+    
+    func retry() {
+        screenState = .loading
+        loadNext.send(())
     }
 }
 

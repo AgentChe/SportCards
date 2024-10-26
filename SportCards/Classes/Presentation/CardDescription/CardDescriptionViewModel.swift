@@ -12,7 +12,7 @@ final class CardDescriptionViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var isAdded: Bool = false
     @Published var details: CardDetails? = nil
-    @Published var error: ErrorScreenType? = nil
+    @Published var screenState: ScreenState = .loading
     
     private lazy var cardsManager = CardsManager()
     private lazy var profileManager: ProfileManagerProtocol = ProfileManager()
@@ -39,9 +39,10 @@ final class CardDescriptionViewModel: ObservableObject {
                     switch result {
                     case let .success(details):
                         self?.details = details
+                        self?.screenState = .loaded
                         self?.isAdded = details.isFavorite
                     case .failure:
-                        self?.error = .request
+                        self?.screenState = .error
                     }
                 }
             )
@@ -49,6 +50,7 @@ final class CardDescriptionViewModel: ObservableObject {
     }
     
     func retry() {
+        screenState = .loading
         retryRequest.send(())
     }
     
@@ -60,9 +62,11 @@ final class CardDescriptionViewModel: ObservableObject {
             .addCard(to: collection, id: details.cardId, grade: details.grade)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: receiveCompletion) { [weak self] value in
-                self?.isLoading = false
+                guard let self else { return }
+                isLoading = false
                 if value {
-                    self?.isAdded = true
+                    ProfileManagerMediator.shared.updateCollection(collection)
+                    isAdded = true
                 }
             }
     }
@@ -75,9 +79,11 @@ final class CardDescriptionViewModel: ObservableObject {
             .removeCard(id: details.cardId)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: receiveCompletion) { [weak self] value in
-                self?.isLoading = false
+                guard let self else { return }
+                isLoading = false
                 if value {
-                    self?.isAdded = false
+                    ProfileManagerMediator.shared.updateCollection(collection)
+                    isAdded = false
                 }
             }
     }

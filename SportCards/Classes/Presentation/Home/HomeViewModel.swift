@@ -14,14 +14,27 @@ final class HomeViewModel: ObservableObject {
     @Published var searchIsFocused: Bool = false
     @Published var searchText: String = ""
     @Published var filters: Filters = .init()
-    @Published var error: ErrorScreenType? = nil
+    @Published var screenState: ScreenState = .loading
     
     private lazy var profileManager: ProfileManagerProtocol = ProfileManager()
     private lazy var cardsManager = CardsManager()
+    private let retrySubject = PassthroughSubject<Void, Never>()
     
-    func makeData() {
-        let homeRequestResult = profileManager
-            .home()
+    init() {
+        makeData()
+    }
+    
+    private func makeData() {
+        let updateHome = ProfileManagerMediator.shared.needUpdateCollection
+            .mapToVoid()
+        
+        let homeRequestResult = Publishers
+            .Merge(updateHome, retrySubject)
+            .prepend(())
+            .compactMap { [weak self] in
+                self?.profileManager.home()
+            }
+            .switchToLatest()
             .shareReplay(1)
         
         let categories = cardsManager
@@ -34,7 +47,6 @@ final class HomeViewModel: ObservableObject {
         Publishers
             .CombineLatest(homeResult, categories)
             .compactMap { home, categories -> [HomeViewCellType]? in
-                guard let home else { return nil }
                 var dataSource: [HomeViewCellType] = []
                 
                 if let priceReport = home.personalScanner {
@@ -56,9 +68,18 @@ final class HomeViewModel: ObservableObject {
             }
             .assign(to: &$dataSource)
         
-        homeRequestResult
-            .filter { $0.error != nil }
-            .map { _ in .request }
-            .assign(to: &$error)
+        Publishers
+            .Merge3(
+                updateHome.map { _ in .loading },
+                retrySubject.map { _ in .loading },
+                homeRequestResult.map { $0.error != nil ? .error : .loaded }
+            )
+            .assign(to: &$screenState)
+    }
+}
+
+extension HomeViewModel {
+    func retry() {
+        retrySubject.send(())
     }
 }

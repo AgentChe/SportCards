@@ -9,7 +9,8 @@ import Foundation
 import Combine
 
 protocol ProfileManagerProtocol {
-    func home() -> AnyPublisher<Result<HomeModel?, Error>, Never>
+    func home() -> AnyPublisher<Result<HomeModel, Error>, Never>
+    func collectionsAvailable() -> AnyPublisher<Result<Bool, Error>, Never>
     func collection(filters: Filters, page: Int?) -> AnyPublisher<Result<ProfileCollectionCards, Error>, Never>
     func scannedCards(filters: Filters, page: Int?) -> AnyPublisher<Result<ProfileScannedCards, Error>, Never>
     func addCard(to collection: CollectionTab, id: String, grade: String) -> AnyPublisher<Bool, Error>
@@ -27,8 +28,19 @@ final class ProfileManager {
 }
 
 extension ProfileManager: ProfileManagerProtocol {
-    func home() -> AnyPublisher<Result<HomeModel?, Error>, Never> {
+    func home() -> AnyPublisher<Result<HomeModel, Error>, Never> {
         let request = HomeRequest(
+            anonymousId: sessionManager.anonymousId,
+            internalId: sessionManager.internalId
+        )
+
+        return restApiTransport
+            .callServerApi(requestBody: request)
+            .asResult()
+    }
+    
+    func collectionsAvailable() -> AnyPublisher<Result<Bool, Error>, Never> {
+        let request = ProfileCollectionsAvailableRequest(
             anonymousId: sessionManager.anonymousId,
             internalId: sessionManager.internalId
         )

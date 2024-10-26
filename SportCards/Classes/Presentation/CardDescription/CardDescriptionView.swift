@@ -25,12 +25,9 @@ struct CardDescriptionView: View {
             if let details = viewModel.details {
                  configureContent(model: details)
                     .padding(.top, 14.scale)
-            } else {
-                LoaderView(type: .fullScreen)
             }
         }
         .frame(maxWidth: .infinity)
-        .background(.black)
         .overlay(alignment: .bottom) {
             if viewModel.details != nil {
                 DetailsFooterView(
@@ -39,25 +36,6 @@ struct CardDescriptionView: View {
                     action: addOrDeleteAction
                 )
                 .padding(.horizontal, 16.scale)
-            }
-        }
-        .navigationBarBackButtonHidden()
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button(action: dismiss.callAsFunction) {
-                    HStack(spacing: 6.scale) {
-                        Image("Back")
-                        Text("CardDetails.Title")
-                            .font(Fonts.Inter.font(size: 22.scale, weight: .w700))
-                    }
-                    .foregroundStyle(.white)
-                }
-            }
-            
-            ToolbarItem(placement: .topBarTrailing) {
-                Button(action: addOrDeleteAction) {
-                    Image(viewModel.isAdded ? "CardDetails.Bookmark.Selected" : "CardDetails.Bookmark.Default")
-                }
             }
         }
         .confirmAlert(isPresented: $showAlert) {
@@ -70,7 +48,28 @@ struct CardDescriptionView: View {
             )
         }
         .animation(.default, value: showAlert)
-        .tryAgain(error: $viewModel.error, tryAgain: viewModel.retry)
+        .screenState($viewModel.screenState, tryAgain: viewModel.retry)
+        .background(.black)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button(action: dismiss.callAsFunction) {
+                    HStack(spacing: 6.scale) {
+                        Image("Back")
+                        Text("CardDetails.Title")
+                            .font(Fonts.Inter.font(size: 22.scale, weight: .w700))
+                    }
+                    .foregroundStyle(.white)
+                }
+            }
+            if viewModel.screenState == .loaded {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: addOrDeleteAction) {
+                        Image(viewModel.isAdded ? "CardDetails.Bookmark.Selected" : "CardDetails.Bookmark.Default")
+                    }
+                }
+            }
+        }
+        .navigationBarBackButtonHidden()
     }
 }
 
@@ -132,9 +131,7 @@ private extension CardDescriptionView {
                 DetailsView(details: model.details)
                     .padding(.horizontal, 16.scale)
                 
-                let tabs: [DetailsTabItem] = [model.sales == nil ? nil : .sales, model.parallels.isEmpty ? nil : .parallels].compactMap { $0 }
-                
-                PageTabBar(tabs: tabs, selectedTab: $selectedTab)
+                PageTabBar(tabs: DetailsTabItem.allCases, selectedTab: $selectedTab)
                 configureTabs(model: model)
                     .padding(.horizontal, 16.scale)
             }
@@ -150,12 +147,10 @@ private extension CardDescriptionView {
         case .sales:
             if let sale = model.sales {
                 SalesView(sale: sale)
-                    .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
             }
         case .parallels:
             if !model.parallels.isEmpty {
                 ParallelsView(cards: model.parallels)
-                    .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
             }
         }
     }

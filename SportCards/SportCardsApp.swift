@@ -23,7 +23,7 @@ struct RootView: View {
             case .splash:
                 SplashView()
                     .task { manager.makeInitialize() }
-                    .tryAgain(error: $manager.error) { manager.login() }
+                    .screenState($manager.screenState, tryAgain: manager.login)
                     .transition(.opacity)
             case .onboarding:
                 OnboardingView()
@@ -41,7 +41,7 @@ import Combine
 final class RootViewManager: ObservableObject {
     @Published var currentRoute: SplashRouter = .splash
     @AppStorage("showedOnboarding") private var isShowedOnboarding: Bool = false
-    @Published var error: ErrorScreenType? = nil
+    @Published var screenState: ScreenState = .loaded
     
     private lazy var sdkInitialize = SplashReceiptValidationObserver()
     private lazy var profileManager: ProfileAccountProtocol = ProfileManager()
@@ -72,6 +72,7 @@ final class RootViewManager: ObservableObject {
     }
     
     func login() {
+        screenState = .loaded
         let anonymousId = sessionManager.anonymousId
         let internalId = sessionManager.internalId
         
@@ -94,10 +95,10 @@ final class RootViewManager: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
                 // TODO: FIX ME
-//                if case let .failure(error) = completion {
-//                    self?.screenState = .error(error)
-//                }
-                self?.makeStartRoute()
+                if case .failure = completion {
+                    self?.screenState = .error
+                }
+//                self?.makeStartRoute()
             }, receiveValue: { [weak self] _ in
                 self?.makeStartRoute()
             })

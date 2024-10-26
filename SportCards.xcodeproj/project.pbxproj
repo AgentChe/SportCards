@@ -11,6 +11,9 @@
 		86183B7D2CCCDB52008F6B5E /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86183B7C2CCCDB52008F6B5E /* LoaderView.swift */; };
 		86183B7F2CCCDD1B008F6B5E /* HomeSearchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86183B7E2CCCDD1B008F6B5E /* HomeSearchable.swift */; };
 		86183B822CCCDF2B008F6B5E /* ManualSearchableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86183B812CCCDF2B008F6B5E /* ManualSearchableView.swift */; };
+		86183B842CCD0D13008F6B5E /* ProfileCollectionsAvailableRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86183B832CCD0D13008F6B5E /* ProfileCollectionsAvailableRequest.swift */; };
+		86183B862CCD1D65008F6B5E /* CardCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86183B852CCD1D65008F6B5E /* CardCollectionViewModel.swift */; };
+		86183B882CCD2507008F6B5E /* ProfileManagerMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86183B872CCD2507008F6B5E /* ProfileManagerMediator.swift */; };
 		862140BF2CA7153300B109A4 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140BE2CA7153300B109A4 /* Appearance.swift */; };
 		862140C22CA715C900B109A4 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862140C12CA715C900B109A4 /* Fonts.swift */; };
 		862140C52CA7175100B109A4 /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 862140C42CA7175100B109A4 /* Inter-Regular.otf */; };
@@ -140,6 +143,9 @@
 		86183B7C2CCCDB52008F6B5E /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		86183B7E2CCCDD1B008F6B5E /* HomeSearchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchable.swift; sourceTree = "<group>"; };
 		86183B812CCCDF2B008F6B5E /* ManualSearchableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualSearchableView.swift; sourceTree = "<group>"; };
+		86183B832CCD0D13008F6B5E /* ProfileCollectionsAvailableRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionsAvailableRequest.swift; sourceTree = "<group>"; };
+		86183B852CCD1D65008F6B5E /* CardCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewModel.swift; sourceTree = "<group>"; };
+		86183B872CCD2507008F6B5E /* ProfileManagerMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManagerMediator.swift; sourceTree = "<group>"; };
 		862140BE2CA7153300B109A4 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 		862140C12CA715C900B109A4 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		862140C42CA7175100B109A4 /* Inter-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.otf"; sourceTree = "<group>"; };
@@ -505,6 +511,7 @@
 				8621411F2CAAF55400B109A4 /* Request */,
 				8621411A2CAAF16500B109A4 /* Model */,
 				862141182CAAF10000B109A4 /* ProfileManager.swift */,
+				86183B872CCD2507008F6B5E /* ProfileManagerMediator.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -531,6 +538,7 @@
 				862141202CAAF56300B109A4 /* HomeRequest.swift */,
 				8671EFD62CCA33C10020848A /* ProfileAddCardRequest.swift */,
 				8671EFD82CCA343E0020848A /* ProfileRemoveCardRequest.swift */,
+				86183B832CCD0D13008F6B5E /* ProfileCollectionsAvailableRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -592,6 +600,7 @@
 				8659D1B42CB4488600CCC40B /* Models */,
 				8659D1AF2CB4484A00CCC40B /* Views */,
 				8659D1882CAE9DFE00CCC40B /* CardCollectionView.swift */,
+				86183B852CCD1D65008F6B5E /* CardCollectionViewModel.swift */,
 			);
 			path = Collection;
 			sourceTree = "<group>";
@@ -1062,7 +1071,9 @@
 				86601EFC2CC606AD000C9737 /* CardSearchViewModel.swift in Sources */,
 				86CF47442CC0DCD30058C697 /* Grade.swift in Sources */,
 				86183B7B2CCC1779008F6B5E /* SearchView.swift in Sources */,
+				86183B882CCD2507008F6B5E /* ProfileManagerMediator.swift in Sources */,
 				8671EFEA2CCAC4E30020848A /* DetailsTabItem.swift in Sources */,
+				86183B842CCD0D13008F6B5E /* ProfileCollectionsAvailableRequest.swift in Sources */,
 				862140F32CA9519900B109A4 /* Game.swift in Sources */,
 				86601EFE2CC63861000C9737 /* CardDiscoverResponse.swift in Sources */,
 				8659D1BA2CB449F200CCC40B /* CollectionTab.swift in Sources */,
@@ -1112,6 +1123,7 @@
 				8659D1A82CB02F8A00CCC40B /* Filters.swift in Sources */,
 				86853F942CB9162700B775A1 /* CardScannerViewModel.swift in Sources */,
 				862140FB2CA95A1C00B109A4 /* HomeView.swift in Sources */,
+				86183B862CCD1D65008F6B5E /* CardCollectionViewModel.swift in Sources */,
 				8659D1842CAD915000CCC40B /* MainTabView.swift in Sources */,
 				8659D1B62CB4489500CCC40B /* CollectionLayoutType.swift in Sources */,
 				8659D1B12CB4485B00CCC40B /* CollectionSettingsView.swift in Sources */,

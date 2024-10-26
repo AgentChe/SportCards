@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DetailsTabItem: TabItemProtocol {
+enum DetailsTabItem: TabItemProtocol, CaseIterable {
     case sales
     case parallels
     

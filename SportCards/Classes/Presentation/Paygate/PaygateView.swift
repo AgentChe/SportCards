@@ -100,7 +100,6 @@ struct PaygateView: View {
                 }
             )
         }
-        
     }
     
     @ViewBuilder private var yearlyProduct: some View {

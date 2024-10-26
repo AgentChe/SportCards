@@ -25,6 +25,7 @@ struct ErrorStateModifier: ViewModifier {
     }
     
     func body(content: Content) -> some View {
+        
         content
             .fullScreenCover(item: $errorType, content: { ErrorScreenView(errorType: $0, tryAgain: tryAgain)})
     }
@@ -62,24 +63,15 @@ struct ErrorScreenView: View {
             Spacer()
             
             Button(
-                action: {
-                    tryAgain()
-                    dismiss()
-                    
-                }, label: { Text("Error.TryAgain".localized) })
-                .buttonStyle(.button(.primary))
+                action: tryAgain,
+                label: { Text("Error.TryAgain".localized) }
+            )
+            .buttonStyle(.button(.primary))
             
             if errorType == .request {
                 Button(action: { }, label: { Text("Error.Support".localized) })
                     .buttonStyle(.button(.secondary))
                     .padding(.top, 16.scale)
-            }
-        }
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button(action: dismiss.callAsFunction, label: {
-                    Image("Close")
-                })
             }
         }
         .padding(.horizontal, 28.scale)

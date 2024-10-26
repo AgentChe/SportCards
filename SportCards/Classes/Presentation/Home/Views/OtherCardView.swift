@@ -58,7 +58,7 @@ struct OtherCardView: View {
 
 #Preview {
     VStack(spacing: 16.scale) {
-        OtherCardView(model: .init(category: .init(alias: "mma", name: "MMA"), image: URL(string: "https://sportscards.com/cdn/shop/products/90233_1_2000x.jpg?v=1645545951"), name: "Name", grade: "PSA"))
+        OtherCardView(model: .init(cardId: "", category: .init(alias: "mma", name: "MMA"), image: URL(string: "https://sportscards.com/cdn/shop/products/90233_1_2000x.jpg?v=1645545951"), name: "Name", grade: "PSA"))
     }
     
     .padding(.horizontal, 16.scale)

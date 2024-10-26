@@ -12,17 +12,26 @@ final class WishListViewModel: ObservableObject {
     @Published var filters: Filters = Filters()
     @Published var cards: [CardDiscover] = []
     @Published var isFinished: Bool = false
-    @Published var error: ErrorScreenType? = nil
+    @Published var screenState: ScreenState = .loading
     
     private lazy var profileManager = ProfileManager()
     private let loadNext = PassthroughSubject<Void, Never>()
     private var cancellable: Set<AnyCancellable> = []
     
     init() {
-        $filters
-            .removeDuplicates()
-            .compactMap { [weak self] in
-                return self?.pagination(filters: $0)
+        ProfileManagerMediator.shared
+            .needUpdateCollection
+            .prepend(.wishList)
+            .filter { $0 == .wishList }
+            .compactMap { [weak self] _ -> AnyPublisher<Result<[CardDiscover], Error>, Never>? in
+                guard let self else { return nil }
+                return $filters
+                    .removeDuplicates()
+                    .compactMap { [weak self] in
+                        return self?.pagination(filters: $0)
+                    }
+                    .switchToLatest()
+                    .eraseToAnyPublisher()
             }
             .switchToLatest()
             .receive(on: DispatchQueue.main)
@@ -30,8 +39,9 @@ final class WishListViewModel: ObservableObject {
                 switch result {
                 case let .success(items):
                     self?.cards = items
-                case let .failure(error):
-                    self?.error = .request
+                    self?.screenState = .loaded
+                case .failure:
+                    self?.screenState = .error
                 }
             })
             .store(in: &cancellable)
@@ -87,5 +97,10 @@ extension WishListViewModel {
         if cards.last == card {
             loadNext.send(())
         }
+    }
+    
+    func retry() {
+        screenState = .loading
+        loadNext.send(())
     }
 }
