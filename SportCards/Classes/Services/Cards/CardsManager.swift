@@ -12,7 +12,7 @@ import Combine
 protocol CardsManagerProtocol {
     func makeCategories(forceUpdate: Bool) -> AnyPublisher<[CardCategory], Error>
     func makeGrades(forceUpdate: Bool) -> AnyPublisher<[Grade], Error>
-    func cards(text: String, filters: Filters, for page: Int) -> AnyPublisher<Result<CardDiscoverResponse?, Error>, Never>
+    func cards(text: String, filters: Filters, for page: Int) -> AnyPublisher<Result<CardDiscoverResponse, Error>, Never>
     func cardDetails(id: String, grade: String) -> AnyPublisher<CardDetails, Error>
     func upload(image: UIImage) -> AnyPublisher<CardUploadResponse?, Never>
 }
@@ -31,7 +31,7 @@ extension CardsManager: CardsManagerProtocol {
         forceUpdate ? grades() : cachedGrades()
     }
     
-    func cards(text: String, filters: Filters, for page: Int) -> AnyPublisher<Result<CardDiscoverResponse?, Error>, Never> {
+    func cards(text: String, filters: Filters, for page: Int) -> AnyPublisher<Result<CardDiscoverResponse, Error>, Never> {
         let request = DiscoverRequest(
             anonymousId: sessionManager.anonymousId,
             internalId: sessionManager.anonymousId,

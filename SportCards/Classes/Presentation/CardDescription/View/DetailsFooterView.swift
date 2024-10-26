@@ -30,6 +30,7 @@ struct DetailsFooterView: View {
                         Text("CardDetails.Remove".localized)
                     }
                 }
+                .disabled(isLoading)
                 .buttonStyle(.button(.secondary))
                 
             } else {
@@ -39,6 +40,7 @@ struct DetailsFooterView: View {
                         Text("CardDetails.Add".localized)
                     }
                 }
+                .disabled(isLoading)
                 .buttonStyle(.button(.primary))
                 
 //                buyActions

@@ -16,6 +16,7 @@ struct HomeCardScannerView: View {
                     .foregroundStyle(.white)
                     .padding(.top, 4.scale)
                     .padding(.bottom, 8.scale)
+                
                 Text("Home.Scanner.Subtitle")
                     .multilineTextAlignment(.leading)
                     .font(Fonts.Inter.font(size: 22.scale, weight: .w700))
@@ -23,13 +24,14 @@ struct HomeCardScannerView: View {
                     .lineSpacing(4)
                     .padding(.bottom, 40.scale)
                 
-                Button(action: {}) {
+                NavigationLink(value: Route.scanner) {
                     Text("Home.Scanner.OpenScanner".localized)
                 }
                 .buttonStyle(.button(.primary))
                 .fixedSize(horizontal: true, vertical: false)
             }
             .padding(16.scale)
+            
             Spacer()
         }
         .background(Image("Home.Mask").resizable())

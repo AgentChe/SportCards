@@ -35,6 +35,7 @@ struct ManualCardSearchView: View {
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
         .scrollDismissesKeyboard(.immediately)
+        .screenState($viewModel.screenState, tryAgain: viewModel.retry)
         .manualSearchable(searchText: $viewModel.searchText, filters: $viewModel.filters)
         .navigationBarBackButtonHidden()
         .toolbar {

@@ -22,7 +22,7 @@ struct FiltersView: View {
         VStack(spacing: 0) {
             ScrollView(.vertical) {
                 LazyVStack(alignment: .leading, spacing: 24.scale) {
-                    Text("Filters.Section.Sorting")
+                    Text("Filters.Section.Sorting".localized)
                         .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
                         .foregroundStyle(.white)
                         .padding(.vertical, 10.scale)
@@ -35,7 +35,7 @@ struct FiltersView: View {
                         }
                     }
                     
-                    Text("Filters.Section.Category")
+                    Text("Filters.Section.Category".localized)
                         .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
                         .foregroundStyle(.white)
                         .padding(.vertical, 10.scale)
@@ -51,7 +51,7 @@ struct FiltersView: View {
                     }
                     .tagStyle(.checkbox)
                     
-                    Text("Filters.Section.Grade")
+                    Text("Filters.Section.Grade".localized)
                         .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
                         .foregroundStyle(.white)
                         .padding(.vertical, 10.scale)

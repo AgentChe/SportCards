@@ -8,23 +8,34 @@
 import SwiftUI
 
 struct HomeAliasList: View {
-    let alias: [CardCategory]
+    private let alias: [CardCategory]
+    private let action: (CardCategory) -> Void
+    
+    init(alias: [CardCategory], action: @escaping (CardCategory) -> Void) {
+        self.alias = alias
+        self.action = action
+    }
     
     var body: some View {
         ScrollView(.horizontal) {
             HomeAliasLayout {
                 ForEach(alias, id: \.self) { item in
-                    Text(item.name)
-                        .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
-                        .foregroundStyle(.mono100)
-                        .padding(.horizontal, 16.scale)
-                        .padding(.vertical, 8.scale)
-                        .background(.main300, in: Capsule())
-                        .overlay {
-                            Capsule()
-                                .stroke(.main200, lineWidth: 1.scale)
+                    Button(
+                        action: { action(item) },
+                        label: {
+                            Text(item.name)
+                                .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
+                                .foregroundStyle(.mono100)
+                                .padding(.horizontal, 16.scale)
+                                .padding(.vertical, 8.scale)
+                                .background(.main300, in: Capsule())
+                                .overlay {
+                                    Capsule()
+                                        .stroke(.main200, lineWidth: 1.scale)
+                                }
                         }
-                        .gridColumnAlignment(.leading)
+                    )
+                    .gridColumnAlignment(.leading)
                 }
             }
         }
@@ -36,7 +47,7 @@ struct HomeAliasList: View {
     ScrollView(.vertical) {
         Spacer()
             .frame(height: 300.scale)
-        HomeAliasList(alias: [])
+        HomeAliasList(alias: [], action: { _ in })
             .padding(.leading, 16.scale)
     }
     .background(.black)

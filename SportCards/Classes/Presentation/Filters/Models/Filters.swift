@@ -19,12 +19,6 @@ struct Filters: Hashable {
 }
 
 extension Filters {
-//    init() {
-//        price = nil
-//        category = nil
-//        grade = nil
-//    }
-    
     var count: Int {
         let price = price == nil ? 0 : 1
         let category = category == nil ? 0 : 1

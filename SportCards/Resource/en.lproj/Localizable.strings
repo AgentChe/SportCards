@@ -137,3 +137,16 @@
 "CardDetails.ConfirmMessage" = "Are you sure you want to delete this card?";
 "CardDetails.SalesTab" = "Sales";
 "CardDetails.ParallelsTab" = "Parallels";
+
+// MARK: Menu
+"Menu.Title" = "Menu";
+"Menu.Preferences" = "Preferences";
+"Menu.TermsOfUse" = "Terms of Use";
+"Menu.PrivacyPolicy" = "Privacy Policy";
+"Menu.Support" = "Support";
+
+// MARK: Preferences
+"Preferences.Title" = "Preferences";
+"Preferences.Category" = "Category";
+"Preferences.Grade" = "Grade";
+"Preferences.Apply" = "Apply";

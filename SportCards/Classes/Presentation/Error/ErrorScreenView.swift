@@ -15,29 +15,36 @@ enum ErrorScreenType: Identifiable {
     var id: Self { self }
 }
 
-struct ErrorStateModifier: ViewModifier {
-    @Binding private var errorType: ErrorScreenType?
-    private let tryAgain: () -> Void
-    
-    init(errorType: Binding<ErrorScreenType?>, tryAgain: @escaping () -> Void) {
-        self._errorType = errorType
-        self.tryAgain = tryAgain
-    }
-    
-    func body(content: Content) -> some View {
-        
-        content
-            .fullScreenCover(item: $errorType, content: { ErrorScreenView(errorType: $0, tryAgain: tryAgain)})
-    }
-}
-
 extension View {
-    func tryAgain(error: Binding<ErrorScreenType?>, tryAgain: @escaping () -> Void) -> some View {
-        modifier(ErrorStateModifier(errorType: error, tryAgain: tryAgain))
+    func screenState(_ state: Binding<ScreenState>, bottomOffset: CGFloat = .zero, tryAgain: @escaping () -> Void) -> some View {
+        modifier(ScreenStateModifier(state: state, bottomOffset: bottomOffset, tryAgain: tryAgain))
     }
 }
 
-struct ErrorScreenView: View {
+enum ScreenState {
+    case loading
+    case loaded
+    case error
+}
+
+struct ScreenStateModifier: ViewModifier {
+    @Binding var state: ScreenState
+    let bottomOffset: CGFloat
+    let tryAgain: () -> Void
+    func body(content: Content) -> some View {
+        switch state {
+        case .loading:
+            LoaderView(type: .fullScreen)
+        case .loaded:
+            content
+        case .error:
+            ErrorScreenView(errorType: .request, tryAgain: tryAgain)
+                .padding(.bottom, bottomOffset)
+        }
+    }
+}
+
+private struct ErrorScreenView: View {
     @Environment(\.dismiss) private var dismiss
     private let errorType: ErrorScreenType
     private let tryAgain: () -> Void
@@ -76,7 +83,6 @@ struct ErrorScreenView: View {
         }
         .padding(.horizontal, 28.scale)
         .multilineTextAlignment(.center)
-        .gradientBackground()
     }
 }
 

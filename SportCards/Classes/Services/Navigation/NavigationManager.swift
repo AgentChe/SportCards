@@ -15,6 +15,9 @@ enum Route {
     case filters(Binding<Filters>)
     case cardDescription(id: String, grade: String, collection: CollectionTab)
     case manualSearch
+    case category(CardCategory)
+    case menu
+    case preferences
 }
 
 extension Route: Identifiable, Hashable {
@@ -32,6 +35,12 @@ extension Route: Identifiable, Hashable {
             "cardDescription"
         case .manualSearch:
             "manualSearch"
+        case .category:
+            "category"
+        case .menu:
+            "menu"
+        case .preferences:
+            "preferences"
         }
     }
     
@@ -97,6 +106,12 @@ struct RootNavigationStack<Content: View>: View {
                         CardDescriptionView(id: id, grade: grade, collection: collection)
                     case .manualSearch:
                         ManualCardSearchView()
+                    case let .category(category):
+                        CategoryListView(category: category)
+                    case .menu:
+                        MenuView()
+                    case .preferences:
+                        PreferencesView()
                     }
                 }
         }

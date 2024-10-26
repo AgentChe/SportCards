@@ -15,6 +15,8 @@ protocol ProfileManagerProtocol {
     func scannedCards(filters: Filters, page: Int?) -> AnyPublisher<Result<ProfileScannedCards, Error>, Never>
     func addCard(to collection: CollectionTab, id: String, grade: String) -> AnyPublisher<Bool, Error>
     func removeCard(id: String) -> AnyPublisher<Bool, Error>
+    func info() -> AnyPublisher<ProfileInfoModel, Error>
+    func saveAttributes(grade: String?, category: String?) -> AnyPublisher<Void, Error>
 }
 
 protocol ProfileAccountProtocol {
@@ -28,6 +30,30 @@ final class ProfileManager {
 }
 
 extension ProfileManager: ProfileManagerProtocol {
+    func saveAttributes(grade: String?, category: String?) -> AnyPublisher<Void, Error> {
+        let request = ProfileAttributesRequest(
+            anonymousId: sessionManager.anonymousId,
+            internalId: sessionManager.internalId,
+            category: category,
+            grade: grade
+        )
+        
+        return restApiTransport
+            .callServerApi(requestBody: request)
+            .mapToVoid()
+            .eraseToAnyPublisher()
+    }
+    
+    func info() -> AnyPublisher<ProfileInfoModel, Error> {
+        let request = ProfileInfoRequest(
+            anonymousId: sessionManager.anonymousId,
+            internalId: sessionManager.internalId
+        )
+        
+        return restApiTransport
+            .callServerApi(requestBody: request)
+    }
+    
     func home() -> AnyPublisher<Result<HomeModel, Error>, Never> {
         let request = HomeRequest(
             anonymousId: sessionManager.anonymousId,
@@ -113,7 +139,7 @@ extension ProfileManager: ProfileAccountProtocol {
         
         return restApiTransport
             .callServerApi(requestBody: request)
-            .map { _ in () }
+            .mapToVoid()
             .eraseToAnyPublisher()
     }
     
@@ -125,7 +151,7 @@ extension ProfileManager: ProfileAccountProtocol {
         
         return restApiTransport
             .callServerApi(requestBody: request)
-            .map { _ in () }
+            .mapToVoid()
             .eraseToAnyPublisher()
     }
 }

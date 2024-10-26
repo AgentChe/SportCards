@@ -71,12 +71,12 @@ struct PaygateView: View {
                 .padding(.bottom, 16.scale)
             
             HStack(spacing: 12.scale) {
-                if let url = URL(string: GlobalDefinitions.termsOfUse) {
-                    Link(destination: url, label: { Text("Paygate.TermsOfUse".localized) })
+                Link(destination: GlobalDefinitions.termsOfUse) {
+                    Text("Paygate.TermsOfUse".localized)
                 }
                 
-                if let url = URL(string: GlobalDefinitions.privacyPolicy) {
-                    Link(destination: url, label: { Text("Paygate.PrivacyPolicy".localized) })
+                Link(destination: GlobalDefinitions.privacyPolicy) {
+                    Text("Paygate.PrivacyPolicy".localized)
                 }
                 
                 Button(action: {}) { Text("Paygate.RestorePurchases".localized) }

@@ -36,7 +36,7 @@ struct MainTabView: View {
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {}) {
+                    NavigationLink(value: Route.menu) {
                         Image("Home.Menu")
                             .resizable()
                             .frame(width: 24.scale, height: 24.scale)

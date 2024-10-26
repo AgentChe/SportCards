@@ -75,6 +75,7 @@ private struct HomeSearchView: View {
         .onChange(of: searchText) {
             viewModel.searchText = $0
         }
+        .screenState($viewModel.screenState, bottomOffset: 32.scale, tryAgain: viewModel.retry)
     }
     
 }

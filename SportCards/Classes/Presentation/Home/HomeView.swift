@@ -49,9 +49,11 @@ private extension HomeView {
                     .padding(.top, 16.scale)
                     .padding(.horizontal, 16.scale)
                 case let .allias(items):
-                    HomeAliasList(alias: items)
-                        .padding(.leading, 16.scale)
-                        .padding(.top, 24.scale)
+                    HomeAliasList(alias: items) {
+                        route.push(to: .category($0))
+                    }
+                    .padding(.leading, 16.scale)
+                    .padding(.top, 24.scale)
                 case let .priceReport(report):
                     PriceChartView(
                         title: "Chart.Title.Collection".localized,

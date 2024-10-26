@@ -45,35 +45,6 @@ struct WishListView: View {
     }
 }
 
-enum ScreenState {
-    case loading
-    case loaded
-    case error
-}
-
-struct ScreenStateModifier: ViewModifier {
-    @Binding var state: ScreenState
-    let bottomOffset: CGFloat
-    let tryAgain: () -> Void
-    func body(content: Content) -> some View {
-        switch state {
-        case .loading:
-            LoaderView(type: .fullScreen)
-        case .loaded:
-            content
-        case .error:
-            ErrorScreenView(errorType: .request, tryAgain: tryAgain)
-                .padding(.bottom, bottomOffset)
-        }
-    }
-}
-
-extension View {
-    func screenState(_ state: Binding<ScreenState>, bottomOffset: CGFloat = .zero, tryAgain: @escaping () -> Void) -> some View {
-        modifier(ScreenStateModifier(state: state, bottomOffset: bottomOffset, tryAgain: tryAgain))
-    }
-}
-
 private extension WishListView {
     @ViewBuilder
     func makeItem(card: CardDiscover) -> some View {

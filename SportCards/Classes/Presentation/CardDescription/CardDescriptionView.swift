@@ -20,8 +20,6 @@ struct CardDescriptionView: View {
     
     var body: some View {
         VStack {
-//            configureContent(model: CardDetails.mock)
-            
             if let details = viewModel.details {
                  configureContent(model: details)
                     .padding(.top, 14.scale)
