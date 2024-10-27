@@ -10,10 +10,19 @@ import Foundation
 enum GlobalDefinitions {
     static let domain = "https://sportcards.korrekted.com"
     static let apiKey = "aB2AKoWZ6yYOcqrSO5"
+    
+    static let otterScaleHost = "https://api.korrekted.com"
+    static let otterScaleApiKey = "i9upCYSnV2mW4aM3"
+    
     static let privacyPolicy: URL = URL(string: "https://sergei-mobile.com/policy.html")!
     static let termsOfUse: URL = URL(string: "https://sergei-mobile.com/eula.html")!
     static let support: URL = URL(string: "https://sergei-mobile.com/contact.html")!
     
     static let applicationTag = ""
     static let amplitudeApiKey = ""
+    
+    enum Paygate {
+        static let yearly = "train.somatic.endless"
+        static let weekly = "train.somatic.monthly"
+    }
 }

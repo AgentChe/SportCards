@@ -9,99 +9,11 @@ import SwiftUI
 
 @main
 struct SportCardsApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     var body: some Scene {
         WindowGroup {
             RootView()
         }
-    }
-}
-struct RootView: View {
-    @StateObject private var manager = RootViewManager()
-    var body: some View {
-        ZStack {
-            switch manager.currentRoute {
-            case .splash:
-                SplashView()
-                    .task { manager.makeInitialize() }
-                    .screenState($manager.screenState, tryAgain: manager.login)
-                    .transition(.opacity)
-            case .onboarding:
-                OnboardingView()
-                    .environmentObject(manager)
-            case .home:
-                MainTabView()
-                    .transition(.opacity)
-            }
-        }
-    }
-}
-
-import Combine
-
-final class RootViewManager: ObservableObject {
-    @Published var currentRoute: SplashRouter = .splash
-    @AppStorage("showedOnboarding") private var isShowedOnboarding: Bool = false
-    @Published var screenState: ScreenState = .loaded
-    
-    private lazy var sdkInitialize = SplashReceiptValidationObserver()
-    private lazy var profileManager: ProfileAccountProtocol = ProfileManager()
-    private lazy var sessionManager = SessionManager()
-    private lazy var cardsManager = CardsManager()
-    
-    private var cancellable: AnyCancellable?
-    
-    func makeStartRoute() {
-        if isShowedOnboarding {
-            currentRoute = .home
-        } else {
-            currentRoute = .onboarding
-        }
-    }
-    
-    func finishOnboarding() {
-        isShowedOnboarding = true
-        currentRoute = .home
-    }
-    
-    func makeInitialize() {
-        // TODO: FIX ME
-//        sdkInitialize.observe { [weak self] in
-//            self?.login()
-//        }
-        login()
-    }
-    
-    func login() {
-        screenState = .loaded
-        let anonymousId = sessionManager.anonymousId
-        let internalId = sessionManager.internalId
-        
-        let request = anonymousId == internalId
-            ? profileManager.create()
-            : profileManager.binding()
-        
-        cancellable = request
-            .map { [cardsManager] _ -> AnyPublisher<Void, Error> in
-                let categories = cardsManager.makeCategories(forceUpdate: true)
-                    .mapToVoid()
-                
-                let grades = cardsManager.makeGrades(forceUpdate: true)
-                    .mapToVoid()
-                
-                return Publishers.Zip(categories, grades)
-                    .mapToVoid()
-            }
-            .switchToLatest()
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] completion in
-                // TODO: FIX ME
-                if case .failure = completion {
-                    self?.screenState = .error
-                }
-//                self?.makeStartRoute()
-            }, receiveValue: { [weak self] _ in
-                self?.makeStartRoute()
-            })
-            
     }
 }

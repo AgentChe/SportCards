@@ -10,12 +10,19 @@ import SwiftUI
 import PhotosUI
 import Combine
 
+enum CameraState {
+    case available
+    case disable
+    case notDetermined
+}
+
 final class CardScannerViewModel: ObservableObject {
     @MainActor @Published var savedImage: Data? = nil
     @Published var viewfinderImage: Image?
     @Published var selectedPhoto: PhotosPickerItem? = nil
     @Published var isFlashOn: Bool = false
-    @Published var isShowAlert: Bool = false
+    @Published var cameraState: CameraState = .notDetermined
+    @Published var isAvailableCamera: Bool = false
     
     private let cameraManager = CameraManager()
     
@@ -24,6 +31,10 @@ final class CardScannerViewModel: ObservableObject {
         Task { await handleCameraPhotos() }
         Task { await handlePhotoLibrary() }
         isFlashOn = cameraManager.isFlashOn
+        $cameraState
+            .map { $0 == .available }
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$isAvailableCamera)
     }
     
     deinit {
@@ -33,11 +44,9 @@ final class CardScannerViewModel: ObservableObject {
 
 extension CardScannerViewModel {
     func start() {
-        Task { [cameraManager] in
+        Task { @MainActor [cameraManager] in
             let isAuthorized = await cameraManager.isAuthorized
-            await MainActor.run { [weak self] in
-                self?.isShowAlert = !isAuthorized
-            }
+            cameraState = isAuthorized ? .available : .disable
             guard isAuthorized else { return }
             await cameraManager.start()
         }

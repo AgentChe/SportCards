@@ -39,6 +39,7 @@ final class ScannedListViewModel: ObservableObject {
             .sink(receiveValue: { [weak self] result in
                 switch result {
                 case let .success(model):
+                    self?.profileManager.updateScannedCount(model.items.count, isReplace: true)
                     self?.cards = model.items
                     self?.price = .init(price: model.totalPrice, count: model.total)
                     self?.screenState = .loaded

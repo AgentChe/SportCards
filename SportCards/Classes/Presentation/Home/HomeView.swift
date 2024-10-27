@@ -11,10 +11,6 @@ struct HomeView: View {
     @EnvironmentObject private var route: NavigationManager
     @StateObject private var viewModel = HomeViewModel()
     
-    @State private var presentPaygate: Bool = false
-    @State private var searchText: String = ""
-    @State private var isLoaded: Bool = false
-    
     var body: some View {
         VStack(spacing: 0) {
             content

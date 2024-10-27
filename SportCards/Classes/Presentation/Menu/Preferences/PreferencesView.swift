@@ -67,6 +67,7 @@ struct PreferencesView: View {
             .buttonStyle(.button(.primary))
         }
         .screenState($viewModel.screenState, tryAgain: viewModel.retry)
+        .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: dismiss.callAsFunction) {
@@ -80,7 +81,6 @@ struct PreferencesView: View {
             }
         }
         .padding(.top, 10.scale)
-        .navigationBarBackButtonHidden()
         .gradientBackground()
     }
 }

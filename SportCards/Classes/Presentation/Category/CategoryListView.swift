@@ -43,9 +43,6 @@ struct CategoryListView: View {
         .scrollContentBackground(.hidden)
         .scrollDismissesKeyboard(.immediately)
         .padding(.top, 14.scale)
-        .safeAreaInset(edge: .bottom, content: {
-            Color.clear.frame(height: 32.scale)
-        })
         .screenState($viewModel.screenState, bottomOffset: 32.scale, tryAgain: viewModel.retry)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {

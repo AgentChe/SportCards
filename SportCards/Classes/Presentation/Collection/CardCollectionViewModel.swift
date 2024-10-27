@@ -20,17 +20,23 @@ final class CardCollectionViewModel: ObservableObject {
     }
     
     func makeData() {
-        screenState = .loading
-        
-        cancellable = profileManager
-            .collectionsAvailable()
+        cancellable = ProfileManagerMediator.shared.needUpdateCollection
+            .mapToVoid()
+            .prepend(())
+            .compactMap { [weak self] _ -> AnyPublisher<Result<Bool, Error>, Never>? in
+                guard let self, !isAvailable else { return nil }
+                screenState = .loading
+                return profileManager
+                    .collectionsAvailable()
+            }
+            .switchToLatest()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] result in
                 switch result {
                 case .success(let success):
                     self?.isAvailable = success
                     self?.screenState = .loaded
-                case .failure(let failure):
+                case .failure:
                     self?.screenState = .error
                 }
             }

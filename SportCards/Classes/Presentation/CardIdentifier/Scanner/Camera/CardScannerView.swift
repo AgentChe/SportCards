@@ -14,20 +14,12 @@ struct CardScannerView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            CameraView(image: $viewModel.viewfinderImage)
-                .clipShape(RoundedRectangle(cornerRadius: 20.scale))
-                .padding(.top, 22.scale)
-                .padding(.horizontal, 16.scale)
             
-            Text("CardScanner.Subtitle")
-                .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
-                .foregroundStyle(.white.opacity(0.5))
-                .padding(.init(top: 34.scale, leading: 16.scale, bottom: 58.scale, trailing: 16.scale))
-                .multilineTextAlignment(.center)
-                .lineSpacing(2.scale)
+            configureCameraArea()
             
             CardScannerTabBar(
-                selectedPhoto: $viewModel.selectedPhoto,
+                selectedPhoto: $viewModel.selectedPhoto, 
+                availableCamera: $viewModel.isAvailableCamera,
                 toggleAction: { viewModel.switchCaptureDevice() },
                 cameraAction: { viewModel.takePhoto() }
             )
@@ -59,21 +51,52 @@ struct CardScannerView: View {
         }
         .onAppear { viewModel.start() }
         .onDisappear { viewModel.stop() }
-        .alert(
-            "CardScanner.CameraAlert.Title".localized,
-            isPresented: $viewModel.isShowAlert,
-            actions: {
-                Button("Cancel".localized, role: .cancel) { viewModel.isShowAlert = false }
-                if let url = URL(string: UIApplication.openSettingsURLString) {
-                    Link("Ok".localized, destination: url)
-                }
-            }, 
-            message: { Text("CardScanner.CameraAlert.Message".localized) }
-        )
-
     }
-    
-    @State private var currentGrade: Grade? = nil
+}
+
+private extension CardScannerView {
+    @ViewBuilder
+    func configureCameraArea() -> some View {
+        switch viewModel.cameraState {
+        case .available:
+            CameraView(image: $viewModel.viewfinderImage)
+                .clipShape(RoundedRectangle(cornerRadius: 20.scale))
+                .padding(.top, 22.scale)
+                .padding(.horizontal, 16.scale)
+            
+            Text("CardScanner.Subtitle")
+                .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
+                .foregroundStyle(.white.opacity(0.5))
+                .padding(.init(top: 34.scale, leading: 16.scale, bottom: 58.scale, trailing: 16.scale))
+                .multilineTextAlignment(.center)
+                .lineSpacing(2.scale)
+        case .disable:
+            VStack(spacing: 16.scale) {
+                Spacer()
+                Text("CardScanner.PermissionProblem.Title".localized)
+                    .font(Fonts.Inter.font(size: 22.scale, weight: .w700))
+                    .foregroundStyle(.white)
+                
+                Text("CardScanner.PermissionProblem.SubTitle")
+                    .font(Fonts.Inter.font(size: 16.scale, weight: .w400))
+                    .lineSpacing(4.scale)
+                    .foregroundStyle(.white.opacity(0.5))
+                
+                if let url = URL(string: "CardScanner.PermissionProblem.SubTitle") {
+                    Link(destination: url) {
+                        Text("CardScanner.PermissionProblem.Button".localized)
+                    }
+                    .buttonStyle(.button(.primary))
+                    .padding(.top, 20.scale)
+                }
+                Spacer()
+            }
+            .padding(.horizontal, 32.scale)
+            .multilineTextAlignment(.center)
+        case .notDetermined:
+            Spacer()
+        }
+    }
 }
 
 #Preview {

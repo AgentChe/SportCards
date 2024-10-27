@@ -9,6 +9,10 @@ import SwiftUI
 
 struct CardIdentifierMethodView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var router: NavigationManager
+    @StateObject private var viewModel = CardIdentifierMethodViewModel()
+    @State private var presentPaygate: Bool = false
+    
     var body: some View {
         VStack(spacing: 0) {
             Text("CardIdentifier.Title".localized)
@@ -23,14 +27,23 @@ struct CardIdentifierMethodView: View {
                 .padding(.top, 24.scale)
                 .padding(.bottom, 40.scale)
             
-            NavigationLink(value: Route.scanner) {
-                VStack(spacing: 16.scale) {
-                    Image("Scanner.Scan")
-                    Text("CardIdentifier.Action.Scan".localized)
-                        .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
-                        .foregroundStyle(.mono100)
+            Button(
+                action: {
+                    if viewModel.hasActiveSubscriptions() || !viewModel.isScannedRestriction {
+                        router.push(to: .scanner)
+                    } else {
+                        presentPaygate = true
+                    }
+                },
+                label: {
+                    VStack(spacing: 16.scale) {
+                        Image("Scanner.Scan")
+                        Text("CardIdentifier.Action.Scan".localized)
+                            .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
+                            .foregroundStyle(.mono100)
+                    }
                 }
-            }
+            )
             .buttonStyle(ScannerButtonStyle())
             .padding(.bottom, 16.scale)
             
@@ -67,6 +80,7 @@ struct CardIdentifierMethodView: View {
             }
         }
         .gradientBackground()
+        .fullScreenCover(isPresented: $presentPaygate, content: { PaygateView() })
     }
 }
 

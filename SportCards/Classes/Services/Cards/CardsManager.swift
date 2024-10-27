@@ -101,7 +101,7 @@ extension CardsManager: CardsManagerProtocol {
                     switch response.result {
                     case .success(let success):
                         promise(.success(success))
-                    case .failure(let failure):
+                    case .failure:
                         promise(.success(nil))
                     }
                 }

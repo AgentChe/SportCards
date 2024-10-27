@@ -17,6 +17,8 @@ protocol ProfileManagerProtocol {
     func removeCard(id: String) -> AnyPublisher<Bool, Error>
     func info() -> AnyPublisher<ProfileInfoModel, Error>
     func saveAttributes(grade: String?, category: String?) -> AnyPublisher<Void, Error>
+    func isScannedRestriction() -> Bool
+    func updateScannedCount(_ count: Int, isReplace: Bool)
 }
 
 protocol ProfileAccountProtocol {
@@ -127,6 +129,26 @@ extension ProfileManager: ProfileManagerProtocol {
         
         return restApiTransport
             .callServerApi(requestBody: request)
+    }
+    
+    func isScannedRestriction() -> Bool {
+        UserDefaults.standard.integer(forKey: Constants.scannedLimitKey) > 0
+    }
+    
+    func updateScannedCount(_ count: Int, isReplace: Bool) {
+        var value = UserDefaults.standard.integer(forKey: Constants.scannedLimitKey)
+        if isReplace {
+            value = count
+        } else {
+            value = max(value + count, 0)
+        }
+        UserDefaults.standard.setValue(value, forKey: Constants.scannedLimitKey)
+    }
+}
+
+private extension ProfileManager {
+    enum Constants {
+        static let scannedLimitKey = "profile_manager_scanned_limit_key"
     }
 }
 

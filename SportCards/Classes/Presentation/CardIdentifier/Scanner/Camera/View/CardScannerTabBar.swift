@@ -10,11 +10,13 @@ import PhotosUI
 
 struct CardScannerTabBar: View {
     @Binding private var selectedPhoto: PhotosPickerItem?
+    @Binding private var availableCamera: Bool
     private let toggleAction: () -> Void
     private let cameraAction: () -> Void
     
-    init(selectedPhoto: Binding<PhotosPickerItem?>, toggleAction: @escaping () -> Void, cameraAction: @escaping () -> Void) {
+    init(selectedPhoto: Binding<PhotosPickerItem?>, availableCamera: Binding<Bool>, toggleAction: @escaping () -> Void, cameraAction: @escaping () -> Void) {
         self._selectedPhoto = selectedPhoto
+        self._availableCamera = availableCamera
         self.toggleAction = toggleAction
         self.cameraAction = cameraAction
     }
@@ -49,13 +51,20 @@ struct CardScannerTabBar: View {
             UnevenRoundedRectangle(topLeadingRadius: 24.scale, topTrailingRadius: 24.scale)
                 .stroke(.main200, lineWidth: 1.scale)
         }
-        .overlay(alignment: .top) {
+        .overlay(cameraActionView, alignment: .top)
+    }
+}
+
+private extension CardScannerTabBar {
+    @ViewBuilder
+    var cameraActionView: some View {
+        if availableCamera {
             Button(action: cameraAction,
-                label: {
-                    Image("Home.Scanner")
-                        .padding(22.scale)
-                        .background(.main100, in: Circle())
-                }
+                   label: {
+                Image("Home.Scanner")
+                    .padding(22.scale)
+                    .background(.main100, in: Circle())
+            }
             )
             .alignmentGuide(.top, computeValue: { dimension in
                 dimension[.top] + 22.scale
@@ -65,5 +74,5 @@ struct CardScannerTabBar: View {
 }
 
 #Preview {
-    CardScannerTabBar(selectedPhoto: .constant(nil), toggleAction: {}, cameraAction: {})
+    CardScannerTabBar(selectedPhoto: .constant(nil), availableCamera: .constant(false), toggleAction: {}, cameraAction: {})
 }

@@ -45,6 +45,7 @@
 "Paygate.Trial.Toggle" = "Free Trial Enabled";
 "Paygate.Trial.Action" = "Try free & subscribe";
 "Paygate.Trial.Security" = "No payment now";
+"Paygate.Yearly" = "Yearly";
 "Paygate.Yearly.Toggle" = "Enable Free Trial";
 "Paygate.Yearly.Action" = "Continue";
 "Paygate.Yearly.Security" = "Cancel anytime";
@@ -52,6 +53,12 @@
 "Paygate.TermsOfUse" = "Terms of Use";
 "Paygate.PrivacyPolicy" = "Privacy Policy";
 "Paygate.RestorePurchases" = "Restore Purchases";
+"Paygate.PerWeek" = "per week";
+"Paygate.Yearly.Bottom" = "%@/year";
+"Paygate.FreeTrialDays" = "3-day free trial";
+"Paygate.Error.Title" = "Error";
+"Paygate.Error.Text" = "An error occurred during execution. Try later.";
+"Paygate.Error.Button" = "OK";
 
 // MARK: Home
 "Home.Title.Home" = "Home";
@@ -114,8 +121,9 @@
 "CardScanner.Error.PrimaryAction" = "Retake photo";
 "CardScanner.Error.SecondaryAction" = "Add card manually";
 "CardScanner.Progress" = "Identifying card...";
-"CardScanner.CameraAlert.Title" = "Camera not available";
-"CardScanner.CameraAlert.Message" = "Open settings?";
+"CardScanner.PermissionProblem.Title" = "Allow access to camera";
+"CardScanner.PermissionProblem.SubTitle" = "This allows you to easily identify your card";
+"CardScanner.PermissionProblem.Button" = "Allow access";
 
 // MARK: Manual Search
 "ManualSearch.Title" = "Manual search";

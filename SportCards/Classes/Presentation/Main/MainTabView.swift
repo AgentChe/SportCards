@@ -48,6 +48,9 @@ struct MainTabView: View {
             .gradientBackground()
         }
         .fullScreenCover(isPresented: $presentPaygate, content: { PaygateView() })
+        .task {
+            presentPaygate = !SessionManager().hasActiveSubscriptions()
+        }
     }
 }
 

@@ -75,9 +75,14 @@ final class NavigationManager: ObservableObject {
     
     func replacePush(route: Route, replaced: Route) {
         guard let index = path.lastIndex(of: replaced) else { return }
-        path.removeLast(path.count - index)
-        path.append(route)
+        let range = index...path.count - 1
         
+        var transaction = Transaction(animation: .none)
+        transaction.disablesAnimations = true
+        
+        withTransaction(transaction) {
+            path.replaceSubrange(range, with: [route])
+        }
     }
 }
 

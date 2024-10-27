@@ -44,7 +44,16 @@ struct CardScannedImageView: View {
         .gradientBackground()
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                Button(action: dismiss.callAsFunction, label: { Image("Back") })
+                Button(action: dismiss.callAsFunction) {
+                    HStack(spacing: 6.scale) {
+                        Image("Back")
+                        if case .grade = currentState {
+                            Text("CardScanner.GradeTitle")
+                                .font(Fonts.Inter.font(size: 22.scale, weight: .w700))
+                        }
+                    }
+                    .foregroundStyle(.white)
+                }
             }
         }
         .onReceive(viewModel.$action) { action in
@@ -52,7 +61,7 @@ struct CardScannedImageView: View {
             case let .step(step):
                 currentState = step
             case let .details(id, grade):
-                router.replacePush(from: .cardDescription(id: id, grade: grade, collection: .scanned))
+                router.replacePush(route: .cardDescription(id: id, grade: grade, collection: .scanned), replaced: .scanner)
             case .error:
                 showAlert = true
             }
@@ -69,7 +78,7 @@ struct CardScannedImageView: View {
                 }
             )
         }
-        .animation(.easeInOut, value: showAlert)
+        .animation(.spring(), value: showAlert)
     }
 }
 

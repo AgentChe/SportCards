@@ -38,16 +38,6 @@ struct SportCardsButtonStyle: ButtonStyle {
     }
 }
 
-struct WithoutAnimationButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-    }
-}
-
 extension ButtonStyle where Self == SportCardsButtonStyle {
     static func button(_ buttonType: SportCardsButtonStyle.ButtonType) -> Self { .init(buttonType: buttonType) }
-}
-
-extension ButtonStyle where Self == WithoutAnimationButtonStyle {
-    static var withoutAnimation: Self { .init() }
 }

@@ -8,10 +8,20 @@
 import SwiftUI
 
 struct OnboardingCardView5: View {
-    let grades: [Grade]
-    let continueAction: (Set<Grade>) -> Void
-    let skipAction: () -> Void
-    @State private var selected: Set<Grade> = []
+    private let grades: [Grade]
+    private let continueAction: (Grade?) -> Void
+    private let skipAction: () -> Void
+    
+    
+    @State private var selected: Grade?
+    
+    init(grades: [Grade], selected: Grade? = nil, continueAction: @escaping (Grade?) -> Void, skipAction: @escaping () -> Void) {
+        self.grades = grades
+        self._selected = State(initialValue: selected)
+        self.continueAction = continueAction
+        self.skipAction = skipAction
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             Image("Onboarding4")
@@ -29,8 +39,8 @@ struct OnboardingCardView5: View {
                 LazyVStack(spacing: 16.scale) {
                     ForEach(grades, id: \.self) { grage in
                         Button(
-                            action: { gradeAction(for: grage) },
-                            label: { GradeView(grade: grage, isSelected: selected.contains(grage))}
+                            action: { selected = grage },
+                            label: { GradeView(grade: grage, isSelected: selected == grage) }
                         )
                     }
                 }
@@ -56,16 +66,6 @@ struct OnboardingCardView5: View {
             .padding(.bottom, 20.scale)
         }
         .background(.black)
-    }
-    
-    private func gradeAction(for item: Grade) {
-        withAnimation {
-            if selected.contains(item) {
-                selected.remove(item)
-            } else {
-                selected.insert(item)
-            }
-        }
     }
 }
 

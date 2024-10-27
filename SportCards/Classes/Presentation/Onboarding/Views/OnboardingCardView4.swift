@@ -9,9 +9,15 @@ import SwiftUI
 
 struct OnboardingCardView4: View {
     
-    let categories: [CardCategory]
-    @Binding var selected: Set<CardCategory>
-    let continueAction: () -> Void
+    @State private var selected: CardCategory?
+    private let categories: [CardCategory]
+    private let continueAction: (CardCategory?) -> Void
+    
+    init(categories: [CardCategory], selected: CardCategory? = nil, continueAction: @escaping (CardCategory?) -> Void) {
+        self.categories = categories
+        self._selected = State(initialValue: selected)
+        self.continueAction = continueAction
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -26,40 +32,29 @@ struct OnboardingCardView4: View {
             TagLayout(spacing: 16.scale) {
                 ForEach(categories, id: \.self) { item in
                     Button(
-                        action: { tagAction(for: item) },
-                        label: {
-                            TagView(item.name,
-                                isSelected: selected.contains(item)
-                            )
-                            .tagStyle(.checkbox)
-                        }
+                        action: { selected = item },
+                        label: { TagView(item.name, isSelected: selected == item) }
                     )
                 }
             }
+            .tagStyle(.checkbox)
             .padding(.top, 40.scale)
+            
             Spacer()
             
             Button(
-                action: { continueAction() },
+                action: { continueAction(selected) },
                 label: { Text("Continue".localized) }
             )
             .buttonStyle(.button(.primary))
             .padding(.bottom, 20.scale)
-            .disabled(selected.isEmpty)
+            .disabled(selected == nil)
         }
         .padding(.horizontal, 16.scale)
         .background(.black)
     }
-    
-    private func tagAction(for item: CardCategory) {
-        if selected.contains(item) {
-            selected.remove(item)
-        } else {
-            selected.insert(item)
-        }
-    }
 }
 
 #Preview {
-    OnboardingCardView4(categories: [], selected: .constant([]), continueAction: {  })
+    OnboardingCardView4(categories: [], selected: nil, continueAction: { _ in })
 }

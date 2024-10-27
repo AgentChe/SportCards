@@ -9,8 +9,8 @@ import SwiftUI
 
 struct PaygateView: View {
     @Environment(\.dismiss) private var dismiss
-    
     @StateObject private var viewModel = PaygateViewModel()
+    
     var body: some View {
         VStack(spacing: 0) {
             Image("Paygate")
@@ -21,50 +21,9 @@ struct PaygateView: View {
                 .foregroundStyle(.white)
                 .padding(.bottom, ScreenSize.isIphoneXFamily ? 8.scale : 4.scale)
             
-            VStack(alignment: .leading, spacing: 16.scale) {
-                HStack(spacing: 10.scale) {
-                    Image("Paygate.Check")
-                    Text("Paygate.Subtitle1".localized)
-                }
-                HStack(spacing: 10.scale) {
-                    Image("Paygate.Check")
-                    Text("Paygate.Subtitle2".localized)
-                }
-                HStack(spacing: 10.scale) {
-                    Image("Paygate.Check")
-                    Text("Paygate.Subtitle3".localized)
-                }
-            }
-            .font(Fonts.Inter.font(size: 16.scale, weight: .w400))
-            .lineSpacing(10.scale)
-            .multilineTextAlignment(.leading)
-            .foregroundStyle(.mono100)
-            .padding(.bottom, 16.scale)
+            advantagesView
             
-            VStack(spacing: 16.scale) {
-                Toggle(isOn: $viewModel.isOnTrial, label: {
-                    Text(viewModel.currentProduct.toggleTitle)
-                        .font(Fonts.Inter.font(size: 16.scale, weight: .w600))
-                        .foregroundStyle(.mono100)
-                })
-                .tint(.main100)
-                .padding(.horizontal, 16.scale)
-                .padding(.vertical, ScreenSize.isIphoneXFamily ? 17.5.scale : 14.5.scale)
-                .background(.main200, in: RoundedRectangle(cornerRadius: 10.scale))
-                
-                yearlyProduct
-                
-                trialProduct
-                
-            }
-            .padding(.bottom, 16.scale)
-            
-            Button(
-                action: {},
-                label: { Text(viewModel.currentProduct.actionTitle) }
-            )
-            .buttonStyle(.button(.primary))
-            .padding(.bottom, 12.scale)
+            productsView
             
             Label(viewModel.currentProduct.securityLabel.uppercased(), image: "Security")
                 .foregroundStyle(.mono100)
@@ -79,15 +38,17 @@ struct PaygateView: View {
                     Text("Paygate.PrivacyPolicy".localized)
                 }
                 
-                Button(action: {}) { Text("Paygate.RestorePurchases".localized) }
+                Button(action: viewModel.makeRestored) {
+                    Text("Paygate.RestorePurchases".localized)
+                }
             }
             .padding(.horizontal, 30.scale)
             .font(Fonts.Inter.font(size: 12.scale, weight: .w400))
             .foregroundStyle(.mono100)
             .opacity(0.6)
         }
-        .animation(.interpolatingSpring(), value: viewModel.currentProduct)
-        .ignoresSafeArea()
+        .animation(.default, value: viewModel.currentProduct)
+        .animation(.default, value: viewModel.isLoading)
         .padding(.horizontal, 16.scale)
         .frame(maxHeight: .infinity)
         .background(.black)
@@ -100,33 +61,102 @@ struct PaygateView: View {
                 }
             )
         }
+        .onReceive(viewModel.$dismiss, perform: { if $0 { dismiss() } })
+        .alert(
+            "Paygate.Error.Title",
+            isPresented: $viewModel.showError,
+            actions: {
+                Button("Ok", role: .cancel) { viewModel.showError.toggle() }
+            },
+            message: { Text("Paygate.Error.Text") }
+        )
+    }
+}
+
+private extension PaygateView {
+    @ViewBuilder
+    var advantagesView: some View {
+        VStack(alignment: .leading, spacing: 16.scale) {
+            HStack(spacing: 10.scale) {
+                Image("Paygate.Check")
+                Text("Paygate.Subtitle1".localized)
+            }
+            HStack(spacing: 10.scale) {
+                Image("Paygate.Check")
+                Text("Paygate.Subtitle2".localized)
+            }
+            HStack(spacing: 10.scale) {
+                Image("Paygate.Check")
+                Text("Paygate.Subtitle3".localized)
+            }
+        }
+        .font(Fonts.Inter.font(size: 16.scale, weight: .w400))
+        .lineSpacing(10.scale)
+        .multilineTextAlignment(.leading)
+        .foregroundStyle(.mono100)
+        .padding(.bottom, 16.scale)
     }
     
-    @ViewBuilder private var yearlyProduct: some View {
-        Button(action: {
-            viewModel.isOnTrial = false
-        }, label: {
-            HStack(spacing: 0) {
-                VStack(alignment: .leading, spacing: 4.scale) {
-                    Text("Yearly")
-                        .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
-                    Text("$39.99/year")
+    @ViewBuilder
+    var productsView: some View {
+        if let yearly = viewModel.products?.yearly, let weekly = viewModel.products?.weekly, !viewModel.isLoading {
+            VStack(spacing: 16.scale) {
+                Toggle(isOn: $viewModel.isOnTrial, label: {
+                    Text(viewModel.currentProduct.toggleTitle)
                         .font(Fonts.Inter.font(size: 16.scale, weight: .w600))
-                }
+                        .foregroundStyle(.mono100)
+                })
+                .tint(.main100)
+                .padding(.horizontal, 16.scale)
+                .padding(.vertical, ScreenSize.isIphoneXFamily ? 17.5.scale : 14.5.scale)
+                .background(.main200, in: RoundedRectangle(cornerRadius: 10.scale))
                 
-                Spacer()
-                
-                VStack(alignment: .leading, spacing: 4.scale) {
-                    Text("$0.96")
-                        .font(Fonts.Inter.font(size: 16.scale, weight: .w400))
-                    Text("per week")
-                        .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
-                }
-                .padding(.trailing, 40.scale)
-                
-                Image(viewModel.currentProduct == .yearly ? "Radiobutton.Selected" : "Radiobutton.Default")
+                makeYearly(yearly)
+                makeTrial(weekly)
             }
-        })
+            
+            Spacer()
+            
+            Button(
+                action: viewModel.byProduct,
+                label: { Text(viewModel.currentProduct.actionTitle) }
+            )
+            .buttonStyle(.button(.primary))
+            .padding(.bottom, 12.scale)
+        } else {
+            LoaderView(type: .fullScreen)
+        }
+    }
+    
+    @ViewBuilder
+    func makeYearly(_ product: ProductPrice) -> some View {
+        let priceLeft = Currency(productPrice: product).formatted() ?? ""
+        let priceRight = Currency(productPrice: product, div: 52).formatted() ?? ""
+        Button(
+            action: { viewModel.isOnTrial = false },
+            label: {
+                HStack(spacing: 0) {
+                    VStack(alignment: .leading, spacing: 4.scale) {
+                        Text("Paygate.Yearly".localized)
+                            .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
+                        Text(String(format: "Paygate.Yearly.Bottom".localized, priceLeft))
+                            .font(Fonts.Inter.font(size: 16.scale, weight: .w600))
+                    }
+                    
+                    Spacer()
+                    
+                    VStack(alignment: .leading, spacing: 4.scale) {
+                        Text(priceRight)
+                            .font(Fonts.Inter.font(size: 16.scale, weight: .w400))
+                        Text("Paygate.PerWeek".localized)
+                            .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
+                    }
+                    .padding(.trailing, 40.scale)
+                    
+                    Image(viewModel.currentProduct == .yearly ? "Radiobutton.Selected" : "Radiobutton.Default")
+                }
+            }
+        )
         .foregroundStyle(.mono100)
         .padding(.horizontal, 16.scale)
         .padding(.vertical, ScreenSize.isIphoneXFamily ? 12.scale : 8.scale)
@@ -154,28 +184,32 @@ struct PaygateView: View {
         }
     }
     
-    @ViewBuilder private var trialProduct: some View {
-        Button(action: {
-            viewModel.isOnTrial = true
-        }, label: {
-            HStack(spacing: 0) {
-                Text("3-day free trial".uppercased())
-                    .font(Fonts.Inter.font(size: 16.scale, weight: .w600))
-                
-                Spacer()
-                
-                VStack(alignment: .leading, spacing: 4.scale) {
-                    Text("$6.96")
+    @ViewBuilder
+    func makeTrial(_ product: ProductPrice) -> some View {
+        let price = Currency(productPrice: product).formatted() ?? ""
+        
+        Button(
+            action: { viewModel.isOnTrial = true },
+            label: {
+                HStack(spacing: 0) {
+                    Text("Paygate.FreeTrialDays".localized.uppercased())
                         .font(Fonts.Inter.font(size: 16.scale, weight: .w600))
-                    Text("per week")
-                        .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
+                    
+                    Spacer()
+                    
+                    VStack(alignment: .leading, spacing: 4.scale) {
+                        Text(price)
+                            .font(Fonts.Inter.font(size: 16.scale, weight: .w600))
+                        Text("Paygate.PerWeek".localized)
+                            .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
+                    }
+                    .padding(.trailing, 40.scale)
+                    
+                    
+                    Image(viewModel.currentProduct == .trial ? "Radiobutton.Selected" : "Radiobutton.Default")
                 }
-                .padding(.trailing, 40.scale)
-                
-                
-                Image(viewModel.currentProduct == .trial ? "Radiobutton.Selected" : "Radiobutton.Default")
             }
-        })
+        )
         .foregroundStyle(.mono100)
         .padding(.horizontal, 16.scale)
         .padding(.vertical, ScreenSize.isIphoneXFamily ? 12.scale : 8.scale)

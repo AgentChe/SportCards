@@ -64,10 +64,13 @@ final class CardDescriptionViewModel: ObservableObject {
             .sink(receiveCompletion: receiveCompletion) { [weak self] value in
                 guard let self else { return }
                 isLoading = false
-                if value {
-                    ProfileManagerMediator.shared.updateCollection(collection)
-                    isAdded = true
+                guard value else { return }
+                
+                if collection == .scanned {
+                    profileManager.updateScannedCount(1, isReplace: false)
                 }
+                ProfileManagerMediator.shared.updateCollection(collection)
+                isAdded = true
             }
     }
     
@@ -81,10 +84,12 @@ final class CardDescriptionViewModel: ObservableObject {
             .sink(receiveCompletion: receiveCompletion) { [weak self] value in
                 guard let self else { return }
                 isLoading = false
-                if value {
-                    ProfileManagerMediator.shared.updateCollection(collection)
-                    isAdded = false
+                guard value else { return }
+                if collection == .scanned {
+                    profileManager.updateScannedCount(-1, isReplace: false)
                 }
+                ProfileManagerMediator.shared.updateCollection(collection)
+                isAdded = false
             }
     }
     
