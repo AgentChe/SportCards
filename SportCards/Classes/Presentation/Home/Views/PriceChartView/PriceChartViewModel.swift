@@ -20,6 +20,7 @@ class PriceChartViewModel: ObservableObject {
         ]
         
         let filtered = $currentFilter
+            .removeDuplicates()
             .map { filter in
                 switch filter {
                 case .today:
@@ -33,6 +34,7 @@ class PriceChartViewModel: ObservableObject {
                 }
             }
             .prepend(model.today)
+            .share()
         
         let currentItems = filtered
             .map { $0.count > 1 ? $0 : emptyItems }

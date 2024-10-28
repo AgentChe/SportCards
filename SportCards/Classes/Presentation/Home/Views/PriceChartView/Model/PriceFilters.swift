@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum PriceFilters: CaseIterable {
+enum PriceFilters: CaseIterable, Hashable {
     case today
     case week
     case twoWeek
