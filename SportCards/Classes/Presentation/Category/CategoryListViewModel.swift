@@ -41,6 +41,7 @@ final class CategoryListViewModel: ObservableObject {
                     .cards(text: "", filters: filters, for: page)
             }
             .switchToLatest()
+            .share()
         
         let success = request
             .compactMap(\.success)

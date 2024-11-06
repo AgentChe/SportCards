@@ -31,6 +31,7 @@ struct ScreenStateModifier: ViewModifier {
     @Binding var state: ScreenState
     let bottomOffset: CGFloat
     let tryAgain: () -> Void
+    
     func body(content: Content) -> some View {
         switch state {
         case .loading:
@@ -46,6 +47,7 @@ struct ScreenStateModifier: ViewModifier {
 
 private struct ErrorScreenView: View {
     @Environment(\.dismiss) private var dismiss
+    
     private let errorType: ErrorScreenType
     private let tryAgain: () -> Void
     
@@ -76,9 +78,11 @@ private struct ErrorScreenView: View {
             .buttonStyle(.button(.primary))
             
             if errorType == .request {
-                Button(action: { }, label: { Text("Error.Support".localized) })
-                    .buttonStyle(.button(.secondary))
-                    .padding(.top, 16.scale)
+                Link(destination: GlobalDefinitions.support) {
+                    Text("Error.Support".localized)
+                }
+                .buttonStyle(.button(.secondary))
+                .padding(.top, 16.scale)
             }
         }
         .padding(.horizontal, 28.scale)

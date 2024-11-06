@@ -26,8 +26,8 @@ struct CardCollectionView: View {
                 CardCollectionEmptyView()
             }
         }
-        .gradientBackground()
         .screenState($viewModel.screenState, bottomOffset: 32.scale, tryAgain: viewModel.makeData)
+        .gradientBackground()
     }
 }
 

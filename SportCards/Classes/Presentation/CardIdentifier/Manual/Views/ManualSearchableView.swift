@@ -40,7 +40,7 @@ private struct SearchableModifier: ViewModifier {
             
             content
         }
-        .animation(.easeOut(duration: 0.3), value: isFocused)
+        .animation(.easeOut(duration: 0.3), value: isSearch)
     }
     
     @ViewBuilder private var header: some View {

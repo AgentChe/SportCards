@@ -26,16 +26,7 @@ struct CardDescriptionView: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .overlay(alignment: .bottom) {
-            if viewModel.details != nil {
-                DetailsFooterView(
-                    isLoading: $viewModel.isLoading,
-                    isAdded: $viewModel.isAdded,
-                    action: addOrDeleteAction
-                )
-                .padding(.horizontal, 16.scale)
-            }
-        }
+        .overlay(footerView, alignment: .bottom)
         .confirmAlert(isPresented: $showAlert) {
             ConfirmDeleteView(
                 deleteAction: { 
@@ -72,6 +63,18 @@ struct CardDescriptionView: View {
 }
 
 private extension CardDescriptionView {
+    @ViewBuilder
+    var footerView: some View {
+        if viewModel.details != nil {
+            DetailsFooterView(
+                isLoading: $viewModel.isLoading,
+                isAdded: $viewModel.isAdded,
+                action: addOrDeleteAction
+            )
+            .padding(.horizontal, 16.scale)
+        }
+    }
+    
     @ViewBuilder
     func configureContent(model: CardDetails) -> some View {
         ScrollView(.vertical) {

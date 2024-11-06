@@ -8,6 +8,7 @@
 import FBSDKCoreKit
 import OtterScaleiOS
 import StoreKit
+import Combine
 
 final class FacebookManager: NSObject {
     deinit {
@@ -16,10 +17,8 @@ final class FacebookManager: NSObject {
     
     static let shared = FacebookManager()
     
-    // FIXME: Поправить чуть позже
-//    private lazy var iapManager = IAPManager()
-//    
-//    private lazy var disposeBag = DisposeBag()
+    private lazy var iapManager = IAPManager()
+    private var cancellable: Set<AnyCancellable> = []
     
     private override init() {
         super.init()
@@ -54,16 +53,15 @@ extension FacebookManager: SKPaymentTransactionObserver {
         }
         
         let ids = purchased.map { $0.payment.productIdentifier }
-        
-//        iapManager.obtainProducts(ids: ids)
-//            .subscribe(onSuccess: { products in
-//                products.forEach { product in
-//                    let currency = product.original.priceLocale.currency?.identifier ?? "unknown"
-//                    
-//                    AppEvents.shared.logPurchase(amount: 0, currency: currency)
-//                }
-//            })
-//            .disposed(by: disposeBag)
+        iapManager.obtainProducts(ids: ids)
+            .sink { products in
+                products.forEach { product in
+                    let currency = product.original.priceLocale.currency?.identifier ?? "unknown"
+                    
+                    AppEvents.shared.logPurchase(amount: 0, currency: currency)
+                }
+            }
+            .store(in: &cancellable)
     }
 }
 

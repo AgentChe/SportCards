@@ -21,7 +21,7 @@ struct HomeView: View {
 }
 
 private extension HomeView {
-    private var content: some View {
+    var content: some View {
         ScrollView(.vertical) {
             LazyVStack(alignment: .leading, spacing: 0) {
                 ForEach(viewModel.dataSource) { model in

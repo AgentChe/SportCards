@@ -69,13 +69,8 @@ private struct HomeSearchView: View {
         .safeAreaInset(edge: .bottom, content: {
             Color.clear.frame(height: 32.scale)
         })
-        .onChange(of: filters) {
-            viewModel.filters = $0
-        }
-        .onChange(of: searchText) {
-            viewModel.searchText = $0
-        }
+        .onChange(of: filters) { viewModel.filters = $0 }
+        .onChange(of: searchText) { viewModel.searchText = $0 }
         .screenState($viewModel.screenState, bottomOffset: 32.scale, tryAgain: viewModel.retry)
     }
-    
 }
