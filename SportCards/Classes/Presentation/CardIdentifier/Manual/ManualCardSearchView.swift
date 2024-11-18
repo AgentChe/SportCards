@@ -22,6 +22,7 @@ struct ManualCardSearchView: View {
             }
             .listRowInsets(.init(top: 0, leading: 16.scale, bottom: 0, trailing: 16.scale))
             .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
             
             if !viewModel.isFinished {
                 LoaderView(type: .pagination)
@@ -31,7 +32,7 @@ struct ManualCardSearchView: View {
             }
         }
         .listRowSpacing(16.scale)
-        .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
         .scrollDismissesKeyboard(.immediately)

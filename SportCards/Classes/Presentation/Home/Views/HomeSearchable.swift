@@ -27,10 +27,8 @@ private struct HomeSearchableModifier: ViewModifier {
                 .padding(.init(top: 14.scale, leading: 16.scale, bottom: 24.scale, trailing: 16.scale))
             if isSearch {
                 HomeSearchView(searchText: $searchText, filters: $filters)
-                    .matchedGeometryEffect(id: "SEARCH", in: animation, isSource: true)
             } else {
                 content
-                    .matchedGeometryEffect(id: "LIST", in: animation, isSource: false)
             }
         }
     }

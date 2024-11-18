@@ -63,6 +63,7 @@ private extension HomeView {
                 .frame(height: 32.scale)
         })
         .scrollIndicators(.never)
+        .screenState($viewModel.screenState, bottomOffset: 32.scale, tryAgain: viewModel.retry)
     }
 }
 

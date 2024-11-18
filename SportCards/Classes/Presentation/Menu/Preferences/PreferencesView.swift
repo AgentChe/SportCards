@@ -13,60 +13,62 @@ struct PreferencesView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ScrollView(.vertical) {
-                LazyVStack(alignment: .leading, spacing: 24.scale) {
-                    Text("Preferences.Category".localized)
-                        .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
-                        .foregroundStyle(.white)
-                        .padding(.vertical, 10.scale)
-                    
-                    TagLayout(spacing: 12.scale, alignment: .leading) {
-                        ForEach(viewModel.categories, id: \.self) { item in
-                            Button(
-                                action: { viewModel.currentCategory = item },
-                                label: {
-                                    TagView(item.alias, isSelected: viewModel.currentCategory == item)
-                                }
-                            )
+            Group {
+                ScrollView(.vertical) {
+                    LazyVStack(alignment: .leading, spacing: 24.scale) {
+                        Text("Preferences.Category".localized)
+                            .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
+                            .foregroundStyle(.white)
+                            .padding(.vertical, 10.scale)
+                        
+                        TagLayout(spacing: 12.scale, alignment: .leading) {
+                            ForEach(viewModel.categories, id: \.self) { item in
+                                Button(
+                                    action: { viewModel.currentCategory = item },
+                                    label: {
+                                        TagView(item.alias, isSelected: viewModel.currentCategory == item)
+                                    }
+                                )
+                            }
                         }
-                    }
-                    .tagStyle(.checkbox)
-                    
-                    Text("Preferences.Grade".localized)
-                        .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
-                        .foregroundStyle(.white)
-                        .padding(.vertical, 10.scale)
-                    
-                    TagLayout(spacing: 12.scale, alignment: .leading) {
-                        ForEach(viewModel.grades, id: \.self) { item in
-                            Button(
-                                action: { viewModel.currentGrade = item },
-                                label: {
-                                    TagView(item.alias, isSelected: viewModel.currentGrade == item)
-                                }
-                            )
+                        .tagStyle(.checkbox)
+                        
+                        Text("Preferences.Grade".localized)
+                            .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
+                            .foregroundStyle(.white)
+                            .padding(.vertical, 10.scale)
+                        
+                        TagLayout(spacing: 12.scale, alignment: .leading) {
+                            ForEach(viewModel.grades, id: \.self) { item in
+                                Button(
+                                    action: { viewModel.currentGrade = item },
+                                    label: {
+                                        TagView(item.alias, isSelected: viewModel.currentGrade == item)
+                                    }
+                                )
+                            }
                         }
+                        .tagStyle(.checkbox)
                     }
-                    .tagStyle(.checkbox)
+                    .padding(.horizontal, 16.scale)
                 }
-                .padding(.horizontal, 16.scale)
-            }
-            .scrollIndicators(.never)
-            
-            Button(action: viewModel.apply) {
-                HStack {
-                    if viewModel.isLoading {
-                        ProgressView()
-                            .progressViewStyle(.sportCards)
-                            .frame(width: 20.scale, height: 20.scale)
+                .scrollIndicators(.never)
+                
+                Button(action: viewModel.apply) {
+                    HStack {
+                        if viewModel.isLoading {
+                            ProgressView()
+                                .progressViewStyle(.sportCards)
+                                .frame(width: 20.scale, height: 20.scale)
+                        }
+                        Text("Preferences.Apply".localized)
                     }
-                    Text("Preferences.Apply".localized)
                 }
+                .disabled(viewModel.isLoading)
+                .buttonStyle(.button(.primary))
             }
-            .disabled(viewModel.isLoading)
-            .buttonStyle(.button(.primary))
+            .screenState($viewModel.screenState, tryAgain: viewModel.retry)
         }
-        .screenState($viewModel.screenState, tryAgain: viewModel.retry)
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
