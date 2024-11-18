@@ -15,7 +15,6 @@ struct HomeView: View {
         VStack(spacing: 0) { content }
             .homeSearchable()
             .frame(maxWidth: .infinity)
-            .screenState($viewModel.screenState, bottomOffset: 32.scale, tryAgain: viewModel.retry)
             .navigationBarBackButtonHidden()
     }
 }

@@ -84,6 +84,7 @@ final class CardSearchViewModel: ObservableObject {
             })
             .map(\.items)
             .scan([], +)
+            .prepend([])
         
         let error = request.compactMap(\.error)
         

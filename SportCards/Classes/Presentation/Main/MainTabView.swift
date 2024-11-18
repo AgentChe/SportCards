@@ -23,9 +23,7 @@ struct MainTabView: View {
     var body: some View {
         RootNavigationStack {
             TabBarView(items: tabs, selected: $selectedTab) {
-                ForEach(tabs, id: \.self) {
-                    $0.screen
-                }
+                ForEach(tabs) { $0.screen }
             }
             .frame(maxHeight: .infinity)
             .toolbar {

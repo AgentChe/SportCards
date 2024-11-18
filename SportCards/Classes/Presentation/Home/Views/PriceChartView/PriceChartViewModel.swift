@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import Combine
 
 class PriceChartViewModel: ObservableObject {
     @Published var currentFilter: PriceFilters = .today
     @Published var xScale: ClosedRange<Date> = (.now)...(.now + 10)
     @Published var chartItems: [PriceReport.Item] = []
     @Published var medianModel: PriceReport.Item? = nil
+    
+    private var cancellable: Set<AnyCancellable> = []
     
     init(model: PriceReport) {
         let emptyItems: [PriceReport.Item] = [
@@ -34,10 +37,11 @@ class PriceChartViewModel: ObservableObject {
                 }
             }
             .prepend(model.today)
-            .share()
+            .shareReplay(1)
         
         let currentItems = filtered
             .map { $0.count > 1 ? $0 : emptyItems }
+            .shareReplay(1)
         
         currentItems
             .prepend(emptyItems)

@@ -46,20 +46,6 @@ extension CardsManager: CardsManagerProtocol {
             .eraseToAnyPublisher()
     }
     
-//    func cards(text: String, filters: Filters, for page: Int) async throws -> CardDiscoverResponse? {
-//        let request = DiscoverRequest(
-//            anonymousId: sessionManager.anonymousId,
-//            internalId: sessionManager.anonymousId,
-//            text: text,
-//            filters: filters,
-//            page: page
-//        )
-//        
-//        let data = try await restApiTransport.callServerApi1(requestBody: request)
-//        
-//        return CardDiscoverResponse(from: data)
-//    }
-    
     func cardDetails(id: String, grade: String) -> AnyPublisher<CardDetails, Error> {
         let request = CardDetailsRequest(
             anonymousId: sessionManager.anonymousId,

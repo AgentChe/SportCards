@@ -47,7 +47,6 @@ struct DetailsFooterView: View {
 //                    .buttonStyle(.button(.secondary))
             }
         }
-        .background(.black)
     }
 }
 

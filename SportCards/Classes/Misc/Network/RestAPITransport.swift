@@ -82,10 +82,11 @@ final class APIDecodableResponseSerializer<T: Decodable>: ResponseSerializer {
     let emptyRequestMethods: Set<HTTPMethod>
     
     init(dataPreprocessor: DataPreprocessor = PassthroughPreprocessor(),
-                decoder: DataDecoder = JSONDecoder(),
                 emptyResponseCodes: Set<Int> = [204, 205],
                 emptyRequestMethods: Set<HTTPMethod> = [.head]) {
         self.dataPreprocessor = dataPreprocessor
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .secondsSince1970
         self.decoder = decoder
         self.emptyResponseCodes = emptyResponseCodes
         self.emptyRequestMethods = emptyRequestMethods

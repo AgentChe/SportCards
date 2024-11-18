@@ -31,10 +31,10 @@ extension PriceReport: Decodable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.today = (try? container.decode([PriceReport.Item].self, forKey: .today)) ?? []
-        self.week = (try? container.decode([PriceReport.Item].self, forKey: .week)) ?? []
-        self.twoWeek = (try? container.decode([PriceReport.Item].self, forKey: .twoWeek)) ?? []
-        self.month = (try? container.decode([PriceReport.Item].self, forKey: .month)) ?? []
+        self.today = try container.decode([PriceReport.Item].self, forKey: .today)
+        self.week = try container.decode([PriceReport.Item].self, forKey: .week)
+        self.twoWeek = try container.decode([PriceReport.Item].self, forKey: .twoWeek)
+        self.month = try container.decode([PriceReport.Item].self, forKey: .month)
     }
 }
 

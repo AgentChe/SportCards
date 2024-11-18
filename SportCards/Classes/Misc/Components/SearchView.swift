@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
+    @EnvironmentObject private var router: NavigationManager
     @Binding var searchText: String
     @Binding var isFocused: Bool
     @Binding var filters: Filters
@@ -15,7 +16,7 @@ struct SearchView: View {
     var body: some View {
         let isExpanded = searchText.count >= 3
         ZStack(alignment: .trailing) {
-            NavigationLink(value: Route.filters($filters)) {
+            Button(action: { router.push(to: Route.filters($filters)) }) {
                 Image("Home.Settings")
                     .frame(width: 50.scale, height: 50.scale)
                     .background(.main300, in: Circle())

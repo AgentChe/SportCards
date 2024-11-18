@@ -20,10 +20,15 @@ struct CardDescriptionView: View {
     
     var body: some View {
         VStack {
-            if let details = viewModel.details {
-                 configureContent(model: details)
-                    .padding(.top, 14.scale)
+            Group {
+                if let details = viewModel.details {
+                    configureContent(model: details)
+                        .padding(.top, 14.scale)
+                } else {
+                    Color.clear
+                }
             }
+            .screenState($viewModel.screenState, tryAgain: viewModel.retry)
         }
         .frame(maxWidth: .infinity)
         .overlay(footerView, alignment: .bottom)
@@ -37,7 +42,6 @@ struct CardDescriptionView: View {
             )
         }
         .animation(.default, value: showAlert)
-        .screenState($viewModel.screenState, tryAgain: viewModel.retry)
         .background(.black)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {

@@ -19,6 +19,13 @@ extension HomeModel: Decodable {
         case recommendation
         case other
     }
+    
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.personalScanner = try? container.decodeIfPresent(PriceReport.self, forKey: .personalScanner)
+        self.recommendation = try container.decode([CardDiscover].self, forKey: .recommendation)
+        self.other = try container.decode([OtherCardModel].self, forKey: .other)
+    }
 }
 
 extension Result {

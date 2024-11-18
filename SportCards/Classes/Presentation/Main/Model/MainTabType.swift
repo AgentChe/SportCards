@@ -7,7 +7,9 @@
 
 import Foundation
 
-enum MainTabType: CaseIterable, Hashable {
+enum MainTabType: CaseIterable, Hashable, Identifiable {
     case home
     case collection
+    
+    var id: Self { self }
 }

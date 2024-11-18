@@ -63,7 +63,7 @@ extension CardDetails.Sale: Decodable {
         self.lowPriceRaw = try container.decodeIfPresent(Double.self, forKey: .lowPriceRaw)
         self.hightPrice = try container.decodeIfPresent(String.self, forKey: .hightPrice)
         self.hightPriceRaw = try container.decodeIfPresent(Double.self, forKey: .hightPriceRaw)
-        self.report = try container.decodeIfPresent(PriceReport.self, forKey: .report)
+        self.report = try? container.decodeIfPresent(PriceReport.self, forKey: .report)
     }
 }
 

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CollectionSettingsView: View {
+    @EnvironmentObject var router: NavigationManager
     @Binding var currentLayout: CollectionLayoutType
     @Binding var filters: Filters
     
@@ -31,20 +32,18 @@ struct CollectionSettingsView: View {
             
             Spacer()
             
-            NavigationLink(
-                destination: FiltersView(filters: $filters),
-                label: {
-                    HStack(spacing: 10.scale) {
-                        Image("Collection.Filters")
-                            .resizable()
-                            .frame(width: 24.scale, height: 24.scale)
-                        
-                        Text("Filters")
-                            .font(Fonts.Inter.font(size: 16.scale, weight: .w400))
-                            .foregroundStyle(.mono100.opacity(0.5))
-                    }
+            
+            Button(action: { router.push(to: Route.filters($filters)) }) {
+                HStack(spacing: 10.scale) {
+                    Image("Collection.Filters")
+                        .resizable()
+                        .frame(width: 24.scale, height: 24.scale)
+                    
+                    Text("Filters")
+                        .font(Fonts.Inter.font(size: 16.scale, weight: .w400))
+                        .foregroundStyle(.mono100.opacity(0.5))
                 }
-            )
+            }
         }
         .padding(.vertical, 12.scale)
         .padding(.horizontal, 16.scale)

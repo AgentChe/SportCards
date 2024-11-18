@@ -9,25 +9,27 @@ import SwiftUI
 
 extension View {
     func confirmAlert<Content>(isPresented: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) -> some View where Content : View {
-        overlay {
-            content().modifier(AlertPresentation(isPresented: isPresented))
-        }
+        modifier(AlertPresentation(isPresented: isPresented, alertContent: content))
     }
 }
-struct AlertPresentation: ViewModifier {
+struct AlertPresentation<Alert: View>: ViewModifier {
     @Binding var isPresented: Bool
+    var alertContent: () -> Alert
     
     func body(content: Content) -> some View {
-        if isPresented {
-            VStack {
-                Spacer()
-                content
-                    .padding(.horizontal, 40.scale)
-                    .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .bottom)))
-                Spacer()
+        content
+            .overlay {
+                if isPresented {
+                    Color.black.opacity(0.8)
+                        .ignoresSafeArea()
+                        .transition(.opacity)
+                    
+                    alertContent()
+                        .padding(.horizontal, 25.scale)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
             }
-            .background(Color.black.opacity(0.8))
-            .ignoresSafeArea()
-        }
+            .animation(.bouncy(), value: isPresented)
+            .navigationBarBackButtonHidden(isPresented)
     }
 }

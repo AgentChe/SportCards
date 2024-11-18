@@ -35,8 +35,9 @@ struct DiscoverRequest: APIRequestBody {
             "page": page
         ]
         
-        params["sort"] = filters.price?.rawValue
-        
+        if let price = filters.price?.rawValue {
+            params["sort"] = ["price": price]
+        }
         var filtersParams: [String: Any] = [:]
         
         filtersParams["category"] = filters.category?.alias

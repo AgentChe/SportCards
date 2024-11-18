@@ -21,16 +21,16 @@ private struct HomeSearchableModifier: ViewModifier {
     @Namespace private var animation
     
     func body(content: Content) -> some View {
+        let isSearch = isFocused || !searchText.isEmpty
         VStack {
             SearchView(searchText: $searchText, isFocused: $isFocused, filters: $filters)
                 .padding(.init(top: 14.scale, leading: 16.scale, bottom: 24.scale, trailing: 16.scale))
-            
-            if isFocused || !searchText.isEmpty {
+            if isSearch {
                 HomeSearchView(searchText: $searchText, filters: $filters)
-                    .matchedGeometryEffect(id: "SEARCH", in: animation)
+                    .matchedGeometryEffect(id: "SEARCH", in: animation, isSource: true)
             } else {
                 content
-                    .matchedGeometryEffect(id: "LIST", in: animation)
+                    .matchedGeometryEffect(id: "LIST", in: animation, isSource: false)
             }
         }
     }
@@ -67,7 +67,7 @@ private struct HomeSearchView: View {
         .scrollContentBackground(.hidden)
         .scrollDismissesKeyboard(.immediately)
         .safeAreaInset(edge: .bottom, content: {
-            Color.clear.frame(height: 32.scale)
+            Color.clear.frame(height: ScreenSize.isIphoneXFamily ?  32.scale : 0)
         })
         .onChange(of: filters) { viewModel.filters = $0 }
         .onChange(of: searchText) { viewModel.searchText = $0 }
