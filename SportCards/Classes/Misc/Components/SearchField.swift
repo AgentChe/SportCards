@@ -33,7 +33,9 @@ struct SearchField: View {
         .padding(.horizontal, 24.scale)
         .background(.main300, in: Capsule())
         .onChange(of: isFocus) { value in
-            withAnimation { isFocused = value }
+            if value != isFocused {
+                withAnimation { isFocused = value }
+            }
         }
         .onTapGesture {
             withAnimation { isFocus = true }

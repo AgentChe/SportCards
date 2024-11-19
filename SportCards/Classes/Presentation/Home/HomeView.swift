@@ -12,7 +12,7 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     
     var body: some View {
-        VStack(spacing: 0) { content }
+        content
             .homeSearchable()
             .frame(maxWidth: .infinity)
             .navigationBarBackButtonHidden()

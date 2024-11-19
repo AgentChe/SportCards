@@ -32,9 +32,7 @@ struct ManualCardSearchView: View {
             }
         }
         .listRowSpacing(16.scale)
-        .listRowBackground(Color.clear)
         .listStyle(.plain)
-        .scrollContentBackground(.hidden)
         .scrollDismissesKeyboard(.immediately)
         .screenState($viewModel.screenState, tryAgain: viewModel.retry)
         .manualSearchable(searchText: $viewModel.searchText, filters: $viewModel.filters)
@@ -44,6 +42,10 @@ struct ManualCardSearchView: View {
                 Button(action: dismiss.callAsFunction) { Image("Back") }
             }
         }
+        .scrollContentBackground(.hidden)
+        .safeAreaInset(edge: .bottom, content: {
+            Color.clear.frame(height: 32.scale)
+        })
         .gradientBackground()
     }
 }

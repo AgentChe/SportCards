@@ -9,11 +9,8 @@ import Foundation
 import Combine
 
 final class HomeViewModel: ObservableObject {
-    @Published private(set) var recommendations: [CardDiscover] = []
     @Published private(set) var dataSource: [HomeViewCellType] = []
     @Published var searchIsFocused: Bool = false
-    @Published var searchText: String = ""
-    @Published var filters: Filters = .init()
     @Published var screenState: ScreenState = .loading
     
     private lazy var profileManager: ProfileManagerProtocol = ProfileManager()

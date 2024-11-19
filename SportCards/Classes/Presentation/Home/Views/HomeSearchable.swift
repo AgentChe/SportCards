@@ -15,18 +15,15 @@ extension View {
 
 private struct HomeSearchableModifier: ViewModifier {
     @State private var isFocused: Bool = false
-    @State private var filters: Filters = .init()
-    @State private var searchText: String = ""
-    
-    @Namespace private var animation
+    @StateObject private var viewModel = CardSearchViewModel()
     
     func body(content: Content) -> some View {
-        let isSearch = isFocused || !searchText.isEmpty
-        VStack {
-            SearchView(searchText: $searchText, isFocused: $isFocused, filters: $filters)
+        let isSearch = isFocused || !viewModel.searchText.isEmpty
+        VStack(spacing: 0) {
+            SearchView(searchText: $viewModel.searchText, isFocused: $isFocused, filters: $viewModel.filters)
                 .padding(.init(top: 14.scale, leading: 16.scale, bottom: 24.scale, trailing: 16.scale))
             if isSearch {
-                HomeSearchView(searchText: $searchText, filters: $filters)
+                HomeSearchView(viewModel: viewModel)
             } else {
                 content
             }
@@ -36,10 +33,7 @@ private struct HomeSearchableModifier: ViewModifier {
 
 private struct HomeSearchView: View {
     @EnvironmentObject private var router: NavigationManager
-    @StateObject private var viewModel = CardSearchViewModel()
-    
-    @Binding var searchText: String
-    @Binding var filters: Filters
+    @ObservedObject var viewModel: CardSearchViewModel
     
     var body: some View {
         List {
@@ -65,10 +59,8 @@ private struct HomeSearchView: View {
         .scrollContentBackground(.hidden)
         .scrollDismissesKeyboard(.immediately)
         .safeAreaInset(edge: .bottom, content: {
-            Color.clear.frame(height: ScreenSize.isIphoneXFamily ?  32.scale : 0)
+            Color.clear.frame(height: ScreenSize.isIphoneXFamily ? 32.scale : 12.scale)
         })
-        .onChange(of: filters) { viewModel.filters = $0 }
-        .onChange(of: searchText) { viewModel.searchText = $0 }
         .screenState($viewModel.screenState, bottomOffset: 32.scale, tryAgain: viewModel.retry)
     }
 }
