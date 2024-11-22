@@ -12,17 +12,18 @@ enum GlobalDefinitions {
     static let apiKey = "aB2AKoWZ6yYOcqrSO5"
     
     static let otterScaleHost = "https://api.korrekted.com"
-    static let otterScaleApiKey = "i9upCYSnV2mW4aM3"
+    static let otterScaleApiKey = "Tg0hAPk5QrHx5TwQ"
     
-    static let privacyPolicy: URL = URL(string: "https://sergei-mobile.com/policy.html")!
-    static let termsOfUse: URL = URL(string: "https://sergei-mobile.com/eula.html")!
-    static let support: URL = URL(string: "https://sergei-mobile.com/contact.html")!
+    static let privacyPolicy: URL = URL(string: "https://sergeyapps.com/privacy-policy")!
+    static let termsOfUse: URL = URL(string: "https://sergeyapps.com/terms-of-use")!
+    static let support: URL = URL(string: "https://sergeyapps.com/contact")!
     
-    static let applicationTag = ""
-    static let amplitudeApiKey = ""
+    static let applicationTag = "SPORT_CARDS"
+    static let amplitudeApiKey = "d433d2c66723aeefd10c5b65f91c1fa3"
     
+    // TODO
     enum Paygate {
-        static let yearly = "train.somatic.endless"
-        static let weekly = "train.somatic.monthly"
+        static let yearly = ""
+        static let weekly = ""
     }
 }
