@@ -21,9 +21,8 @@ enum GlobalDefinitions {
     static let applicationTag = "SPORT_CARDS"
     static let amplitudeApiKey = "d433d2c66723aeefd10c5b65f91c1fa3"
     
-    // TODO
     enum Paygate {
-        static let yearly = ""
-        static let weekly = ""
+        static let yearly = "sj.sportcards.yearly"
+        static let weekly = "sj.sportcards.weekly"
     }
 }
