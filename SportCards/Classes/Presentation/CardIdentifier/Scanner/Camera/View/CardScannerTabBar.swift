@@ -58,18 +58,18 @@ struct CardScannerTabBar: View {
 private extension CardScannerTabBar {
     @ViewBuilder
     var cameraActionView: some View {
-        if availableCamera {
-            Button(action: cameraAction,
-                   label: {
-                Image("Home.Scanner")
-                    .padding(22.scale)
-                    .background(.main100, in: Circle())
+        ZStack {
+            if availableCamera {
+                Button(action: cameraAction) {
+                    Image("Home.Scanner")
+                        .padding(22.scale)
+                        .background(.main100, in: Circle())
+                }
             }
-            )
-            .alignmentGuide(.top, computeValue: { dimension in
-                dimension[.top] + 22.scale
-            })
         }
+        .alignmentGuide(.top, computeValue: { dimension in
+            dimension[.top] + 22.scale
+        })
     }
 }
 

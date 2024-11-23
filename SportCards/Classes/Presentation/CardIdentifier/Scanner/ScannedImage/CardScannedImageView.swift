@@ -40,7 +40,6 @@ struct CardScannedImageView: View {
         .overlay(alignment: .bottom, content: {
             build(for: currentState)
         })
-        .navigationBarBackButtonHidden()
         .gradientBackground()
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -79,6 +78,7 @@ struct CardScannedImageView: View {
             )
         }
         .animation(.spring(), value: showAlert)
+        .navigationBarBackButtonHidden()
     }
 }
 
