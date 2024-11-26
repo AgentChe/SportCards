@@ -8,7 +8,7 @@
 import Foundation
 
 enum GlobalDefinitions {
-    static let domain = "https://sportcards.korrekted.com"
+    static let domain = "https://sportcards.sergeyapps.com"
     static let apiKey = "aB2AKoWZ6yYOcqrSO5"
     
     static let otterScaleHost = "https://api.korrekted.com"
