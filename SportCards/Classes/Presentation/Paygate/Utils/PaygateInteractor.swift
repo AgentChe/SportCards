@@ -39,29 +39,17 @@ extension PaygateInteractor {
         OtterScale.shared.removeReceiptValidation(delegate: self)
         OtterScale.shared.addReceiptValidation(delegate: self)
         
-        cancellables.forEach { $0.cancel() }
-        
-        let cancellable: AnyCancellable
+        let publisher: AnyPublisher<PurchaseActionResult, Never>
         switch action {
         case .buy(let productId):
-            cancellable = purchase(productId: productId)
+            publisher =  purchase(productId: productId)
         case .restore:
-            cancellable = restore()
+            publisher = restore()
         }
         
-        cancellables = [cancellable]
-        
-        return Deferred { [weak self] in
-            Future { [weak self] promise in
-                let cancellable = self?.callback.sink(receiveValue: {
-                    promise(.success($0))
-                })
-                if let cancellable {
-                    self?.cancellables.insert(cancellable)
-                }
-            }
-        }
-        .eraseToAnyPublisher()
+        return Publishers
+            .Merge(publisher, callback.eraseToAnyPublisher())
+            .eraseToAnyPublisher()
     }
 }
 
@@ -78,26 +66,26 @@ extension PaygateInteractor: OtterScaleReceiptValidationDelegate {
 
 // MARK: Private
 private extension PaygateInteractor {
-    func purchase(productId: String) -> AnyCancellable {
+    func purchase(productId: String) -> AnyPublisher<PurchaseActionResult, Never> {
         iapManager
             .buyProduct(with: productId)
-            .sink(
-                receiveCompletion: { _ in },
-                receiveValue: { [weak self] result in
-                    self?.callback.send(.cancelled)
-                })
+            .compactMap { result -> PurchaseActionResult? in
+                guard case .cancelled = result else {
+                    return nil
+                }
+                return .cancelled
+            }
+            .replaceError(with: .completed(false))
+            .eraseToAnyPublisher()
     }
     
-    func restore() -> AnyCancellable {
+    func restore() -> AnyPublisher<PurchaseActionResult, Never> {
         iapManager
             .restorePurchases()
-            .sink(
-                receiveCompletion: { [weak self] completion in
-                    if case .failure = completion {
-                        self?.callback.send(.completed(false))
-                    }
-                },
-                receiveValue: {}
-            )
+            .compactMap { _ -> PurchaseActionResult? in
+                return nil
+            }
+            .replaceError(with: .completed(false))
+            .eraseToAnyPublisher()
     }
 }
