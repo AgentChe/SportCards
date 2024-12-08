@@ -21,15 +21,16 @@ final class PaygateInteractor {
     
     private lazy var iapManager = IAPManager()
     private lazy var sessionManager = SessionManager()
+    private lazy var profileManager = ProfileManager()
     
-    private lazy var cancellables: Set<AnyCancellable> = []
+    private var cancellable: AnyCancellable?
     
     private lazy var callback = PassthroughSubject<PurchaseActionResult, Never>()
     
     deinit {
         OtterScale.shared.removeReceiptValidation(delegate: self)
         
-        cancellables.forEach { $0.cancel() }
+        cancellable = nil
     }
 }
 
@@ -39,10 +40,12 @@ extension PaygateInteractor {
         OtterScale.shared.removeReceiptValidation(delegate: self)
         OtterScale.shared.addReceiptValidation(delegate: self)
         
+        cancellable = nil
+        
         let publisher: AnyPublisher<PurchaseActionResult, Never>
         switch action {
         case .buy(let productId):
-            publisher =  purchase(productId: productId)
+            publisher = purchase(productId: productId)
         case .restore:
             publisher = restore()
         }
@@ -58,11 +61,26 @@ extension PaygateInteractor: OtterScaleReceiptValidationDelegate {
     func otterScaleDidValidatedReceipt(with result: AppStoreValidateResult?) {
         OtterScale.shared.removeReceiptValidation(delegate: self)
         
-        let hasActiveSubscriptions = sessionManager.hasActiveSubscriptions()
-        let callbackResult = PurchaseActionResult.completed(hasActiveSubscriptions)
-        callback.send(callbackResult)
+        let anonymousId = sessionManager.anonymousId
+        let internalId = sessionManager.internalId
+        
+        let request = anonymousId == internalId
+            ? profileManager.create()
+            : profileManager.binding()
+        
+        cancellable = request
+            .print()
+            .mapToVoid()
+            .replaceError(with: ())
+            .sink(receiveValue: { [weak self] _ in
+                guard let self else { return }
+                let hasActiveSubscriptions = sessionManager.hasActiveSubscriptions()
+                let callbackResult = PurchaseActionResult.completed(hasActiveSubscriptions)
+                callback.send(callbackResult)
+            })
     }
 }
+
 
 // MARK: Private
 private extension PaygateInteractor {

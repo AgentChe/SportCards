@@ -41,7 +41,11 @@ final class RootViewManager: ObservableObject {
     }
     
     func login() {
-        screenState = .loaded
+        Task {
+            await MainActor.run {
+                screenState = .loaded
+            }
+        }
         let anonymousId = sessionManager.anonymousId
         let internalId = sessionManager.internalId
         
