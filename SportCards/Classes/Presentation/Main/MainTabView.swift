@@ -48,6 +48,14 @@ struct MainTabView: View {
         .fullScreenCover(isPresented: $presentPaygate, content: { PaygateView() })
         .task {
             presentPaygate = !SessionManager().hasActiveSubscriptions()
+            if !presentPaygate {
+                RequestReview.startRequest()
+            }
+        }
+        .onChange(of: presentPaygate) { value in
+            if !value {
+                RequestReview.startRequest()
+            }
         }
     }
 }

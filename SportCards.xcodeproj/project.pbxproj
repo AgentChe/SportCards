@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		860BC2712D300C1B00915EFF /* RequestReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860BC2702D300C1B00915EFF /* RequestReview.swift */; };
 		86183B7B2CCC1779008F6B5E /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86183B7A2CCC1779008F6B5E /* SearchView.swift */; };
 		86183B7D2CCCDB52008F6B5E /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86183B7C2CCCDB52008F6B5E /* LoaderView.swift */; };
 		86183B7F2CCCDD1B008F6B5E /* HomeSearchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86183B7E2CCCDD1B008F6B5E /* HomeSearchable.swift */; };
@@ -162,6 +163,7 @@
 /* Begin PBXFileReference section */
 		411FEB746756F480AF6A9624 /* Pods_SportCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52C72FC2E95DE9A3FFBF475D /* Pods-SportCards.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportCards.debug.xcconfig"; path = "Target Support Files/Pods-SportCards/Pods-SportCards.debug.xcconfig"; sourceTree = "<group>"; };
+		860BC2702D300C1B00915EFF /* RequestReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestReview.swift; sourceTree = "<group>"; };
 		86183B7A2CCC1779008F6B5E /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		86183B7C2CCCDB52008F6B5E /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		86183B7E2CCCDD1B008F6B5E /* HomeSearchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchable.swift; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 				86183B7A2CCC1779008F6B5E /* SearchView.swift */,
 				86183B7C2CCCDB52008F6B5E /* LoaderView.swift */,
 				867AF0902CCE696A00752984 /* AlertPresentation.swift */,
+				860BC2702D300C1B00915EFF /* RequestReview.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1247,6 +1250,7 @@
 				86601F002CC6613B000C9737 /* ProgressView+Styles.swift in Sources */,
 				8659D2052CB7F39200CCC40B /* CardCollectionEmptyView.swift in Sources */,
 				8659D1782CAC20EE00CCC40B /* PriceChartView.swift in Sources */,
+				860BC2712D300C1B00915EFF /* RequestReview.swift in Sources */,
 				86B5493E2CC2AF1400BC555C /* CardDescriptionViewModel.swift in Sources */,
 				8659D1CB2CB593C300CCC40B /* WishListView.swift in Sources */,
 				8659D1DE2CB59D4000CCC40B /* ProfileCreateRequest.swift in Sources */,
