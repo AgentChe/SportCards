@@ -51,15 +51,19 @@ final class HomeViewModel: ObservableObject {
                 } else {
                     dataSource.append(.cardScanner)
                 }
-                dataSource.append(.sectionTitle("Home.Section.Recommended".localized))
-                dataSource.append(contentsOf: home.recommendation.map { .recommendedCard($0) })
+                if !home.recommendation.isEmpty {
+                    dataSource.append(.sectionTitle("Home.Section.Recommended".localized))
+                    dataSource.append(contentsOf: home.recommendation.map { .recommendedCard($0) })
+                }
                 
                 if !categories.isEmpty {
                     dataSource.append(.allias(categories))
                 }
                 
-                dataSource.append(.sectionTitle("Home.Section.Other".localized))
-                dataSource.append(contentsOf: home.other.map { .other($0) })
+                if !home.other.isEmpty {
+                    dataSource.append(.sectionTitle("Home.Section.Other".localized))
+                    dataSource.append(contentsOf: home.other.map { .other($0) })
+                }
                 
                 return dataSource
             }
