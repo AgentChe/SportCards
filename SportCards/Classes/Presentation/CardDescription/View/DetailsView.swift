@@ -18,10 +18,12 @@ struct DetailsView: View {
                         .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
                         .foregroundStyle(.white.opacity(0.5))
                         .gridColumnAlignment(.leading)
+                        .multilineTextAlignment(.leading)
                     Spacer()
                     Text(item.value)
                         .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
                         .foregroundStyle(.white)
+                        .multilineTextAlignment(.trailing)
                         .gridColumnAlignment(.trailing)
                 }
             }

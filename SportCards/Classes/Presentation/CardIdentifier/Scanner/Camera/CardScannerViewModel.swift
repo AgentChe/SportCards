@@ -68,6 +68,10 @@ extension CardScannerViewModel {
         isFlashOn.toggle()
         cameraManager.isFlashOn.toggle()
     }
+    
+    func focus(from point: CGPoint) {
+        cameraManager.focus(for: point)
+    }
 }
 
 private extension CardScannerViewModel {

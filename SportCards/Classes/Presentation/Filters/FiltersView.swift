@@ -39,6 +39,7 @@ struct FiltersView: View {
                         .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
                         .foregroundStyle(.white)
                         .padding(.vertical, 10.scale)
+                    
                     TagLayout(spacing: 12.scale, alignment: .leading) {
                         ForEach(viewModel.categories, id: \.self) { item in
                             Button(
@@ -82,7 +83,10 @@ struct FiltersView: View {
             .buttonStyle(.button(.primary))
             
             Button(
-                action: { cacheFilters = .init() },
+                action: {
+                    cacheFilters = .init()
+                    filters = cacheFilters
+                },
                 label: { Text("Filters.Clear") }
             )
             .buttonStyle(.button(.secondary))

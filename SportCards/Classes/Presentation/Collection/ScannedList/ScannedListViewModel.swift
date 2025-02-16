@@ -42,7 +42,9 @@ final class ScannedListViewModel: ObservableObject {
                     self?.profileManager.updateScannedCount(model.items.count, isReplace: true)
                     self?.cards = model.items
                     self?.price = .init(price: model.totalPrice, count: model.total)
-                    self?.screenState = .loaded
+                    self?.screenState = model.items.isEmpty
+                        ? .empty(.collection)
+                        : .loaded
                 case .failure:
                     self?.screenState = .error
                 }

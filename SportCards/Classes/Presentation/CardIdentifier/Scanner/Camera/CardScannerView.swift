@@ -59,10 +59,13 @@ private extension CardScannerView {
     func configureCameraArea() -> some View {
         switch viewModel.cameraState {
         case .available:
-            CameraView(image: $viewModel.viewfinderImage)
-                .clipShape(RoundedRectangle(cornerRadius: 20.scale))
-                .padding(.top, 22.scale)
-                .padding(.horizontal, 16.scale)
+            CameraView(
+                image: $viewModel.viewfinderImage,
+                tapOnPoint: viewModel.focus
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 20.scale))
+            .padding(.top, 22.scale)
+            .padding(.horizontal, 16.scale)
             
             Text("CardScanner.Subtitle")
                 .font(Fonts.Inter.font(size: 14.scale, weight: .w400))

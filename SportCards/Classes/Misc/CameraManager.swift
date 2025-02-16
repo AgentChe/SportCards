@@ -86,6 +86,15 @@ final class CameraManager: NSObject {
         }
     }
     
+    func focus(for point: CGPoint) {
+        if let device = captureDevice, device.isFocusModeSupported(.continuousAutoFocus) {
+            try? device.lockForConfiguration()
+            device.focusPointOfInterest = point
+            device.focusMode = .autoFocus
+            device.unlockForConfiguration()
+         }
+    }
+    
     func stop() {
         guard isCaptureSessionConfigured else { return }
         

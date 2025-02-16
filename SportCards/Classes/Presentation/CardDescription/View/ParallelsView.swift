@@ -8,16 +8,25 @@
 import SwiftUI
 
 struct ParallelsView: View {
-    let cards: [CardDiscover]
+    @EnvironmentObject private var route: NavigationManager
+    private let cards: [CardDiscover]
+    private let collection: CollectionTab
+    
+    init(cards: [CardDiscover], collection: CollectionTab) {
+        self.cards = cards
+        self.collection = collection
+    }
     var body: some View {
-        VStack(spacing: 16.scale) {
+        LazyVStack(spacing: 16.scale) {
             ForEach(cards) { card in
-                ParallelCardView(model: card)
+                NavigationLink(value: Route.cardDescription(id: card.cardId, grade: card.grade, collection: collection)) {
+                    ParallelCardView(model: card)
+                }
             }
         }
     }
 }
 
 #Preview {
-    ParallelsView(cards: CardDiscover.mock)
+    ParallelsView(cards: CardDiscover.mock, collection: .wishList)
 }

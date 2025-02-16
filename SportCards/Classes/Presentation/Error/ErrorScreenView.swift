@@ -25,6 +25,12 @@ enum ScreenState {
     case loading
     case loaded
     case error
+    case empty(EmptyType)
+    
+    enum EmptyType {
+        case search
+        case collection
+    }
 }
 
 struct ScreenStateModifier: ViewModifier {
@@ -41,6 +47,15 @@ struct ScreenStateModifier: ViewModifier {
         case .error:
             ErrorScreenView(errorType: .request, tryAgain: tryAgain)
                 .padding(.bottom, bottomOffset)
+        case let .empty(type):
+            switch type {
+            case .search:
+                SearchEmptyResultView()
+                    .padding(.bottom, bottomOffset)
+            case .collection:
+                CardCollectionEmptyView()
+                    .padding(.bottom, bottomOffset)
+            }
         }
     }
 }
@@ -125,6 +140,19 @@ private extension ErrorScreenType {
             "Error.Request.Subtitle".localized
         case .appstore:
             "Error.Appstore.Subtitle".localized
+        }
+    }
+}
+
+extension ScreenState: Equatable {
+    static func ==(lhs: Self, rhs: Self) -> Bool {
+        switch (lhs, rhs) {
+        case (.loading, .loading), (.error, .error), (.loaded, .loaded):
+            return true
+        case (.empty(let lhs), .empty(let rhs)):
+            return lhs == rhs
+        default:
+            return false
         }
     }
 }

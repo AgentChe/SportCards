@@ -133,6 +133,7 @@
 		8671EFE12CCA902A0020848A /* ParallelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8671EFE02CCA902A0020848A /* ParallelsView.swift */; };
 		8671EFE72CCAC4960020848A /* PageTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8671EFE62CCAC4960020848A /* PageTabBar.swift */; };
 		8671EFEA2CCAC4E30020848A /* DetailsTabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8671EFE92CCAC4E30020848A /* DetailsTabItem.swift */; };
+		867567182D6204A300628675 /* SearchEmptyResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867567172D6204A300628675 /* SearchEmptyResultView.swift */; };
 		867AF08D2CCE20C500752984 /* OnboardingPageIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867AF08C2CCE20C500752984 /* OnboardingPageIndicatorView.swift */; };
 		867AF08F2CCE3CF600752984 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867AF08E2CCE3CF600752984 /* AppDelegate.swift */; };
 		867AF0912CCE696A00752984 /* AlertPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 867AF0902CCE696A00752984 /* AlertPresentation.swift */; };
@@ -290,6 +291,7 @@
 		8671EFE02CCA902A0020848A /* ParallelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallelsView.swift; sourceTree = "<group>"; };
 		8671EFE62CCAC4960020848A /* PageTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTabBar.swift; sourceTree = "<group>"; };
 		8671EFE92CCAC4E30020848A /* DetailsTabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTabItem.swift; sourceTree = "<group>"; };
+		867567172D6204A300628675 /* SearchEmptyResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEmptyResultView.swift; sourceTree = "<group>"; };
 		867AF08C2CCE20C500752984 /* OnboardingPageIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageIndicatorView.swift; sourceTree = "<group>"; };
 		867AF08E2CCE3CF600752984 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		867AF0902CCE696A00752984 /* AlertPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresentation.swift; sourceTree = "<group>"; };
@@ -677,6 +679,7 @@
 				8659D18F2CAED49E00CCC40B /* OtherCardView.swift */,
 				8659D19F2CAFE50700CCC40B /* HomeCardScannerView.swift */,
 				86183B7E2CCCDD1B008F6B5E /* HomeSearchable.swift */,
+				867567172D6204A300628675 /* SearchEmptyResultView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1162,6 +1165,7 @@
 				86183B7D2CCCDB52008F6B5E /* LoaderView.swift in Sources */,
 				8671EFDB2CCA72D40020848A /* ProfileScannedCards.swift in Sources */,
 				86CF47492CC1660C0058C697 /* DetectCardErrorAlert.swift in Sources */,
+				867567182D6204A300628675 /* SearchEmptyResultView.swift in Sources */,
 				862140EB2CA8461400B109A4 /* OnboardingCardView4.swift in Sources */,
 				8659D1762CAC0D3000CCC40B /* SearchField.swift in Sources */,
 				86183BB02CCD70A8008F6B5E /* IAPManager.swift in Sources */,

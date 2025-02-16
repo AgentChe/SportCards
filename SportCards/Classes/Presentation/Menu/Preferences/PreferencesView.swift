@@ -26,7 +26,7 @@ struct PreferencesView: View {
                                 Button(
                                     action: { viewModel.currentCategory = item },
                                     label: {
-                                        TagView(item.alias, isSelected: viewModel.currentCategory == item)
+                                        TagView(item.name, isSelected: viewModel.currentCategory == item)
                                     }
                                 )
                             }
