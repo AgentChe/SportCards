@@ -11,23 +11,24 @@ struct SalesView: View {
     let sale: CardDetails.Sale
     
     var body: some View {
-        VStack(spacing: 24.scale) {
-            HStack {
-                Text("CardDetails.LastSold".localized)
-                Spacer()
-                Text("CardDetails.Date".localized)
+        LazyVStack(spacing: 24.scale) {
+            VStack(spacing: 6.scale) {
+                HStack {
+                    Text("CardDetails.LastSold".localized)
+                    Spacer()
+                    Text("CardDetails.Date".localized)
+                }
+                .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
+                .foregroundStyle(.white.opacity(0.5))
+                
+                HStack {
+                    Text(sale.currentPrice)
+                    Spacer()
+                    Text(sale.formattedDate)
+                }
+                .font(Fonts.Inter.font(size: 22.scale, weight: .w700))
+                .foregroundStyle(.white)
             }
-            .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
-            .foregroundStyle(.white.opacity(0.5))
-            
-            HStack {
-                Text(sale.currentPrice)
-                Spacer()
-                Text(sale.formattedDate)
-            }
-            .font(Fonts.Inter.font(size: 22.scale, weight: .w700))
-            .foregroundStyle(.white)
-            .padding(.top, 6.scale)
             
             VStack(spacing: 6.scale) {
                 configureLine(name: "CardDetails.NumberSales".localized, value: sale.numberSales.map { "\($0)"} ?? "N/A")

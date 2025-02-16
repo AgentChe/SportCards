@@ -35,6 +35,8 @@ struct DiscoverRequest: APIRequestBody {
             "page": page
         ]
         
+        params["search"] = text
+        
         if let price = filters.price?.rawValue {
             params["sort"] = ["price": price]
         }

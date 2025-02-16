@@ -24,7 +24,7 @@ final class CardCollectionViewModel: ObservableObject {
             .mapToVoid()
             .prepend(())
             .compactMap { [weak self] _ -> AnyPublisher<Result<Bool, Error>, Never>? in
-                guard let self, !isAvailable else { return nil }
+                guard let self else { return nil }
                 screenState = .loading
                 return profileManager
                     .collectionsAvailable()

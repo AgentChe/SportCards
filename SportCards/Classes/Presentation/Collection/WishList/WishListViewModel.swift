@@ -40,6 +40,9 @@ final class WishListViewModel: ObservableObject {
                 case let .success(items):
                     self?.cards = items
                     self?.screenState = .loaded
+                    self?.screenState = items.isEmpty
+                        ? .empty(.collection)
+                        : .loaded
                 case .failure:
                     self?.screenState = .error
                 }

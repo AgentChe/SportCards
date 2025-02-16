@@ -33,10 +33,13 @@ final class CardSearchViewModel: ObservableObject {
         
         Publishers
             .CombineLatest(currentText, filters)
-            .compactMap { [weak self] text, filters -> AnyPublisher<Result<[CardDiscover], Error>, Never>? in
+            .compactMap { [weak self] text, filters -> AnyPublisher<Result<[CardDiscover]?, Error>, Never>? in
                 guard let self, text.count >= 3 || filters.count > 0 else {
                     self?.isFinished = true
-                    return Just(.success([])).eraseToAnyPublisher()
+                    return Just(.success(nil)).eraseToAnyPublisher()
+                }
+                Task { @MainActor in
+                    self.screenState = .loading
                 }
                 
                 return pagination(text: text, filters: filters)
@@ -46,8 +49,10 @@ final class CardSearchViewModel: ObservableObject {
             .sink { [weak self] result in
                 switch result {
                 case let .success(items):
-                    self?.elements = items
-                    self?.screenState = .loaded
+                    self?.elements = items ?? []
+                    self?.screenState = items?.isEmpty == true
+                        ? .empty(.search)
+                        : .loaded
                 case .failure:
                     self?.screenState = .error
                 }
@@ -55,7 +60,7 @@ final class CardSearchViewModel: ObservableObject {
             .store(in: &cancellable)
     }
     
-    private func pagination(text: String, filters: Filters) -> AnyPublisher<Result<[CardDiscover], Error>, Never> {
+    private func pagination(text: String, filters: Filters) -> AnyPublisher<Result<[CardDiscover]?, Error>, Never> {
         isFinished = false
         var isLoading = false
         var pagination: Pagination?
@@ -84,7 +89,6 @@ final class CardSearchViewModel: ObservableObject {
             })
             .map(\.items)
             .scan([], +)
-            .prepend([])
         
         let error = request.compactMap(\.error)
         
