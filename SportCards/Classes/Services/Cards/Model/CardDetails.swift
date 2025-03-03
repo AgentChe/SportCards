@@ -11,7 +11,7 @@ struct CardDetails {
     let cardId: String
     let imageURL: URL?
     let title: String
-    let subtilte: String
+    let subtitle: String
     let grade: String
     let currentPrice: String
     let currentPriceRaw: Double
@@ -72,7 +72,7 @@ extension CardDetails: Decodable {
         case id
         case imageURL = "image"
         case title
-        case subtilte
+        case subtitle
         case grade
         case currentPrice = "current_price"
         case currentPriceRaw = "current_price_raw"
@@ -88,7 +88,7 @@ extension CardDetails: Decodable {
         self.cardId = try container.decode(String.self, forKey: .id)
         self.imageURL = try container.decodeIfPresent(URL.self, forKey: .imageURL)
         self.title = try container.decode(String.self, forKey: .title)
-        self.subtilte = (try? container.decode(String.self, forKey: .subtilte)) ?? ""
+        self.subtitle = (try? container.decode(String.self, forKey: .subtitle)) ?? ""
         self.grade = try container.decode(String.self, forKey: .grade)
         self.currentPrice = try container.decode(String.self, forKey: .currentPrice)
         self.currentPriceRaw = try container.decode(Double.self, forKey: .currentPriceRaw)

@@ -106,7 +106,7 @@ private extension CardDescriptionView {
                             .multilineTextAlignment(.leading)
                             .lineSpacing(4.scale)
                         
-                        Text(model.subtilte)
+                        Text(model.subtitle)
                             .font(Fonts.Inter.font(size: 14.scale, weight: .w400))
                             .foregroundStyle(.mono100.opacity(0.5))
                     }
@@ -182,7 +182,7 @@ extension CardDetails {
         cardId: "",
         imageURL: URL(string: "https://kcs.nyc3.cdn.digitaloceanspaces.com/collection_cards/resized_20230816_044312.jpeg"),
         title: "Mew",
-        subtilte: "",
+        subtitle: "",
         grade: "PSA 7",
         currentPrice: "$7.50",
         currentPriceRaw: 7.5,
