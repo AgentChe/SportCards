@@ -174,6 +174,7 @@ private struct CardScannedCarusel: View {
         VStack(spacing: 22.scale) {
             Text(title)
                 .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundStyle(.white)
                 .padding(.top, 10.scale)
                 .padding(.horizontal, 16.scale)
