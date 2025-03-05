@@ -9,7 +9,7 @@ import SwiftUI
 
 enum ScannerState {
     case photo
-    case grade([String])
+    case grade([String: [String]])
     case request
 }
 
@@ -26,20 +26,23 @@ struct CardScannedImageView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            if let image = viewModel.image {
-                Image(uiImage: image)
-                    .resizable()
-                    .clipShape(RoundedRectangle(cornerRadius: 20.scale))
-                    .padding(.top, 22.scale)
-                    .padding(.horizontal, 16.scale)
-            }
             Spacer()
-                .frame(maxHeight: 200.scale)
+                .background {
+                    HStack {
+                        Spacer(minLength: 16.scale)
+                        if let image = viewModel.image {
+                            Image(uiImage: image)
+                                .resizable()
+                                .aspectRatio(0.72, contentMode: .fill)
+                                .clipShape(RoundedRectangle(cornerRadius: 20.scale))
+                                .padding(.top, 22.scale)
+                        }
+                        Spacer(minLength: 16.scale)
+                    }
+                }
             
-        }
-        .overlay(alignment: .bottom, content: {
             build(for: currentState)
-        })
+        }
         .gradientBackground()
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -102,22 +105,22 @@ private extension CardScannedImageView {
                 .padding(.top, 16.scale)
             }
             .padding(.horizontal, 16.scale)
+            .padding(.top, 76.scale)
         case let .grade(grades):
             VStack(spacing: 0) {
-                ScrollView(.horizontal) {
-                    HomeAliasLayout {
-                        ForEach(grades, id: \.self) { item in
-                            Button(
-                                action: { viewModel.selectedGrade = item },
-                                label: { TagView(item, isSelected: viewModel.selectedGrade == item) }
-                            )
-                        }
-                    }
-                    .tagStyle(.checkbox)
-                    .padding(.vertical, 20.scale)
-                    .padding(.horizontal, 16.scale)
+                let isDisabled = viewModel.selectedGrade == nil
+                    ? true
+                    : grades[viewModel.selectedGrade ?? ""]?.isEmpty == true
+                        ? false
+                        : viewModel.selectedLevel == nil
+                
+                CardScannedCarusel(title: "CardScanner.ScannedImage.GradingService".localized, elements: Array(grades.keys), selected: $viewModel.selectedGrade)
+                if let elements = grades[viewModel.selectedGrade ?? ""]  {
+                    CardScannedCarusel(title: "CardScanner.ScannedImage.Grade".localized, elements: elements, selected: $viewModel.selectedLevel)
+                        .padding(.top, 26.scale)
+                } else {
+                    Spacer(minLength: 84.scale)
                 }
-                .scrollIndicators(.never)
                 
                 Button(
                     action: { viewModel.acceptGrade() },
@@ -125,7 +128,11 @@ private extension CardScannedImageView {
                 )
                 .buttonStyle(.button(.primary))
                 .padding(.horizontal, 16.scale)
-                .disabled( viewModel.selectedGrade == nil)
+                .padding(.top, 46.scale)
+                .disabled(isDisabled)
+            }
+            .onChange(of: viewModel.selectedGrade) { _ in
+                viewModel.selectedLevel = nil
             }
         case .request:
             VStack(spacing: 0) {
@@ -149,6 +156,46 @@ private extension CardScannedImageView {
                 .disabled(true)
             }
             .padding(.horizontal, 16.scale)
+        }
+    }
+}
+
+private struct CardScannedCarusel: View {
+    private let title: String
+    private let elements: [String]
+    @Binding private var selected: String?
+    
+    init(title: String, elements: [String], selected: Binding<String?>) {
+        self.title = title
+        self.elements = elements
+        self._selected = selected
+    }
+    var body: some View {
+        VStack(spacing: 22.scale) {
+            Text(title)
+                .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
+                .foregroundStyle(.white)
+                .padding(.top, 10.scale)
+                .padding(.horizontal, 16.scale)
+            
+            ScrollView(.horizontal) {
+                HomeAliasLayout {
+                    ForEach(elements, id: \.self) { item in
+                        Button(
+                            action: {
+                                withAnimation {
+                                    selected = item
+                                }
+                            },
+                            label: { TagView(item, isSelected: selected == item) }
+                        )
+                    }
+                }
+                .tagStyle(.checkbox)
+                .padding(.horizontal, 16.scale)
+            }
+            .scrollIndicators(.never)
+            .frame(minHeight: 84.scale)
         }
     }
 }

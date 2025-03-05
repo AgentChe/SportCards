@@ -12,7 +12,7 @@ struct CardUploadResponse {
     let imageURL: URL?
     let title: String
     let subtitle: String?
-    let grades: [String]
+    let grades: [String: [String]]
 }
 
 extension CardUploadResponse: Decodable {
@@ -30,6 +30,20 @@ extension CardUploadResponse: Decodable {
         self.imageURL = try container.decodeIfPresent(URL.self, forKey: .imageURL)
         self.title = (try? container.decode(String.self, forKey: .title)) ?? ""
         self.subtitle = (try? container.decodeIfPresent(String.self, forKey: .subtitle)) ?? ""
-        self.grades = try container.decode([String].self, forKey: .grades)
+        
+        let items = try container.decode([String].self, forKey: .grades)
+        
+        self.grades = items.reduce(into: [String: [String]]()) { partialResult, grade in
+            let args = grade.split(separator: " ", maxSplits: 2)
+            guard let first = args.first, let last = args.last else { return }
+            let grade = String(first)
+            let level = String(last)
+            if var values = partialResult[grade] {
+                values.append(level)
+                partialResult[grade] = values
+            } else {
+                partialResult[grade] = [level]
+            }
+        }
     }
 }

@@ -18,13 +18,14 @@ enum Action {
 final class CardScannedImageViewModel: ObservableObject {
     @Published private(set) var grades: [String] = []
     @Published var selectedGrade: String? = nil
+    @Published var selectedLevel: String? = nil
     @Published var image: UIImage? = nil
     @Published var action: Action = .step(.photo)
     
     private lazy var cardsManager = CardsManager()
     
     private let acceptPhotoSubject = PassthroughSubject<Void, Never>()
-    private let acceptGradeSubject = PassthroughSubject<Void, Never>()
+    private let acceptGradeSubject = PassthroughSubject<String, Never>()
     
     init(data: Data) {
         let image = UIImage(data: data)
@@ -41,8 +42,12 @@ final class CardScannedImageViewModel: ObservableObject {
                         guard let self else { return nil }
                         guard let response else { return Just(Action.error).eraseToAnyPublisher() }
                         
+                        Task { @MainActor in
+                            self.selectedGrade = response.grades.keys.first
+                        }
+                        
                         return acceptGradeSubject
-                            .map { _ in Action.details(response.cardId, self.selectedGrade ?? "")}
+                            .map { Action.details(response.cardId, $0)}
                             .prepend(.step(.grade(response.grades)))
                             .eraseToAnyPublisher()
                     }
@@ -59,6 +64,11 @@ final class CardScannedImageViewModel: ObservableObject {
     }
     
     func acceptGrade() {
-        acceptGradeSubject.send(())
+        let grade = selectedGrade.map { grade in
+            let level = selectedLevel.map { " \($0)"} ?? ""
+            return grade + level
+        }
+        
+        acceptGradeSubject.send(grade ?? "")
     }
 }

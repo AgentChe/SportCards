@@ -124,6 +124,8 @@
 "CardScanner.PermissionProblem.Title" = "Allow access to camera";
 "CardScanner.PermissionProblem.SubTitle" = "This allows you to easily identify your card";
 "CardScanner.PermissionProblem.Button" = "Allow access";
+"CardScanner.ScannedImage.GradingService" = "Grading service";
+"CardScanner.ScannedImage.Grade" = "Grade";
 
 // MARK: Manual Search
 "ManualSearch.Title" = "Manual search";
