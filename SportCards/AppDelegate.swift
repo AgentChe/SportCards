@@ -11,7 +11,6 @@ import OtterScaleiOS
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         FacebookManager.shared.initialize(app: application, launchOptions: launchOptions)
-        BranchManager.shared.initialize(launchOptions: launchOptions)
         AmplitudeManager.shared.initialize()
         OtterScale.shared.initialize(host: GlobalDefinitions.otterScaleHost, apiKey: GlobalDefinitions.otterScaleApiKey)
         

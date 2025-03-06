@@ -19,7 +19,7 @@ enum GlobalDefinitions {
     static let support: URL = URL(string: "https://sergeyapps.com/contact")!
     
     static let applicationTag = "SPORT_CARDS"
-    static let amplitudeApiKey = "d433d2c66723aeefd10c5b65f91c1fa3"
+    static let amplitudeApiKey = "17fa94a421fa4349d8b1db59c8e06fbe"
     
     enum Paygate {
         static let yearly = "sj.sportcards.yearly"
