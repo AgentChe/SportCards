@@ -84,6 +84,7 @@ struct HomeAliasLayout: Layout {
                 firstPosition.x += size.width
                 secondPosition.y = size.height + verticalSpacing
                 maxX = max(maxX, firstPosition.x)
+                maxY = max(maxY, firstPosition.y + size.height)
                 firstPosition.x += horizontalSpacing
             } else {
                 result.append(.init(x: secondPosition.x, y: secondPosition.y))

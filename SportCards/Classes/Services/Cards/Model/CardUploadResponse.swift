@@ -35,15 +35,23 @@ extension CardUploadResponse: Decodable {
         
         self.grades = items.reduce(into: [String: [String]]()) { partialResult, grade in
             let args = grade.split(separator: " ", maxSplits: 2)
-            guard let first = args.first, let last = args.last else { return }
+            guard let first = args.first else { return }
             let grade = String(first)
-            let level = String(last)
-            if var values = partialResult[grade] {
-                values.append(level)
+            var values = partialResult[grade] ?? []
+            
+            if let level = args[safe: 1], !level.isEmpty {
+                values.append(String(level))
                 partialResult[grade] = values
             } else {
-                partialResult[grade] = [level]
+                partialResult[grade] = values
             }
         }
+    }
+}
+
+extension Collection {
+    subscript (safe index: Index) -> Element? {
+        guard indices.contains(index) else { return nil }
+        return self[index]
     }
 }

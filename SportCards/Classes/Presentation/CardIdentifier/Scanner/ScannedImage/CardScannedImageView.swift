@@ -196,7 +196,6 @@ private struct CardScannedCarusel: View {
                 .padding(.horizontal, 16.scale)
             }
             .scrollIndicators(.never)
-            .frame(minHeight: 84.scale)
         }
     }
 }
