@@ -40,7 +40,20 @@ class PriceChartViewModel: ObservableObject {
             .shareReplay(1)
         
         let currentItems = filtered
-            .map { $0.count > 1 ? $0 : emptyItems }
+            .map { items in
+                switch items.count {
+                case 0:
+                    return emptyItems
+                case 1:
+                    guard let first = items.first else { return emptyItems }
+                    return [
+                        .init(dateTime: .now, price: first.price, priceRaw: first.priceRaw, diffPercent: first.diffPercent),
+                        .init(dateTime: .now + 10, price: first.price, priceRaw: first.priceRaw, diffPercent: first.diffPercent)
+                    ]
+                default:
+                    return items
+                }
+            }
             .shareReplay(1)
         
         currentItems
@@ -56,10 +69,8 @@ class PriceChartViewModel: ObservableObject {
             }
             .assign(to: &$xScale)
         
-        filtered
-            .map { items in
-                items.count > 1 ? items.last : nil
-            }
+        currentItems
+            .map { $0.last }
             .assign(to: &$medianModel)
     }
 }

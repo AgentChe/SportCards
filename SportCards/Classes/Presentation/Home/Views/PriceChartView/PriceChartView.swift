@@ -109,10 +109,19 @@ struct PriceChartView: View {
             let formatter = DateFormatter()
             formatter.dateFormat = "MMMM d"
             let date = formatter.string(from: model.dateTime)
-            let image = Image(model.diffPercent <= 0 ? "Down" : "Up")
-            let percent = abs(model.diffPercent / 100).formatted(.percent)
             
-            return Text("\(date): \(model.price) ( \(image) \(percent))")
+            let image = Image(model.diffPercent <= 0 ? "Down" : "Up")
+            let percent = abs(model.diffPercent / 100)
+            
+            let percentString: String
+            
+            if percent != 0.0 {
+                percentString =  "( \(image) \(percent.formatted(.percent)))"
+            } else {
+                percentString = ""
+            }
+            
+            return Text("\(date): \(model.price)\(percentString)")
         } ?? Text("Chart.Empty".localized)
     }
 }
