@@ -23,6 +23,7 @@ struct SearchEmptyResultView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity)
+        .contentShape(Rectangle())
     }
 }
 

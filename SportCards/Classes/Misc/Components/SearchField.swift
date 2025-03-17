@@ -37,6 +37,11 @@ struct SearchField: View {
                 withAnimation { isFocused = value }
             }
         }
+        .onChange(of: isFocused) { value in
+            if isFocused != isFocus {
+                isFocus = isFocused
+            }
+        }
         .onTapGesture {
             withAnimation { isFocus = true }
         }

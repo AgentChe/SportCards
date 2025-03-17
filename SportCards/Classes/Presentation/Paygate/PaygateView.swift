@@ -26,6 +26,7 @@ struct PaygateView: View {
             productsView
             
             Label(viewModel.currentProduct.securityLabel.uppercased(), image: "Security")
+                .font(Fonts.Inter.font(size: 12.scale, weight: .w400))
                 .foregroundStyle(.mono100)
                 .padding(.bottom, 16.scale)
             

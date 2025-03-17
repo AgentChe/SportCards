@@ -34,20 +34,11 @@ struct OnboardingView: View {
     private func counfigurePage(for item: OnboardingPageItem) -> some View {
         switch item {
         case .onboarding1:
-            OnboardingCardView1(
-                continueAction: viewModel.nextPage,
-                skipAction: viewModel.nextPage
-            )
+            OnboardingCardView1(continueAction: viewModel.nextPage)
         case .onboarding2:
-            OnboardingCardView2(
-                continueAction: viewModel.nextPage,
-                skipAction: viewModel.nextPage
-            )
+            OnboardingCardView2(continueAction: viewModel.nextPage)
         case .onboarding3:
-            OnboardingCardView3(
-                continueAction: viewModel.nextPage,
-                skipAction: viewModel.nextPage
-            )
+            OnboardingCardView3(continueAction: viewModel.nextPage)
         case .onboarding4:
             OnboardingCardView4(
                 categories: viewModel.categories,
@@ -63,8 +54,7 @@ struct OnboardingView: View {
                 continueAction: { grades in
                     viewModel.selectedGrade = grades
                     viewModel.nextPage()
-                },
-                skipAction: viewModel.nextPage
+                }
             )
         }
     }

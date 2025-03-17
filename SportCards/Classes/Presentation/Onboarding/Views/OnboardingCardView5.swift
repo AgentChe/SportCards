@@ -10,16 +10,13 @@ import SwiftUI
 struct OnboardingCardView5: View {
     private let grades: [Grade]
     private let continueAction: (Grade?) -> Void
-    private let skipAction: () -> Void
-    
     
     @State private var selected: Grade?
     
-    init(grades: [Grade], selected: Grade? = nil, continueAction: @escaping (Grade?) -> Void, skipAction: @escaping () -> Void) {
+    init(grades: [Grade], selected: Grade? = nil, continueAction: @escaping (Grade?) -> Void) {
         self.grades = grades
         self._selected = State(initialValue: selected)
         self.continueAction = continueAction
-        self.skipAction = skipAction
     }
     
     var body: some View {
@@ -39,7 +36,11 @@ struct OnboardingCardView5: View {
                 LazyVStack(spacing: 16.scale) {
                     ForEach(grades, id: \.self) { grage in
                         Button(
-                            action: { selected = grage },
+                            action: {
+                                withAnimation {
+                                    selected = grage
+                                }
+                            },
                             label: { GradeView(grade: grage, isSelected: selected == grage) }
                         )
                     }
@@ -54,14 +55,6 @@ struct OnboardingCardView5: View {
                 label: { Text("Continue".localized) }
             )
             .buttonStyle(.button(.primary))
-            .padding(.bottom, 16.scale)
-            .padding(.horizontal, 16.scale)
-            
-            Button(
-                action: skipAction,
-                label: { Text("Skip".localized) }
-            )
-            .buttonStyle(.button(.secondary))
             .padding(.horizontal, 16.scale)
             .padding(.bottom, 20.scale)
         }
@@ -103,5 +96,5 @@ struct GradeView: View {
 }
 
 #Preview {
-    OnboardingCardView5(grades: [], continueAction: { _ in }, skipAction: {})
+    OnboardingCardView5(grades: [], continueAction: { _ in })
 }

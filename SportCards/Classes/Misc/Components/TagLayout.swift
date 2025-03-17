@@ -47,6 +47,8 @@ struct TagLayout: Layout {
                 let allWidth = currentLine
                     .reduce(into: 0) { $0 += $1.width + spacing } - spacing
                 startX = (containerWidth - allWidth) / 2
+            case .leading:
+                startX = .zero
             default:
                 break
             }
@@ -85,7 +87,7 @@ struct TagLayout: Layout {
 }
 
 #Preview {
-    TagLayout(spacing: 16.scale, alignment: .trailing) {
+    TagLayout(spacing: 16.scale, alignment: .leading) {
         ForEach(Game.allCases, id: \.self) { item in
             TagView(item.name, isSelected: false)
         }

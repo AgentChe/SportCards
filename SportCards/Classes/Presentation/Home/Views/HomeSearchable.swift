@@ -24,6 +24,9 @@ private struct HomeSearchableModifier: ViewModifier {
                 .padding(.init(top: 14.scale, leading: 16.scale, bottom: 24.scale, trailing: 16.scale))
             if isSearch {
                 HomeSearchView(viewModel: viewModel)
+                    .onTapGesture {
+                        isFocused = false
+                    }
             } else {
                 content
             }

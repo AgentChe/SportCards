@@ -9,7 +9,6 @@ import SwiftUI
 
 struct OnboardingCardView2: View {
     let continueAction: () -> Void
-    let skipAction: () -> Void
     
     var body: some View {
         VStack(spacing: 0) {
@@ -33,13 +32,6 @@ struct OnboardingCardView2: View {
                 label: { Text("Continue".localized) }
             )
             .buttonStyle(.button(.primary))
-            .padding(.bottom, 16.scale)
-            
-            Button(
-                action: skipAction,
-                label: { Text("Skip".localized) }
-            )
-            .buttonStyle(.button(.secondary))
             .padding(.bottom, 20.scale)
         }
         .padding(.horizontal, 16.scale)
@@ -49,5 +41,5 @@ struct OnboardingCardView2: View {
 }
 
 #Preview {
-    OnboardingCardView2(continueAction: {}, skipAction: {})
+    OnboardingCardView2(continueAction: {})
 }
