@@ -113,15 +113,15 @@ struct PriceChartView: View {
             let image = Image(model.diffPercent <= 0 ? "Down" : "Up")
             let percent = abs(model.diffPercent / 100)
             
-            let percentString: String
+            let percentString: Text
             
             if percent != 0.0 {
-                percentString =  "( \(image) \(percent.formatted(.percent)))"
+                percentString = Text("( \(image) \(percent.formatted(.percent)))")
             } else {
-                percentString = ""
+                percentString = Text("")
             }
             
-            return Text("\(date): \(model.price)\(percentString)")
+            return Text("\(date): \(model.price)") + percentString
         } ?? Text("Chart.Empty".localized)
     }
 }
