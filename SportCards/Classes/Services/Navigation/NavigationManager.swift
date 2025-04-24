@@ -18,6 +18,7 @@ enum Route {
     case category(CardCategory)
     case menu
     case preferences
+    case gradingHelp(GradingHelpType)
 }
 
 extension Route: Identifiable, Hashable {
@@ -41,6 +42,8 @@ extension Route: Identifiable, Hashable {
             "menu"
         case .preferences:
             "preferences"
+        case .gradingHelp:
+            "gradinghelp"
         }
     }
     
@@ -117,6 +120,8 @@ struct RootNavigationStack<Content: View>: View {
                         MenuView()
                     case .preferences:
                         PreferencesView()
+                    case let .gradingHelp(type):
+                        GradingHelpView(type: type)
                     }
                 }
         }

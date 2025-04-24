@@ -11,7 +11,9 @@ import Combine
 
 protocol CardsManagerProtocol {
     func makeCategories(forceUpdate: Bool) -> AnyPublisher<[CardCategory], Error>
-    func makeGrades(forceUpdate: Bool) -> AnyPublisher<[Grade], Error>
+    func makeGrades(forceUpdate: Bool) -> AnyPublisher<GradesResponse?, Error>
+    func makeGradeServices(forceUpdate: Bool) -> AnyPublisher<[GradeService], Never>
+    func makeGradeValues(in all: [GradeService], use filtered: Set<GradeService>) -> ([String], Bool)
     func cards(text: String, filters: Filters, for page: Int) -> AnyPublisher<Result<CardDiscoverResponse, Error>, Never>
     func cardDetails(id: String, grade: String) -> AnyPublisher<CardDetails, Error>
     func upload(image: UIImage) -> AnyPublisher<CardUploadResponse?, Never>
@@ -27,8 +29,45 @@ extension CardsManager: CardsManagerProtocol {
         forceUpdate ? categories() : cachedCategories()
     }
     
-    func makeGrades(forceUpdate: Bool) -> AnyPublisher<[Grade], Error> {
+    func makeGrades(forceUpdate: Bool) -> AnyPublisher<GradesResponse?, Error> {
         forceUpdate ? grades() : cachedGrades()
+    }
+    
+    func makeGradeServices(forceUpdate: Bool) -> AnyPublisher<[GradeService], Never> {
+        makeGrades(forceUpdate: forceUpdate)
+            .compactMap { $0?.service }
+            .map { $0.filter { $0.alias.uppercased() != "ALL" }}
+            .replaceError(with: [])
+            .eraseToAnyPublisher()
+    }
+    
+    func makeGradeValues(in all: [GradeService], use filtered: Set<GradeService>) -> ([String], Bool) {
+        let filtered = all.filter { grade in
+            filtered.contains(grade)
+        }
+        
+        let values: [String]
+        let isAvailable: Bool
+        
+        if filtered.isEmpty || (filtered.count == 1 && filtered.first?.alias.uppercased() == "RAW") {
+            values = all.flatMap(\.values)
+            isAvailable = false
+        } else {
+            values = filtered.flatMap { $0.values }
+            isAvailable = true
+        }
+        
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 1
+        formatter.decimalSeparator = "."
+        
+        let result = Set(values)
+            .compactMap { Double($0) }
+            .sorted()
+            .compactMap { formatter.string(from: $0 as NSNumber) }
+        
+        return (result, isAvailable)
     }
     
     func cards(text: String, filters: Filters, for page: Int) -> AnyPublisher<Result<CardDiscoverResponse, Error>, Never> {
@@ -113,7 +152,7 @@ private extension CardsManager {
             .eraseToAnyPublisher()
     }
     
-    func grades() -> AnyPublisher<[Grade], Error> {
+    func grades() -> AnyPublisher<GradesResponse?, Error> {
         let request = GradesRequest(
             anonymousId: sessionManager.anonymousId,
             internalId: sessionManager.anonymousId
@@ -140,11 +179,11 @@ private extension CardsManager {
         .eraseToAnyPublisher()
     }
     
-    func cachedGrades() -> AnyPublisher<[Grade], Error> {
+    func cachedGrades() -> AnyPublisher<GradesResponse?, Error> {
         Future { promise in
             let grades = UserDefaults.standard.data(forKey: Constants.grades).flatMap {
-                try? JSONDecoder().decode([Grade].self, from: $0)
-            } ?? []
+                try? JSONDecoder().decode(GradesResponse.self, from: $0)
+            }
             
             promise(.success(grades))
         }
@@ -157,9 +196,9 @@ private extension CardsManager {
         } ?? []
     }
     
-    func cachedGrades() -> [Grade] {
+    func cachedGrades() -> [GradeService] {
         UserDefaults.standard.data(forKey: Constants.grades).flatMap {
-            try? JSONDecoder().decode([Grade].self, from: $0)
+            try? JSONDecoder().decode([GradeService].self, from: $0)
         } ?? []
     }
 }

@@ -15,7 +15,7 @@ struct ProfileCollectionRequest: APIRequestBody {
     let type: CollectionTab
     
     var url: String {
-        GlobalDefinitions.domain + "/api/v1/profile/cards"
+        GlobalDefinitions.domain + "/api/v2/profile/cards"
     }
     
     var method: HTTPMethod {
@@ -39,8 +39,8 @@ struct ProfileCollectionRequest: APIRequestBody {
         
         var filtersParams: [String: Any] = [:]
         
-        filtersParams["category"] = filters.category?.alias
-        filtersParams["grade"] = filters.grade?.alias
+        filtersParams["category"] = filters.category.map(\.alias)
+        filtersParams["grade"] = filters.gradeRequest
         
         filtersParams["type"] = type.rawValue
         

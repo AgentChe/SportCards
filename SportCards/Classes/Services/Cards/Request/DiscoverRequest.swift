@@ -15,7 +15,7 @@ struct DiscoverRequest: APIRequestBody {
     let page: Int
     
     var url: String {
-        GlobalDefinitions.domain + "/api/v1/cards/discover"
+        GlobalDefinitions.domain + "/api/v2/cards/discover"
     }
     
     var method: HTTPMethod {
@@ -42,8 +42,8 @@ struct DiscoverRequest: APIRequestBody {
         }
         var filtersParams: [String: Any] = [:]
         
-        filtersParams["category"] = filters.category?.alias
-        filtersParams["grade"] = filters.grade?.alias
+        filtersParams["category"] = filters.category.map(\.alias)
+        filtersParams["grade"] = filters.gradeRequest
         
         if !filtersParams.isEmpty {
             params["filter"] = filtersParams

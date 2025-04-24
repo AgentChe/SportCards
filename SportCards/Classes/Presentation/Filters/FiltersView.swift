@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct FiltersView: View {
+    @EnvironmentObject private var route: NavigationManager
     @Environment(\.dismiss) private var dismiss
-    @State private var cacheFilters: Filters
     @Binding private var filters: Filters
-    @StateObject private var viewModel = FiltersViewModel()
+    @StateObject private var viewModel: FiltersViewModel
     
     init(filters: Binding<Filters>) {
         self._filters = filters
-        self._cacheFilters = State(initialValue: filters.wrappedValue)
+        self._viewModel = StateObject(wrappedValue: .init(filters: filters.wrappedValue))
     }
     
     var body: some View {
@@ -26,14 +26,96 @@ struct FiltersView: View {
                         .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
                         .foregroundStyle(.white)
                         .padding(.vertical, 10.scale)
+                    
                     TagLayout(spacing: 12.scale, alignment: .leading) {
                         ForEach(Filters.SortType.allCases, id: \.self) { item in
                             Button(
-                                action: { cacheFilters.price = item },
-                                label: { TagView(item.name, isSelected: cacheFilters.price == item) }
+                                action: {
+                                    viewModel.priceAction(for: item)
+                                },
+                                label: {
+                                    TagView(
+                                        item.name,
+                                        isSelected: viewModel.cachedFilters.price == item
+                                    )
+                                }
                             )
                         }
                     }
+                    
+                    HStack(alignment: .center, spacing: 6.scale) {
+                        Text("Filters.Section.GradingService".localized)
+                            .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
+                            .foregroundStyle(.white)
+                            .padding(.vertical, 10.scale)
+                        
+                        Button(
+                            action: {
+                                route.push(to: .gradingHelp(.service))
+                            },
+                            label: {
+                                Image("Help")
+                                    .resizable()
+                                    .frame(width: 24.scale, height: 24.scale)
+                            }
+                        )
+                    }
+                    
+                    TagLayout(spacing: 12.scale, alignment: .leading) {
+                        ForEach(viewModel.gradingService, id: \.self) { item in
+                            Button(
+                                action: {
+                                    viewModel.gradeServiceAction(for: item)
+                                },
+                                label: {
+                                    TagView(
+                                        item.alias,
+                                        isSelected: viewModel.cachedFilters.gradeService.contains(item)
+                                    )
+                                }
+                            )
+                        }
+                    }
+                    .tagStyle(.checkbox)
+                    
+                    HStack(alignment: .center, spacing: 6.scale) {
+                        Text("Filters.Section.Grade".localized)
+                            .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
+                            .foregroundStyle(.white)
+                            .padding(.vertical, 10.scale)
+                        
+                        Button(
+                            action: {
+                                route.push(to: .gradingHelp(.grade))
+                            },
+                            label: {
+                                Image("Help")
+                                    .resizable()
+                                    .frame(width: 24.scale, height: 24.scale)
+                            }
+                        )
+                    }
+                    .opacity(viewModel.isAvailableGrades ? 1 : 0.4)
+                    
+                    TagLayout(spacing: 12.scale, alignment: .leading) {
+                        ForEach(viewModel.grades, id: \.self) { item in
+                            Button(
+                                action: {
+                                    viewModel.gradeValueAction(for: item)
+                                },
+                                label: {
+                                    TagView(
+                                        item,
+                                        isSelected: viewModel.cachedFilters.gradeValues.contains(item)
+                                    )
+                                }
+                            )
+                        }
+                    }
+                    .animation(.easeInOut, value: viewModel.grades)
+                    .tagStyle(.checkbox)
+                    .disabled(!viewModel.isAvailableGrades)
+                    .opacity(viewModel.isAvailableGrades ? 1 : 0.4)
                     
                     Text("Filters.Section.Category".localized)
                         .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
@@ -43,26 +125,14 @@ struct FiltersView: View {
                     TagLayout(spacing: 12.scale, alignment: .leading) {
                         ForEach(viewModel.categories, id: \.self) { item in
                             Button(
-                                action: { cacheFilters.category = item },
+                                action: {
+                                    viewModel.categoryAction(for: item)
+                                },
                                 label: {
-                                    TagView(item.name, isSelected: cacheFilters.category == item)
-                                }
-                            )
-                        }
-                    }
-                    .tagStyle(.checkbox)
-                    
-                    Text("Filters.Section.Grade".localized)
-                        .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
-                        .foregroundStyle(.white)
-                        .padding(.vertical, 10.scale)
-                    
-                    TagLayout(spacing: 12.scale, alignment: .leading) {
-                        ForEach(viewModel.grades, id: \.self) { item in
-                            Button(
-                                action: { cacheFilters.grade = item },
-                                label: {
-                                    TagView(item.alias, isSelected: cacheFilters.grade == item)
+                                    TagView(
+                                        item.name,
+                                        isSelected: viewModel.cachedFilters.category.contains(item)
+                                    )
                                 }
                             )
                         }
@@ -75,7 +145,7 @@ struct FiltersView: View {
             
             Button(
                 action: {
-                    filters = cacheFilters
+                    filters = viewModel.cachedFilters
                     dismiss()
                 },
                 label: { Text("Filters.Apply") }
@@ -84,8 +154,8 @@ struct FiltersView: View {
             
             Button(
                 action: {
-                    cacheFilters = .init()
-                    filters = cacheFilters
+                    viewModel.cachedFilters = .init()
+                    filters = viewModel.cachedFilters
                 },
                 label: { Text("Filters.Clear") }
             )
@@ -109,6 +179,7 @@ struct FiltersView: View {
         .ignoresSafeArea(edges: [.bottom])
         .navigationBarBackButtonHidden()
         .gradientBackground()
+        .task { await viewModel.load() }
     }
 }
 

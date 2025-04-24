@@ -28,7 +28,7 @@ final class CategoryListViewModel: ObservableObject {
         isFinished = false
         var isLoading = false
         var pagination: Pagination?
-        let filters = Filters(category: category)
+        let filters = Filters(category: [category])
         
         let request = loadNext
             .prepend(())

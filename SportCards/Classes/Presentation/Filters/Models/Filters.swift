@@ -9,8 +9,9 @@ import Foundation
 
 struct Filters: Hashable {
     var price: SortType?
-    var category: CardCategory?
-    var grade: Grade?
+    var category: Set<CardCategory> = []
+    var gradeService: Set<GradeService> = []
+    var gradeValues: Set<String> = []
     
     enum SortType: String, CaseIterable {
         case low
@@ -21,9 +22,10 @@ struct Filters: Hashable {
 extension Filters {
     var count: Int {
         let price = price == nil ? 0 : 1
-        let category = category == nil ? 0 : 1
-        let grade = grade == nil ? 0 : 1
-        return category + grade + price
+        let category = category.count
+        let gradeService = gradeService.count
+        let gradeValues = gradeValues.count
+        return category + gradeService + gradeValues + price
     }
 }
 
@@ -34,6 +36,21 @@ extension Filters.SortType {
             "Filters.Sort.Low".localized
         case .hight:
             "Filters.Sort.Hight".localized
+        }
+    }
+}
+
+extension Filters {
+    var gradeRequest: [String] {
+        gradeService.flatMap { grade in
+            guard grade.alias.uppercased() != "RAW" else { return [grade.alias] }
+            let intersection = grade.values.intersection(gradeValues)
+            
+            guard !intersection.isEmpty else { return [grade.alias] }
+            
+            return intersection.map {
+                "\(grade.alias) \($0)"
+            }
         }
     }
 }

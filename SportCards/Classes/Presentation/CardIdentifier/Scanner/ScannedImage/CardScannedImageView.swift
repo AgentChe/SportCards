@@ -114,10 +114,23 @@ private extension CardScannedImageView {
                         ? false
                         : viewModel.selectedLevel == nil
                 
-                CardScannedCarusel(title: "CardScanner.ScannedImage.GradingService".localized, elements: Array(grades.keys), selected: $viewModel.selectedGrade)
+                CardScannedCarusel(
+                    title: "CardScanner.ScannedImage.GradingService".localized,
+                    elements: Array(grades.keys),
+                    selected: $viewModel.selectedGrade
+                ) {
+                    router.push(to: .gradingHelp(.service))
+                }
+                
                 if let elements = grades[viewModel.selectedGrade ?? ""]  {
-                    CardScannedCarusel(title: "CardScanner.ScannedImage.Grade".localized, elements: elements, selected: $viewModel.selectedLevel)
-                        .padding(.top, 26.scale)
+                    CardScannedCarusel(
+                        title: "CardScanner.ScannedImage.Grade".localized,
+                        elements: elements,
+                        selected: $viewModel.selectedLevel
+                    ) {
+                        router.push(to: .gradingHelp(.grade))
+                    }
+                    .padding(.top, 26.scale)
                 } else {
                     Spacer(minLength: 84.scale)
                 }
@@ -163,21 +176,34 @@ private extension CardScannedImageView {
 private struct CardScannedCarusel: View {
     private let title: String
     private let elements: [String]
+    private let headerAction: () -> Void
     @Binding private var selected: String?
     
-    init(title: String, elements: [String], selected: Binding<String?>) {
+    init(title: String, elements: [String], selected: Binding<String?>, headerAction: @escaping () -> Void) {
         self.title = title
         self.elements = elements
         self._selected = selected
+        self.headerAction = headerAction
     }
     var body: some View {
-        VStack(spacing: 22.scale) {
-            Text(title)
-                .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundStyle(.white)
-                .padding(.top, 10.scale)
-                .padding(.horizontal, 16.scale)
+        VStack(alignment: .leading, spacing: 22.scale) {
+            
+            HStack(alignment: .center, spacing: 6.scale) {
+                Text(title)
+                    .font(Fonts.Inter.font(size: 18.scale, weight: .w700))
+                    .foregroundStyle(.white)
+                
+                Button(
+                    action: headerAction,
+                    label: {
+                        Image("Help")
+                            .resizable()
+                            .frame(width: 24.scale, height: 24.scale)
+                    }
+                )
+            }
+            .padding(.vertical, 10.scale)
+            .padding(.horizontal, 16.scale)
             
             ScrollView(.horizontal) {
                 HomeAliasLayout {

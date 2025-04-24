@@ -14,21 +14,33 @@ extension View {
 }
 
 private struct HomeSearchableModifier: ViewModifier {
-    @State private var isFocused: Bool = false
+    @FocusState private var isFocused: Bool
     @StateObject private var viewModel = CardSearchViewModel()
     
     func body(content: Content) -> some View {
         let isSearch = isFocused || !viewModel.searchText.isEmpty
-        VStack(spacing: 0) {
+        let isVisibleFastFilters = viewModel.searchText.count >= 3
+        
+        VStack(spacing: 24.scale) {
             SearchView(searchText: $viewModel.searchText, isFocused: $isFocused, filters: $viewModel.filters)
-                .padding(.init(top: 14.scale, leading: 16.scale, bottom: 24.scale, trailing: 16.scale))
+                .padding(.horizontal, 16.scale)
+            
             if isSearch {
+                if isVisibleFastFilters {
+                    FastFiltersView(filters: $viewModel.filters)
+                        .padding(.horizontal, 16.scale)
+                }
+                
                 HomeSearchView(viewModel: viewModel)
                     .overlay(overlayView)
             } else {
                 content
+                    .transition(.opacity)
             }
         }
+        .animation(.easeInOut, value: isVisibleFastFilters)
+        .animation(.easeInOut, value: isSearch)
+        .padding(.top, 14.scale)
     }
     
     @ViewBuilder

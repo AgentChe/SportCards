@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct SearchField: View {
-    @Binding var searchText: String
-    @Binding var isFocused: Bool
-    @FocusState private var isFocus: Bool
+    @Binding private var searchText: String
+    private var isFocused: FocusState<Bool>.Binding
+    
+    init(searchText: Binding<String>, isFocused: FocusState<Bool>.Binding) {
+        self._searchText = searchText
+        self.isFocused = isFocused
+    }
     
     var body: some View {
         HStack {
@@ -22,7 +26,7 @@ struct SearchField: View {
             .foregroundStyle(.white)
             .autocorrectionDisabled()
             .frame(height: 50.scale)
-            .focused($isFocus)
+            .focused(isFocused)
             
             Button(
                 action: { withAnimation { searchText = "" } },
@@ -32,22 +36,8 @@ struct SearchField: View {
         }
         .padding(.horizontal, 24.scale)
         .background(.main300, in: Capsule())
-        .onChange(of: isFocus) { value in
-            if value != isFocused {
-                withAnimation { isFocused = value }
-            }
-        }
-        .onChange(of: isFocused) { value in
-            if isFocused != isFocus {
-                isFocus = isFocused
-            }
-        }
         .onTapGesture {
-            withAnimation { isFocus = true }
+            withAnimation { isFocused.wrappedValue = true }
         }
     }
-}
-
-#Preview {
-    SearchField(searchText: .constant(""), isFocused: .constant(false))
 }

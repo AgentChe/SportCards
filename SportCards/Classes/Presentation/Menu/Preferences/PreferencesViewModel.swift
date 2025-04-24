@@ -10,10 +10,10 @@ import Combine
 
 final class PreferencesViewModel: ObservableObject {
     @Published var currentCategory: CardCategory? = nil
-    @Published var currentGrade: Grade? = nil
+    @Published var currentGrade: GradeService? = nil
     @Published var screenState: ScreenState = .loading
     @Published var categories: [CardCategory] = []
-    @Published var grades: [Grade] = []
+    @Published var grades: [GradeService] = []
     @Published var isLoading: Bool = false
     
     private lazy var profileManager: ProfileManagerProtocol = ProfileManager()
@@ -22,16 +22,20 @@ final class PreferencesViewModel: ObservableObject {
     private var infoCancellable: AnyCancellable? = nil
     private var applyCancellable: AnyCancellable? = nil
     
-    init() {
+    
+    func load() async {
         cardsManager
             .makeCategories(forceUpdate: false)
             .replaceError(with: [])
             .receive(on: DispatchQueue.main)
             .assign(to: &$categories)
         
-        cardsManager
+        let gradeResponse = cardsManager
             .makeGrades(forceUpdate: false)
-            .replaceError(with: [])
+            .replaceError(with: nil)
+        
+        gradeResponse
+            .compactMap { $0?.service }
             .receive(on: DispatchQueue.main)
             .assign(to: &$grades)
         

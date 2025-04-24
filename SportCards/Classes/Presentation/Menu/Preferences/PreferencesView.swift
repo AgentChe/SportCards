@@ -66,6 +66,7 @@ struct PreferencesView: View {
                 }
                 .disabled(viewModel.isLoading)
                 .buttonStyle(.button(.primary))
+                .padding(.horizontal, 16.scale)
             }
             .screenState($viewModel.screenState, tryAgain: viewModel.retry)
         }
@@ -84,6 +85,7 @@ struct PreferencesView: View {
         }
         .padding(.top, 10.scale)
         .gradientBackground()
+        .task { await viewModel.load() }
     }
 }
 

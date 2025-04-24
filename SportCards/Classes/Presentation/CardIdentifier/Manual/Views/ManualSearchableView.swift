@@ -14,7 +14,7 @@ extension View {
 }
 
 private struct SearchableModifier: ViewModifier {
-    @State private var isFocused: Bool = false
+    @FocusState private var isFocused: Bool
     @Binding private var searchText: String
     @Binding private var filters: Filters
     

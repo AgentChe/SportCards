@@ -12,7 +12,7 @@ struct GradesRequest: APIRequestBody {
     let internalId: String
     
     var url: String {
-        GlobalDefinitions.domain + "/api/v1/cards/grades"
+        GlobalDefinitions.domain + "/api/v2/cards/grades"
     }
     
     var method: HTTPMethod {

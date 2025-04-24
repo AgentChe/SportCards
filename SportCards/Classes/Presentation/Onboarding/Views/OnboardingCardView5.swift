@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct OnboardingCardView5: View {
-    private let grades: [Grade]
-    private let continueAction: (Grade?) -> Void
+    private let grades: [GradeService]
+    private let continueAction: (GradeService?) -> Void
     
-    @State private var selected: Grade?
+    @State private var selected: GradeService?
     
-    init(grades: [Grade], selected: Grade? = nil, continueAction: @escaping (Grade?) -> Void) {
+    init(grades: [GradeService], selected: GradeService? = nil, continueAction: @escaping (GradeService?) -> Void) {
         self.grades = grades
         self._selected = State(initialValue: selected)
         self.continueAction = continueAction
@@ -62,8 +62,8 @@ struct OnboardingCardView5: View {
     }
 }
 
-struct GradeView: View {
-    var grade: Grade
+private struct GradeView: View {
+    var grade: GradeService
     var isSelected: Bool
     
     var body: some View {

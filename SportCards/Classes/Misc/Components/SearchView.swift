@@ -9,9 +9,15 @@ import SwiftUI
 
 struct SearchView: View {
     @EnvironmentObject private var router: NavigationManager
-    @Binding var searchText: String
-    @Binding var isFocused: Bool
+    @Binding private var searchText: String
     @Binding var filters: Filters
+    private var isFocused: FocusState<Bool>.Binding
+    
+    init(searchText: Binding<String>, isFocused: FocusState<Bool>.Binding, filters: Binding<Filters>) {
+        self._searchText = searchText
+        self.isFocused = isFocused
+        self._filters = filters
+    }
     
     var body: some View {
         let isExpanded = searchText.count >= 3
@@ -24,7 +30,7 @@ struct SearchView: View {
             .overlay(counterOverlay, alignment: .topTrailing)
             .opacity(isExpanded ? 1 : 0)
             
-            SearchField(searchText: $searchText, isFocused: $isFocused)
+            SearchField(searchText: $searchText, isFocused: isFocused)
                 .padding(.trailing, isExpanded ? 66.scale : 0)
         }
         .onChange(of: searchText) { value in
@@ -48,8 +54,4 @@ private extension SearchView {
                 .offset(y: -10.scale)
         }
     }
-}
-
-#Preview {
-    SearchView(searchText: .constant(""), isFocused: .constant(false), filters: .constant(.init()))
 }

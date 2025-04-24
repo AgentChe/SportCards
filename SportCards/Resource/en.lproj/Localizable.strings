@@ -13,6 +13,7 @@
 "Ok" = "Ok";
 "Cancel" = "Cancel";
 "Delete" = "Delete";
+"Select" = "Select";
 
 // MARK: Splash
 "Splash.Title" = "Welcome to CardCollector";
@@ -80,6 +81,7 @@
 "Filters.Section.Sorting" = "Sorting";
 "Filters.Section.Category" = "Category";
 "Filters.Section.Grade" = "Grade";
+"Filters.Section.GradingService" = "Grading service";
 "Filters.Apply" = "Apply filters";
 "Filters.Clear" = "Clear all";
 "Filters.Sort.Low" = "Price: high to low";
@@ -164,3 +166,7 @@
 // MARK: Search Empty
 "Search.Empty.Title" = "No result";
 "Search.Empty.Subtitle" = "No suitable cards were found";
+
+// MARK: Help
+"Help.Service" = "Grading service";
+"Help.Grade" = "Grade";
