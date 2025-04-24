@@ -34,7 +34,10 @@ final class FiltersViewModel: ObservableObject {
             .assign(to: &$gradingService)
         
         let gradesAndAvailable = Publishers
-            .CombineLatest($gradingService, $cachedFilters)
+            .CombineLatest(
+                $gradingService.prepend([]),
+                $cachedFilters.prepend(cachedFilters).removeDuplicates()
+            )
             .map { [cardsManager] grades, filters in
                 cardsManager.makeGradeValues(in: grades, use: filters.gradeService)
             }
