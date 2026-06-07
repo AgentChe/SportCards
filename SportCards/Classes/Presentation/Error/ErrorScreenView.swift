@@ -93,7 +93,7 @@ private struct ErrorScreenView: View {
             .buttonStyle(.button(.primary))
             
             if errorType == .request {
-                Link(destination: GlobalDefinitions.support) {
+                Link(destination: GlobalDefinitions.contactUsUrl) {
                     Text("Error.Support".localized)
                 }
                 .buttonStyle(.button(.secondary))

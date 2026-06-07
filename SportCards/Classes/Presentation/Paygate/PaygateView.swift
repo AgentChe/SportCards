@@ -31,11 +31,11 @@ struct PaygateView: View {
                 .padding(.bottom, 16.scale)
             
             HStack(spacing: 12.scale) {
-                Link(destination: GlobalDefinitions.termsOfUse) {
+                Link(destination: GlobalDefinitions.termsOfServiceUrl) {
                     Text("Paygate.TermsOfUse".localized)
                 }
                 
-                Link(destination: GlobalDefinitions.privacyPolicy) {
+                Link(destination: GlobalDefinitions.privacyPolicyUrl) {
                     Text("Paygate.PrivacyPolicy".localized)
                 }
                 

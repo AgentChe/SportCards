@@ -19,21 +19,21 @@ struct MenuView: View {
             Divider()
                 .background(.main300)
             
-            Link(destination: GlobalDefinitions.termsOfUse) {
+            Link(destination: GlobalDefinitions.termsOfServiceUrl) {
                 makeAction("Menu.TermsOfUse".localized)
             }
             
             Divider()
                 .background(.main300)
             
-            Link(destination: GlobalDefinitions.privacyPolicy) {
+            Link(destination: GlobalDefinitions.privacyPolicyUrl) {
                 makeAction("Menu.PrivacyPolicy".localized)
             }
             
             Divider()
                 .background(.main300)
             
-            Link(destination: GlobalDefinitions.support) {
+            Link(destination: GlobalDefinitions.contactUsUrl) {
                 makeAction("Menu.Support".localized)
             }
             

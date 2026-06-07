@@ -106,7 +106,6 @@
 		8659D1E22CB669D700CCC40B /* ErrorScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D1E12CB669D700CCC40B /* ErrorScreenView.swift */; };
 		8659D1E52CB66DFE00CCC40B /* NumberLaunches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D1E42CB66DFE00CCC40B /* NumberLaunches.swift */; };
 		8659D1ED2CB66E3B00CCC40B /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D1E92CB66E3B00CCC40B /* FirebaseManager.swift */; };
-		8659D1EE2CB66E3B00CCC40B /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D1EA2CB66E3B00CCC40B /* AmplitudeManager.swift */; };
 		8659D1EF2CB66E3B00CCC40B /* FacebookManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D1EB2CB66E3B00CCC40B /* FacebookManager.swift */; };
 		8659D1FD2CB6E9B000CCC40B /* ScannedListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D1FC2CB6E9B000CCC40B /* ScannedListViewModel.swift */; };
 		8659D1FF2CB6EA4300CCC40B /* WishListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8659D1FE2CB6EA4300CCC40B /* WishListViewModel.swift */; };
@@ -271,7 +270,6 @@
 		8659D1E12CB669D700CCC40B /* ErrorScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorScreenView.swift; sourceTree = "<group>"; };
 		8659D1E42CB66DFE00CCC40B /* NumberLaunches.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberLaunches.swift; sourceTree = "<group>"; };
 		8659D1E92CB66E3B00CCC40B /* FirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
-		8659D1EA2CB66E3B00CCC40B /* AmplitudeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmplitudeManager.swift; sourceTree = "<group>"; };
 		8659D1EB2CB66E3B00CCC40B /* FacebookManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookManager.swift; sourceTree = "<group>"; };
 		8659D1FC2CB6E9B000CCC40B /* ScannedListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedListViewModel.swift; sourceTree = "<group>"; };
 		8659D1FE2CB6EA4300CCC40B /* WishListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewModel.swift; sourceTree = "<group>"; };
@@ -862,7 +860,6 @@
 		8659D1E82CB66E3400CCC40B /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
-				8659D1EA2CB66E3B00CCC40B /* AmplitudeManager.swift */,
 				8659D1EB2CB66E3B00CCC40B /* FacebookManager.swift */,
 				8659D1E92CB66E3B00CCC40B /* FirebaseManager.swift */,
 			);
@@ -1267,7 +1264,6 @@
 				8659D2032CB7EC4F00CCC40B /* FiltersViewModel.swift in Sources */,
 				8659D1B32CB4487700CCC40B /* CollectionTotalHeader.swift in Sources */,
 				86CF47412CC0DC7C0058C697 /* GradesRequest.swift in Sources */,
-				8659D1EE2CB66E3B00CCC40B /* AmplitudeManager.swift in Sources */,
 				862140C22CA715C900B109A4 /* Fonts.swift in Sources */,
 				86853F902CB81FDC00B775A1 /* CardScannedImageView.swift in Sources */,
 				8671EFD52CC999EE0020848A /* ConfirmDeleteView.swift in Sources */,
@@ -1525,7 +1521,7 @@
 				CODE_SIGN_ENTITLEMENTS = SportCards/SportCards.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"SportCards/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4NLMDK6M68;
@@ -1554,7 +1550,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.4;
+				MARKETING_VERSION = 1.4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = sj.sportcards;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1579,7 +1575,7 @@
 				CODE_SIGN_ENTITLEMENTS = SportCards/SportCards.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"SportCards/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 4NLMDK6M68;
@@ -1608,7 +1604,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.4;
+				MARKETING_VERSION = 1.4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = sj.sportcards;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
